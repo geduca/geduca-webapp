@@ -25,10 +25,11 @@
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <button type="button" class="btn btn-primary px-4">Entrar</button>
+                      <button [disabled]="loginForm.invalid" type="button" (click)="login()"
+                      class="btn btn-primary px-4">Entrar</button>
                     </div>
                     <div class="col-6 text-right">
-                      <button type="button" class="btn btn-link px-0">Esqueceu a senha?</button>
+                      <button disabled type="button" class="btn btn-link px-0">Esqueceu a senha?</button>
                     </div>
                   </div>
                 </form>
