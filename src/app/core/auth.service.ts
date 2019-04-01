@@ -13,14 +13,13 @@ export class AuthService {
   authenticate(username: string, password: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Z2VkdWNhOmcmZHVjQA=='
+        'Authorization': 'Basic Z2VkdWNhOmcmZHVjQA==',
+        'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
 
-    const body = `username=${username}&password=${password}&grant_type=password`;
+    const body = `grant_type=password&username=${username}&password=${password}&client_id=geduca`;
 
-    this.http.post(this.oauthTokenUrl, body, httpOptions).subscribe(res => {
-      console.log(res);
-    });
+    return this.http.post(this.oauthTokenUrl, body, httpOptions);
   }
 }

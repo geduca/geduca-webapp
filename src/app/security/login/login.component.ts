@@ -23,8 +23,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(username: string, password: string) {
-    this.auth.authenticate(username, password);
+  login() {
+    const username = this.loginForm.get('username').value;
+    const password = this.loginForm.get('password').value;
+
+    this.auth.authenticate(username, password).subscribe(
+      () => console.log('autenticado'),
+      err => {
+        console.log(err);
+        this.loginForm.reset();
+      }
+    );
   }
 
 }
