@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
+import { readElementValue } from '@angular/core/src/render3/util';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) {
     this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
-
+    this.loadToken();
   }
 
   authenticate(username: string, password: string): Observable<void> {
@@ -36,5 +37,13 @@ export class AuthService {
 
   private tokenStore(token: string) {
     this.jwtPayload = this.jwtHelperService.decodeToken(token);
+    localStorage.setItem('token', token);
+  }
+
+  private loadToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.tokenStore(token);
+    }
   }
 }
