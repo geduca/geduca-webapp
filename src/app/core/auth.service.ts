@@ -4,7 +4,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
-import { readElementValue } from '@angular/core/src/render3/util';
 
 @Injectable({
   providedIn: 'root'
