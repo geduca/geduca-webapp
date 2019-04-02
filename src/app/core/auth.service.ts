@@ -1,18 +1,24 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  oauthTokenUrl = 'http://localhost:12333/geduca/oauth/token';
+  oauthTokenUrl: string;
   jwtPayload: any;
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelper) { }
+  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) {
+    this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
 
-  authenticate(username: string, password: string) {
+  }
+
+  authenticate(username: string, password: string): Observable<void> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Basic Z2VkdWNhOmcmZHVjQA==',
@@ -20,18 +26,15 @@ export class AuthService {
       })
     };
     const body = `grant_type=password&username=${username}&password=${password}&client_id=geduca`;
-    return this.http.post(this.oauthTokenUrl, body, httpOptions).subscribe(
-      res => {
-        console.log('autenticado');
-
-      },
-      err => {
-        console.log(err);
+    return this.http.post<any>(this.oauthTokenUrl, body, httpOptions).pipe(map(res => {
+      if (res && res.access_token) {
+        this.tokenStore(res.access_token);
       }
-    );
+      return res;
+    }));
   }
 
   private tokenStore(token: string) {
-    this.jwtPayload = this.jwtHelper.decodeToken(token);
+    this.jwtPayload = this.jwtHelperService.decodeToken(token);
   }
 }

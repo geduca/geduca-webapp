@@ -27,7 +27,13 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.get('username').value;
     const password = this.loginForm.get('password').value;
 
-    this.auth.authenticate(username, password);
+    this.auth.authenticate(username, password).subscribe(
+      res => {
+        console.log('autenticado');
+      },
+      err => {
+        console.log(err);
+      });
   }
 
 }
