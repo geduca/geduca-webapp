@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
@@ -54,19 +54,22 @@ export class AuthService {
     }
   }
 
-  newAccessToken() {
-    const body = `grant_type=refresh_token`;
-    this.http.post<any>(this.oauthTokenUrl, body, { headers: this.headers, withCredentials: true }).pipe(map(res => {
-      this.tokenStore(res.access_token);
-      this.autenticado = true;
-      this.mostrarHeaderEmitter.emit(true);
-      console.log(res);
-    },
-      err => {
-        this.autenticado = false;
-        this.mostrarHeaderEmitter.emit(false);
-        console.log(err);
-      }
-    ));
+  refreshToken(): Observable<string> {
+    const headers = this.headers;
+    const params = new HttpParams().set('grant_type', 'refresh_token');
+
+    return this.http.post<any>(this.oauthTokenUrl, null, { headers, params, withCredentials: true })
+      .pipe(
+        map(token => {
+          this.tokenStore(token.access_token);
+          return token.access_token;
+        })
+      );
   }
+
+  isAccessTokenInvalid() {
+    const token = localStorage.getItem('token');
+    return !token || this.jwtHelperService.isTokenExpired(token);
+  }
+
 }

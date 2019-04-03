@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  // TODO: MUDAR PARA OS ENDERECOS DE PRODUCAO
   production: false,
   apiUrl: 'http://localhost:12333/geduca',
 
