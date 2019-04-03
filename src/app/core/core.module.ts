@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import { AuthInterceptService } from './service/auth-intercept.service';
 import { AuthService } from './service/auth.service';
 import { MoneyHttpService } from './service/money-http.service';
-import { AcessoNegadoComponent } from './views/acesso-negado.component';
-import { PaginaNaoEncontradaComponent } from './views/pagina-nao-encontrada.component';
+import { AcessoNegadoComponent } from './view/acesso-negado.component';
+import { PaginaNaoEncontradaComponent } from './view/pagina-nao-encontrada.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');

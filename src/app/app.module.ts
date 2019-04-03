@@ -6,8 +6,8 @@ import { AppFooterModule, AppHeaderModule, AppSidebarModule } from '@coreui/angu
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { HomeComponent } from './home/home.component';
 import { SecurityModule } from './security/security.module';
+import { HomeComponent } from './view/home/home.component';
 
 
 @NgModule({
