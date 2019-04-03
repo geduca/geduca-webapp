@@ -18,7 +18,7 @@ export class AuthService {
   headers = new HttpHeaders({
     'Authorization': 'Basic Z2VkdWNhOmcmZHVjQA==',
     'Content-Type': 'application/x-www-form-urlencoded'
-  })
+  });
 
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) {
     this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
