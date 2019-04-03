@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './core/auth.guard';
+import { AuthGuard } from './core/guard/auth.guard';
 import { PaginaNaoEncontradaComponent } from './core/view/pagina-nao-encontrada.component';
 import { LoginComponent } from './security/login/login.component';
 import { HomeComponent } from './view/home/home.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuard] },
