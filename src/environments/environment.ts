@@ -10,12 +10,6 @@ export const environment = {
   // token oauth0
   tokenWhitelistedDomains: [new RegExp('localhost:12333')],
   tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
-
-  production: false,
-  apiUrl: 'http://localhost:8080',
-
-  tokenWhitelistedDomains: [new RegExp('localhost:8080')],
-  tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
 };
 
 /*
