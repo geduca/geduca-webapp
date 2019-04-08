@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,7 +13,6 @@ export class AuthService {
   oauthTokenUrl: string;
   jwtPayload: any;
   autenticado = false;
-  mostrarHeaderEmitter = new EventEmitter<boolean>();
 
   headers = new HttpHeaders({
     'Authorization': 'Basic Z2VkdWNhOmcmZHVjQA==',
@@ -31,13 +30,11 @@ export class AuthService {
       if (res && res.access_token) {
         this.tokenStore(res.access_token);
         this.autenticado = true;
-        this.mostrarHeaderEmitter.emit(true);
       }
       return res;
     },
       err => {
         this.autenticado = false;
-        this.mostrarHeaderEmitter.emit(false);
       }
     ));
   }
@@ -70,6 +67,11 @@ export class AuthService {
   isAccessTokenInvalid() {
     const token = localStorage.getItem('token');
     return !token || this.jwtHelperService.isTokenExpired(token);
+  }
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelperService.isTokenExpired(token);
   }
 
 }

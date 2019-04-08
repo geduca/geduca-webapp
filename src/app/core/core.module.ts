@@ -8,6 +8,7 @@ import { AuthService } from './service/auth.service';
 import { MoneyHttpService } from './service/money-http.service';
 import { AcessoNegadoComponent } from './view/acesso-negado.component';
 import { PaginaNaoEncontradaComponent } from './view/pagina-nao-encontrada.component';
+import { AuthGuard } from './guard/auth.guard';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -32,7 +33,8 @@ export function tokenGetter() {
   providers: [
     AuthService,
     AuthInterceptService,
-    MoneyHttpService
+    MoneyHttpService,
+    AuthGuard
   ]
 })
 export class CoreModule { }

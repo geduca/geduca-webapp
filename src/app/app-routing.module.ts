@@ -5,12 +5,14 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { PaginaNaoEncontradaComponent } from './core/view/pagina-nao-encontrada.component';
 import { LoginComponent } from './security/login/login.component';
 import { HomeComponent } from './view/home/home.component';
+import { AcessoNegadoComponent } from './core/view/acesso-negado.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'acesso-negado', component: AcessoNegadoComponent, canActivate: [AuthGuard] },
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'pagina-nao-encontrada', canActivate: [AuthGuard] }
 ];

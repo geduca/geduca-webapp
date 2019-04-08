@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { AuthService } from './core/service/auth.service';
 import { navItems } from './model/nav';
@@ -8,17 +8,10 @@ import { navItems } from './model/nav';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'geduca-webapp';
   navItems = navItems;
-  mostrarHeader = false;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.authService.mostrarHeaderEmitter.subscribe(
-      res => this.mostrarHeader = res
-    );
-  }
 }
