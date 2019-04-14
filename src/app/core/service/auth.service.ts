@@ -39,6 +39,10 @@ export class AuthService {
     ));
   }
 
+  deactivate() {
+    localStorage.removeItem('token');
+  }
+
   private tokenStore(token: string) {
     this.jwtPayload = this.jwtHelperService.decodeToken(token);
     localStorage.setItem('token', token);
