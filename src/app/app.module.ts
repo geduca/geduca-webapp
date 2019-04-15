@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SecurityModule } from './security/security.module';
+import { HomeModule } from './view/home/home.module';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
@@ -13,11 +16,13 @@ import { SecurityModule } from './security/security.module';
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
-    SecurityModule
+    SecurityModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

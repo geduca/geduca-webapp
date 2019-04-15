@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  // TODO: MUDAR PARA OS ENDERECOS DE PRODUCAO
+  production: false,
+  apiUrl: 'http://localhost:12333/geduca',
+
+  // token oauth0
+  tokenWhitelistedDomains: [new RegExp('localhost:12333')],
+  tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
 };
 
 /*

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,10 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) {
-
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
+    if (this.auth.isAuthenticated()) {
+      this.router.navigate(['home']);
+    }
   }
 
   ngOnInit(): void {
@@ -27,7 +30,21 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.get('username').value;
     const password = this.loginForm.get('password').value;
 
-    this.auth.authenticate(username, password);
+    this.auth.authenticate(username, password).subscribe(
+      res => {
+        console.log('autenticado');
+        this.router.navigate(['/home']);
+      },
+      err => {
+        if (err.status === 400) {
+          if (err.error === 'invalid_grant') {
+            this.loginForm.get('password').reset();
+            return 'Usuário ou senha inválidos!';
+          }
+        }
+        return err;
+      });
+
   }
 
 }

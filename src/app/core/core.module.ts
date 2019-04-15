@@ -1,17 +1,40 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { JwtHelper } from 'angular2-jwt';
-import { AuthService } from './auth.service';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
+import { AuthInterceptService } from './service/auth-intercept.service';
+import { AuthService } from './service/auth.service';
+import { MoneyHttpService } from './service/money-http.service';
+import { AcessoNegadoComponent } from './view/acesso-negado.component';
+import { PaginaNaoEncontradaComponent } from './view/pagina-nao-encontrada.component';
+import { AuthGuard } from './guard/auth.guard';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 @NgModule({
-  declarations: [],
+  declarations: [
+    PaginaNaoEncontradaComponent,
+    AcessoNegadoComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: environment.tokenWhitelistedDomains,
+        blacklistedRoutes: environment.tokenBlacklistedRoutes,
+        skipWhenExpired: true
+      }
+    })
   ],
   exports: [],
   providers: [
-    JwtHelper,
-    AuthService
+    AuthService,
+    AuthInterceptService,
+    MoneyHttpService,
+    AuthGuard
   ]
 })
 export class CoreModule { }
