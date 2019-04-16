@@ -1,13 +1,15 @@
+import { AlunosModule } from './../alunos/alunos.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppFooterModule, AppHeaderModule, AppSidebarModule } from '@coreui/angular';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { CoreModule } from './../../core/core.module';
 import { SecurityModule } from './../../security/security.module';
 import { HomeComponent } from './home.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +21,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     HttpClientModule,
     CoreModule,
     SecurityModule,
+    AppRoutingModule,
     AppHeaderModule,
     AppSidebarModule,
     AppFooterModule,
-    BsDropdownModule
+    BsDropdownModule,
+    AlunosModule
   ]
 })
 export class HomeModule { }
