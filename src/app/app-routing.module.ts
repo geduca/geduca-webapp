@@ -5,14 +5,15 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { AcessoNegadoComponent } from './core/view/acesso-negado.component';
 import { PaginaNaoEncontradaComponent } from './core/view/pagina-nao-encontrada.component';
 import { LoginComponent } from './security/login/login.component';
+import { AlunosComponent } from './view/alunos/alunos.component';
 import { HomeComponent } from './view/home/home.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: [
-
+      { path: 'alunos', component: AlunosComponent, canActivate: [AuthGuard] }
     ]
   },
   { path: 'login', component: LoginComponent },
