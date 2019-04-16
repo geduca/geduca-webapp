@@ -7,6 +7,7 @@ import { AppFooterModule, AppHeaderModule, AppSidebarModule } from '@coreui/angu
 import { CoreModule } from './../../core/core.module';
 import { SecurityModule } from './../../security/security.module';
 import { HomeComponent } from './home.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomeComponent } from './home.component';
     AppHeaderModule,
     AppSidebarModule,
     AppFooterModule,
+    BsDropdownModule
   ]
 })
 export class HomeModule { }
