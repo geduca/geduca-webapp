@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { navItems } from 'src/app/model/nav';
+
+import { AlunoService } from './../../service/aluno.service';
 
 @Component({
   selector: 'app-alunos',
   templateUrl: './alunos.component.html'
 })
 export class AlunosComponent implements OnInit {
-  title = 'geduca-webapp';
-  navItems = navItems;
 
-  constructor() { }
+  rows = [];
+  columns = [];
+  resposta = [];
 
-  ngOnInit() {
+  constructor(private alunoService: AlunoService) {
   }
 
+  ngOnInit() {
+    this.alunoService.pesquisar(0, 10).subscribe(res => this.resposta = res);
+    console.log(this.resposta);
+  }
 
 }
