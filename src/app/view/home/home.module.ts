@@ -7,15 +7,17 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
+import { AlunosComponent } from '../alunos/alunos/alunos.component';
 import { CoreModule } from './../../core/core.module';
 import { SecurityModule } from './../../security/security.module';
-import { AlunosComponent } from './../alunos/alunos.component';
 import { HomeComponent } from './home.component';
+import { AlunoComponent } from '../alunos/aluno/aluno.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    AlunosComponent
+    AlunosComponent,
+    AlunoComponent
   ],
   imports: [
     CommonModule,
