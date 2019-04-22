@@ -24,9 +24,9 @@ export class AlunosComponent implements OnInit {
       console.log(this.alunos);
     });
     this.columns = [
-      { prop: 'codigo', name: 'Código' },
+      { prop: 'codigo', name: 'Matricula' },
       { prop: 'pessoa.nome', name: 'Nome' },
-      { prop: 'pessoa.cpf', name: 'Cpf' },
+      { prop: 'pessoa.cpf', name: 'CPF' },
       { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento' },
       { prop: 'pessoa.sexo', name: 'Sexo' },
       { prop: 'pessoa.ativo', name: 'Ativo' },
