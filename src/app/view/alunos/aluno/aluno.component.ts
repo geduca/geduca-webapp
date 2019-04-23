@@ -53,7 +53,12 @@ export class AlunoComponent implements OnInit {
     p.endereco = e;
     a.pessoa = p;
 
-    console.log(a);
+    this.alunoService.criar(a).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+
+
   }
 
 }
