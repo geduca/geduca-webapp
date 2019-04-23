@@ -3,9 +3,12 @@ import { SexoEnum } from './enums/SexoEnum';
 
 export class Pessoa {
   codigo: number;
-  nome: string;
   ativo: boolean;
+  nome: string;
+  pai: string;
+  mae: string;
   cpf: string;
+  email: string;
   telefone: string;
   celular: string;
   endereco: Endereco;

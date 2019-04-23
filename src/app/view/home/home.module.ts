@@ -12,6 +12,7 @@ import { CoreModule } from './../../core/core.module';
 import { SecurityModule } from './../../security/security.module';
 import { HomeComponent } from './home.component';
 import { AlunoComponent } from '../alunos/aluno/aluno.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AlunoComponent } from '../alunos/aluno/aluno.component';
     CommonModule,
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     CoreModule,
     SecurityModule,
     AppRoutingModule,
