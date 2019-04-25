@@ -5,6 +5,7 @@ import { Pessoa } from 'src/app/model/Pessoa';
 import { AlunoService } from 'src/app/service/aluno.service';
 
 import { Endereco } from './../../../model/Endereco';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -18,7 +19,7 @@ export class AlunoComponent implements OnInit {
   pessoa: Pessoa;
   alunoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private alunoService: AlunoService) {
+  constructor(private formBuilder: FormBuilder, private alunoService: AlunoService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -54,8 +55,8 @@ export class AlunoComponent implements OnInit {
     a.pessoa = p;
 
     this.alunoService.criar(a).subscribe(
-      res => console.log(res),
-      err => console.log(err)
+      res => this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' criado com sucesso!'),
+      err => this.toastr.error('Erro ao criar aluno: ' + err.error.message)
     );
 
 
