@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Aluno } from 'src/app/model/Aluno';
 import { Pessoa } from 'src/app/model/Pessoa';
 import { AlunoService } from 'src/app/service/aluno.service';
 
 import { Endereco } from './../../../model/Endereco';
-import { ToastrService } from 'ngx-toastr';
-
-
 
 @Component({
   selector: 'app-aluno',
@@ -19,8 +18,12 @@ export class AlunoComponent implements OnInit {
   pessoa: Pessoa;
   alunoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private alunoService: AlunoService, private toastr: ToastrService) {
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private alunoService: AlunoService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.alunoForm = this.formBuilder.group({
@@ -55,11 +58,11 @@ export class AlunoComponent implements OnInit {
     a.pessoa = p;
 
     this.alunoService.criar(a).subscribe(
-      res => this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' criado com sucesso!'),
+      res => {
+        this.router.navigate(['/home/alunos']);
+        this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' criado com sucesso!');
+      },
       err => this.toastr.error('Erro ao criar aluno: ' + err.error.message)
     );
-
-
   }
-
 }

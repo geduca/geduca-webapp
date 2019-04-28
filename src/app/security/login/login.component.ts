@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
@@ -13,7 +14,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private router: Router,
+    private toast: ToastrService
+  ) {
     if (this.auth.isAuthenticated()) {
       this.router.navigate(['home']);
     }
@@ -32,19 +38,17 @@ export class LoginComponent implements OnInit {
 
     this.auth.authenticate(username, password).subscribe(
       res => {
-        console.log('autenticado');
         this.router.navigate(['/home']);
       },
       err => {
         if (err.status === 400) {
-          if (err.error === 'invalid_grant') {
+          if (err.error.error === 'invalid_grant') {
             this.loginForm.get('password').reset();
-            return 'Usuário ou senha inválidos!';
+            this.toast.error('Usuário ou senha inválidos!');
+          } else {
+            this.toast.error('Ocorreu um erro ao processar sua solicitação: ' + err.message);
           }
         }
-        return err;
       });
-
   }
-
 }
