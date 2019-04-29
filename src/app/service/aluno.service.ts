@@ -26,4 +26,8 @@ export class AlunoService {
     return this.http.post<Aluno>(this.apiUrl, aluno);
   }
 
+  criar(aluno: Aluno): Observable<any> {
+    return this.http.post<Aluno>(this.apiUrl, aluno);
+  }
+
 }

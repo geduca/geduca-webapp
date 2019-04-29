@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
+import { AuthGuard } from './guard/auth.guard';
 import { AuthInterceptService } from './service/auth-intercept.service';
 import { AuthService } from './service/auth.service';
-import { MoneyHttpService } from './service/money-http.service';
 import { AcessoNegadoComponent } from './view/acesso-negado.component';
 import { PaginaNaoEncontradaComponent } from './view/pagina-nao-encontrada.component';
-import { AuthGuard } from './guard/auth.guard';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -25,7 +25,7 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         whitelistedDomains: environment.tokenWhitelistedDomains,
         blacklistedRoutes: environment.tokenBlacklistedRoutes,
-        skipWhenExpired: true
+        skipWhenExpired: false
       }
     })
   ],
@@ -33,8 +33,12 @@ export function tokenGetter() {
   providers: [
     AuthService,
     AuthInterceptService,
-    MoneyHttpService,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptService,
+      multi: true
+    }
   ]
 })
 export class CoreModule { }

@@ -10,7 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
-import { AlunoComponent } from '../alunos/aluno/aluno.component';
+import { CriarAlunoComponent } from '../alunos/aluno/criar-aluno.component';
 import { AlunosComponent } from '../alunos/alunos/alunos.component';
 import { CoreModule } from './../../core/core.module';
 import { SecurityModule } from './../../security/security.module';
@@ -20,7 +20,7 @@ import { HomeComponent } from './home.component';
   declarations: [
     HomeComponent,
     AlunosComponent,
-    AlunoComponent
+    CriarAlunoComponent
   ],
   imports: [
     CommonModule,
