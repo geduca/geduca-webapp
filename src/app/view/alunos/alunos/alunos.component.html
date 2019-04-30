@@ -15,12 +15,18 @@
           </div>
         </div>
         <div class="card-body">
-          <ngx-datatable
-          [rows]="alunos" [columns]="columns" class="bootstrap striped"
-          [externalPaging]="true" [count]="resposta?.totalElements" [loadingIndicator]="true"
-          [offset]="page.pageNumber" [limit]="resposta.size" (page)='setPage($event)'
-          [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50">
+          <ngx-datatable [rows]="alunos" [columns]="columns" class="bootstrap striped" [externalPaging]="true"
+            [count]="resposta?.totalElements" [loadingIndicator]="true" [offset]="page.pageNumber"
+            [limit]="resposta?.size" (page)='setPage($event)' [columnMode]="'force'" [headerHeight]="50"
+            [footerHeight]="50" [rowHeight]="50">
           </ngx-datatable>
+
+          <ng-template #acoes let-row="row" let-value="value" ngx-datatable-cell-template>
+            <button type="button" class="btn btn-primary" (click)="removerAluno(row)">
+              <i class="fa fa-trash"></i>&nbsp;Remover
+            </button>
+          </ng-template>
+
         </div>
       </div>
     </div>

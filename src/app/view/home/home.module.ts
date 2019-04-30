@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppFooterModule, AppHeaderModule, AppSidebarModule } from '@coreui/angular';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { CriarAlunoComponent } from '../alunos/aluno/criar-aluno.component';
@@ -35,8 +34,7 @@ import { HomeComponent } from './home.component';
     AppSidebarModule,
     AppFooterModule,
     BsDropdownModule,
-    NgxDatatableModule,
-    ToastrModule.forRoot()
+    NgxDatatableModule
   ]
 })
 export class HomeModule { }

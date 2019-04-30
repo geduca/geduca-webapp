@@ -22,12 +22,21 @@ export class AlunoService {
     return this.http.get<Page<Aluno>>(this.apiUrl, { params });
   }
 
-  criar(aluno: Aluno): Observable<any> {
-    return this.http.post<Aluno>(this.apiUrl, aluno);
+  buscaPeloCodigo(codigo: number): Observable<Aluno> {
+    return this.http.get<Aluno>(this.apiUrl + `/${codigo}`);
   }
 
   criar(aluno: Aluno): Observable<any> {
     return this.http.post<Aluno>(this.apiUrl, aluno);
   }
+
+  atualizar(aluno: Aluno): Observable<any> {
+    return this.http.put<Aluno>(this.apiUrl, aluno);
+  }
+
+  remover(codigo: number): Observable<any> {
+    return this.http.delete(this.apiUrl + `/${codigo}`);
+  }
+
 
 }
