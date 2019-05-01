@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
@@ -64,6 +65,7 @@ export class AlunosComponent implements OnInit {
     this.loader.startBackground();
     this.alunoService.remover(aluno.codigo).subscribe(
       res => {
+        this.removerRegistroDaLista(aluno);
         this.toastr.success('Aluno ' + aluno.codigo + ' - ' + aluno.pessoa.nome + ' removido com sucesso!');
         this.loader.stopBackground();
       },
@@ -72,6 +74,12 @@ export class AlunosComponent implements OnInit {
         this.loader.stopBackground();
       }
     );
+  }
+
+  removerRegistroDaLista(row: any): void {
+    const tmp = this.alunos;
+    _.remove(tmp, (linha) => _.isEqual(linha, row));
+    this.alunos = [...tmp];
   }
 
 }
