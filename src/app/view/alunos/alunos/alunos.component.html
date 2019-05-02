@@ -1,6 +1,6 @@
 <div class="animated fadeIn">
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
       <div class="card">
         <div class="card-header">
           <div class="row">
@@ -21,9 +21,12 @@
             [footerHeight]="50" [rowHeight]="50">
           </ngx-datatable>
 
-          <ng-template #acoes let-row="row" let-value="value" ngx-datatable-cell-template>
+          <ng-template #acoes let-row="row" let-value="value">
+            <button type="button" class="btn btn-primary mr-2" [routerLink]="['editar', row.codigo]">
+              <i class="fa fa-edit"></i>
+            </button>
             <button type="button" class="btn btn-primary" (click)="removerAluno(row)">
-              <i class="fa fa-trash"></i>&nbsp;Remover
+              <i class="fa fa-trash"></i>
             </button>
           </ng-template>
 

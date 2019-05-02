@@ -42,7 +42,7 @@ export class AlunosComponent implements OnInit {
       { prop: 'pessoa.sexo', name: 'Sexo' },
       { prop: 'dataMatricula', name: 'Data de Matricula' },
       { prop: 'pessoa.ativo', name: 'Ativo' },
-      { prop: 'acoes', cellTemplate: this.acoes, name: 'Ações' }
+      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
     ];
   }
 
