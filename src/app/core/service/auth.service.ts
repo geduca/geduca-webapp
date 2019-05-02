@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class AuthService {
-
+  oauthTokenUrlAutenticated: string;
+  oauthTokenUrlRevoke: string;
   oauthTokenUrl: string;
   jwtPayload: any;
   autenticado = false;
@@ -19,7 +20,9 @@ export class AuthService {
     'Content-Type': 'application/x-www-form-urlencoded'
   });
 
-  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService) {
+  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, ) {
+    this.oauthTokenUrlAutenticated = `${environment.apiUrl}/token/autenticated`;
+    this.oauthTokenUrlRevoke = `${environment.apiUrl}/token/revoke`;
     this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
     this.loadToken();
   }
@@ -40,6 +43,7 @@ export class AuthService {
   }
 
   deactivate() {
+    this.http.delete(this.oauthTokenUrlRevoke);
     localStorage.removeItem('token');
   }
 
@@ -73,9 +77,9 @@ export class AuthService {
     return !token || this.jwtHelperService.isTokenExpired(token);
   }
 
+
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelperService.isTokenExpired(token);
+    return !this.isAccessTokenInvalid();
   }
 
 }

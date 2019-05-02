@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private loader: NgxUiLoaderService
   ) {
     if (this.auth.isAuthenticated()) {
       this.router.navigate(['home']);
@@ -33,12 +35,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loader.startBackground();
     const username = this.loginForm.get('username').value;
     const password = this.loginForm.get('password').value;
 
     this.auth.authenticate(username, password).subscribe(
       res => {
         this.router.navigate(['/home']);
+        this.loader.stopBackground();
       },
       err => {
         if (err.status === 400) {
@@ -49,6 +53,7 @@ export class LoginComponent implements OnInit {
             this.toast.error('Ocorreu um erro ao processar sua solicitação: ' + err.message);
           }
         }
+        this.loader.stopBackground();
       });
   }
 }

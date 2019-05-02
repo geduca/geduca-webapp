@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
 import { Pessoa } from 'src/app/model/Pessoa';
 import { AlunoService } from 'src/app/service/aluno.service';
 
-import { Endereco } from './../../../model/Endereco';
+import { Endereco } from '../../../model/Endereco';
 
 @Component({
-  selector: 'app-aluno',
-  templateUrl: './aluno.component.html'
+  selector: 'app-criar-aluno',
+  templateUrl: './criar-aluno.component.html'
 })
-export class AlunoComponent implements OnInit {
+export class CriarAlunoComponent implements OnInit {
 
   aluno: Aluno;
   pessoa: Pessoa;
@@ -22,7 +23,8 @@ export class AlunoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alunoService: AlunoService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private loader: NgxUiLoaderService
   ) { }
 
   ngOnInit() {
@@ -34,6 +36,7 @@ export class AlunoComponent implements OnInit {
   }
 
   cadastrar() {
+    this.loader.startBackground();
     const p = new Pessoa();
     const a = new Aluno();
     const e = new Endereco();
@@ -61,8 +64,12 @@ export class AlunoComponent implements OnInit {
       res => {
         this.router.navigate(['/home/alunos']);
         this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' criado com sucesso!');
+        this.loader.stopBackground();
       },
-      err => this.toastr.error('Erro ao criar aluno: ' + err.error.message)
+      err => {
+        this.toastr.error('Erro ao criar aluno: ' + err.error.message)
+        this.loader.stopBackground();
+      }
     );
   }
 }

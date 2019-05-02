@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
@@ -16,7 +20,14 @@ export class AlunosComponent implements OnInit {
   alunos: Aluno[];
   page = new Pageable();
 
-  constructor(private alunoService: AlunoService) {
+  @ViewChild('acoes') acoes: TemplateRef<any>;
+
+  constructor(
+    private alunoService: AlunoService,
+    private loader: NgxUiLoaderService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
     this.page.pageNumber = 0;
     this.page.pageSize = 10;
   }
@@ -29,8 +40,9 @@ export class AlunosComponent implements OnInit {
       { prop: 'pessoa.cpf', name: 'CPF' },
       { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento' },
       { prop: 'pessoa.sexo', name: 'Sexo' },
+      { prop: 'dataMatricula', name: 'Data de Matricula' },
       { prop: 'pessoa.ativo', name: 'Ativo' },
-      { prop: 'dataMatricula', name: 'Data de Matricula' }
+      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
     ];
   }
 
@@ -38,14 +50,36 @@ export class AlunosComponent implements OnInit {
    * Populate the table with new data based on the page number
    * @param page The page to select
    */
-  setPage(pageInfo){
+  setPage(pageInfo) {
+    this.loader.startBackground();
     this.page.pageNumber = pageInfo.offset;
     this.alunoService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
       this.resposta = res;
       this.alunos = this.resposta.content;
       this.page = res.pageable;
-      console.log(this.alunos);
+      this.loader.stopBackground();
     });
+  }
+
+  removerAluno(aluno: Aluno) {
+    this.loader.startBackground();
+    this.alunoService.remover(aluno.codigo).subscribe(
+      res => {
+        this.removerRegistroDaLista(aluno);
+        this.toastr.success('Aluno ' + aluno.codigo + ' - ' + aluno.pessoa.nome + ' removido com sucesso!');
+        this.loader.stopBackground();
+      },
+      err => {
+        this.toastr.error('Erro ao remover aluno: ' + err.error.message);
+        this.loader.stopBackground();
+      }
+    );
+  }
+
+  removerRegistroDaLista(row: any): void {
+    const tmp = this.alunos;
+    _.remove(tmp, (linha) => _.isEqual(linha, row));
+    this.alunos = [...tmp];
   }
 
 }
