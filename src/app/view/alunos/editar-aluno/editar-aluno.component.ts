@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
@@ -30,18 +30,42 @@ export class EditarAlunoComponent implements OnInit {
 
   ngOnInit() {
     const codigo = this.activatedRoute.snapshot.params.codigo;
+    this.alunoService.buscaPeloCodigo(codigo).subscribe(res => {
+      this.aluno = res;
+      this.alunoForm.get('nome').setValue(this.aluno.pessoa.nome);
+      this.alunoForm.get('cpf').setValue(this.aluno.pessoa.cpf);
+      this.alunoForm.get('dataNascimento').setValue(this.aluno.pessoa.dataNascimento);
+      this.alunoForm.get('sexo').setValue(this.aluno.pessoa.sexo);
+      this.alunoForm.get('pai').setValue(this.aluno.pessoa.pai);
+      this.alunoForm.get('mae').setValue(this.aluno.pessoa.mae);
+      this.alunoForm.get('email').setValue(this.aluno.pessoa.email);
+      this.alunoForm.get('telefone').setValue(this.aluno.pessoa.telefone);
+      this.alunoForm.get('celular').setValue(this.aluno.pessoa.celular);
+      this.alunoForm.get('cep').setValue(this.aluno.pessoa.endereco.cep);
+      this.alunoForm.get('logradouro').setValue(this.aluno.pessoa.endereco.logradouro);
+      this.alunoForm.get('numero').setValue(this.aluno.pessoa.endereco.numero);
+      this.alunoForm.get('complemento').setValue(this.aluno.pessoa.endereco.complemento);
+      this.alunoForm.get('bairro').setValue(this.aluno.pessoa.endereco.bairro);
+      this.alunoForm.get('cidade').setValue(this.aluno.pessoa.endereco.cidade);
+      this.alunoForm.get('estado').setValue(this.aluno.pessoa.endereco.cidade);
+    });
     this.alunoForm = this.formBuilder.group({
       nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],
       telefone: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
       bairro: [''], cidade: [''], estado: ['']
     });
+
   }
 
-  cadastrar() {
+  editar() {
     this.loader.startBackground();
     const p = new Pessoa();
     const a = new Aluno();
     const e = new Endereco();
+
+    p.codigo = this.aluno.pessoa.codigo;
+    a.codigo = this.aluno.codigo;
+
     p.nome = this.alunoForm.get('nome').value;
     p.cpf = this.alunoForm.get('cpf').value;
     p.dataNascimento = this.alunoForm.get('dataNascimento').value;
@@ -62,16 +86,21 @@ export class EditarAlunoComponent implements OnInit {
     p.endereco = e;
     a.pessoa = p;
 
-    this.alunoService.criar(a).subscribe(
+    this.alunoService.atualizar(a).subscribe(
       res => {
         this.router.navigate(['/home/alunos']);
-        this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' criado com sucesso!');
+        this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' editado com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao criar aluno: ' + err.error.message)
+        this.toastr.error('Erro ao criar aluno: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
   }
+
+  isAtivo(status: boolean) {
+    return status === true ? 'Ativo' : 'Desativado';
+  }
+
 }

@@ -6,7 +6,7 @@
           <div class="card-header">
             <div class="row">
               <div class="col-12">
-                <h1><b>Cadastrar Aluno</b></h1>
+                <h1><b>Editar Aluno</b></h1>
               </div>
             </div>
           </div>
@@ -17,6 +17,18 @@
               </div>
             </div>
             <hr>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Matrícula:</label>
+              <div class="col-md-9">
+                {{aluno?.codigo}}
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Status:</label>
+              <div class="col-md-9">
+                {{isAtivo(aluno?.pessoa?.ativo)}}
+              </div>
+            </div>
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="nome">Nome:</label>
               <div class="col-md-9">
@@ -129,7 +141,7 @@
           </div>
           <div class="card-footer text-right">
             <button class="btn btn-secondary" routerLink="/home/alunos" type="button">Cancelar</button>
-            <button class="btn btn-primary" (click)="cadastrar()"><i class="fa fa-save"></i> Salvar</button>
+            <button class="btn btn-primary" (click)="editar()"><i class="fa fa-save"></i> Salvar</button>
           </div>
         </div>
       </form>

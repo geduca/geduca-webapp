@@ -31,7 +31,7 @@ export class AlunoService {
   }
 
   atualizar(aluno: Aluno): Observable<any> {
-    return this.http.put<Aluno>(this.apiUrl, aluno);
+    return this.http.put<Aluno>(this.apiUrl + `/${aluno.codigo}`, aluno);
   }
 
   remover(codigo: number): Observable<any> {
