@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { DateBrPipe } from 'src/app/core/pipes/date-br.pipe';
 import { Aluno } from 'src/app/model/Aluno';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
 import { AlunoService } from 'src/app/service/aluno.service';
+
 
 
 @Component({
@@ -38,11 +40,11 @@ export class AlunosComponent implements OnInit {
       { prop: 'codigo', name: 'Matricula' },
       { prop: 'pessoa.nome', name: 'Nome' },
       { prop: 'pessoa.cpf', name: 'CPF' },
-      { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento' },
+      { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },
       { prop: 'pessoa.sexo', name: 'Sexo' },
-      { prop: 'dataMatricula', name: 'Data de Matricula' },
+      { prop: 'dataMatricula', name: 'Data de Matricula', pipe: new DateBrPipe('en-US') },
       { prop: 'pessoa.ativo', name: 'Ativo' },
-      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
+      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
   }
 

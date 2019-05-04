@@ -25,12 +25,13 @@ export class EditarAlunoComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loader: NgxUiLoaderService
+    private loader: NgxUiLoaderService,
   ) { }
 
   ngOnInit() {
     const codigo = this.activatedRoute.snapshot.params.codigo;
     this.alunoService.buscaPeloCodigo(codigo).subscribe(res => {
+      this.loader.startBackground();
       this.aluno = res;
       this.alunoForm.get('nome').setValue(this.aluno.pessoa.nome);
       this.alunoForm.get('cpf').setValue(this.aluno.pessoa.cpf);
@@ -48,6 +49,7 @@ export class EditarAlunoComponent implements OnInit {
       this.alunoForm.get('bairro').setValue(this.aluno.pessoa.endereco.bairro);
       this.alunoForm.get('cidade').setValue(this.aluno.pessoa.endereco.cidade);
       this.alunoForm.get('estado').setValue(this.aluno.pessoa.endereco.cidade);
+      this.loader.stopBackground();
     });
     this.alunoForm = this.formBuilder.group({
       nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],

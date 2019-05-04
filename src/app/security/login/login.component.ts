@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { AuthService } from 'src/app/core/service/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
           } else {
             this.toast.error('Ocorreu um erro ao processar sua solicitação: ' + err.message);
           }
+        } else {
+          this.toast.error('Ocorreu um erro ao processar sua solicitação: ' + err.message);
         }
         this.loader.stopBackground();
       });

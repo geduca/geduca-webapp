@@ -5,8 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppBreadcrumbModule } from '@coreui/angular';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxUiLoaderModule, POSITION, SPINNER, PB_DIRECTION, NgxUiLoaderConfig } from 'ngx-ui-loader';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, POSITION, SPINNER } from 'ngx-ui-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +17,8 @@ import { HomeModule } from './view/home/home.module';
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'black',
   bgsPosition: POSITION.bottomRight,
-  bgsSize: 40,
-  bgsType: SPINNER.squareLoader,
+  bgsSize: 50,
+  bgsType: SPINNER.cubeGrid,
   hasProgressBar: false
 };
 @NgModule({
@@ -33,6 +34,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ToastrModule.forRoot(),
+    TooltipModule.forRoot(),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     CoreModule,
     HomeModule
