@@ -26,8 +26,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="ativo">Status:</label>
               <div class="col-md-9">
-                <select id="ativo" value="{{isAtivo(aluno?.pessoa?.ativo)}}" name="ativo" class="form-control"
-                  formControlName="ativo">
+                <select id="ativo" name="ativo" class="form-control" formControlName="ativo">
                   <option [selected]="aluno?.pessoa?.ativo" value="true">Ativo</option>
                   <option [selected]="!aluno?.pessoa?.ativo" value="false">Desativado</option>
                 </select>
