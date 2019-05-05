@@ -4,10 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
-import { Pessoa } from 'src/app/model/Pessoa';
 import { AlunoService } from 'src/app/service/aluno.service';
-
-import { Endereco } from '../../../model/Endereco';
 
 @Component({
   selector: 'app-editar-aluno',
@@ -16,7 +13,6 @@ import { Endereco } from '../../../model/Endereco';
 export class EditarAlunoComponent implements OnInit {
 
   aluno: Aluno;
-  pessoa: Pessoa;
   alunoForm: FormGroup;
 
   constructor(
@@ -49,46 +45,69 @@ export class EditarAlunoComponent implements OnInit {
       this.alunoForm.get('bairro').setValue(this.aluno.pessoa.endereco.bairro);
       this.alunoForm.get('cidade').setValue(this.aluno.pessoa.endereco.cidade);
       this.alunoForm.get('estado').setValue(this.aluno.pessoa.endereco.cidade);
+      this.alunoForm.get('cartaoSus').setValue(this.aluno.fichaSaude.cartaoSus);
+      this.alunoForm.get('tipoSanguineo').setValue(this.aluno.fichaSaude.tipoSanguineo);
+      this.alunoForm.get('doenca').setValue(this.aluno.fichaSaude.doenca);
+      this.alunoForm.get('doencaDescricao').setValue(this.aluno.fichaSaude.doencaDescricao);
+      this.alunoForm.get('medicamento').setValue(this.aluno.fichaSaude.medicamento);
+      this.alunoForm.get('medicamentoDescricao').setValue(this.aluno.fichaSaude.medicamentoDescricao);
+      this.alunoForm.get('suplemento').setValue(this.aluno.fichaSaude.suplemento);
+      this.alunoForm.get('suplementoDescricao').setValue(this.aluno.fichaSaude.suplementoDescricao);
+      this.alunoForm.get('deficiencia').setValue(this.aluno.fichaSaude.deficiencia);
+      this.alunoForm.get('deficienciaDescricao').setValue(this.aluno.fichaSaude.deficienciaDescricao);
+      this.alunoForm.get('alergia').setValue(this.aluno.fichaSaude.alergia);
+      this.alunoForm.get('alergiaDescricao').setValue(this.aluno.fichaSaude.alergiaDescricao);
+      this.alunoForm.get('intolerancia').setValue(this.aluno.fichaSaude.intolerancia);
+      this.alunoForm.get('intoleranciaDescricao').setValue(this.aluno.fichaSaude.intoleranciaDescricao);
+
       this.loader.stopBackground();
     });
     this.alunoForm = this.formBuilder.group({
-      nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],
-      telefone: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
-      bairro: [''], cidade: [''], estado: ['']
+      ativo: [''], nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''],
+      email: [''], telefone: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
+      bairro: [''], cidade: [''], estado: [''], cartaoSus: [''], doenca: [''], tipoSanguineo: [''],
+      doencaDescricao: [''], medicamento: [''], medicamentoDescricao: [''], suplemento: [''],
+      suplementoDescricao: [''], deficiencia: [''], deficienciaDescricao: [''], alergia: [''],
+      alergiaDescricao: [''], intolerancia: [''], intoleranciaDescricao: ['']
     });
 
   }
 
   editar() {
     this.loader.startBackground();
-    const p = new Pessoa();
-    const a = new Aluno();
-    const e = new Endereco();
 
-    p.codigo = this.aluno.pessoa.codigo;
-    a.codigo = this.aluno.codigo;
+    this.aluno.pessoa.nome = this.alunoForm.get('nome').value;
+    this.aluno.pessoa.cpf = this.alunoForm.get('cpf').value;
+    this.aluno.pessoa.dataNascimento = this.alunoForm.get('dataNascimento').value;
+    this.aluno.pessoa.sexo = this.alunoForm.get('sexo').value;
+    this.aluno.pessoa.pai = this.alunoForm.get('pai').value;
+    this.aluno.pessoa.mae = this.alunoForm.get('mae').value;
+    this.aluno.pessoa.email = this.alunoForm.get('email').value;
+    this.aluno.pessoa.telefone = this.alunoForm.get('telefone').value;
+    this.aluno.pessoa.celular = this.alunoForm.get('celular').value;
+    this.aluno.pessoa.endereco.cep = this.alunoForm.get('cep').value;
+    this.aluno.pessoa.endereco.logradouro = this.alunoForm.get('logradouro').value;
+    this.aluno.pessoa.endereco.numero = this.alunoForm.get('numero').value;
+    this.aluno.pessoa.endereco.complemento = this.alunoForm.get('complemento').value;
+    this.aluno.pessoa.endereco.bairro = this.alunoForm.get('bairro').value;
+    this.aluno.pessoa.endereco.cidade = this.alunoForm.get('cidade').value;
+    this.aluno.pessoa.endereco.estado = this.alunoForm.get('estado').value;
+    this.aluno.fichaSaude.cartaoSus = this.alunoForm.get('cartaoSus').value;
+    this.aluno.fichaSaude.tipoSanguineo = this.alunoForm.get('tipoSanguineo').value;
+    this.aluno.fichaSaude.doenca = this.alunoForm.get('doenca').value;
+    this.aluno.fichaSaude.doencaDescricao = this.alunoForm.get('doencaDescricao').value;
+    this.aluno.fichaSaude.medicamento = this.alunoForm.get('medicamento').value;
+    this.aluno.fichaSaude.medicamentoDescricao = this.alunoForm.get('medicamentoDescricao').value;
+    this.aluno.fichaSaude.suplemento = this.alunoForm.get('suplemento').value;
+    this.aluno.fichaSaude.suplementoDescricao = this.alunoForm.get('suplementoDescricao').value;
+    this.aluno.fichaSaude.deficiencia = this.alunoForm.get('deficiencia').value;
+    this.aluno.fichaSaude.deficienciaDescricao = this.alunoForm.get('deficienciaDescricao').value;
+    this.aluno.fichaSaude.alergia = this.alunoForm.get('alergia').value;
+    this.aluno.fichaSaude.alergiaDescricao = this.alunoForm.get('alergiaDescricao').value;
+    this.aluno.fichaSaude.intolerancia = this.alunoForm.get('intolerancia').value;
+    this.aluno.fichaSaude.intoleranciaDescricao = this.alunoForm.get('intoleranciaDescricao').value;
 
-    p.nome = this.alunoForm.get('nome').value;
-    p.cpf = this.alunoForm.get('cpf').value;
-    p.dataNascimento = this.alunoForm.get('dataNascimento').value;
-    p.sexo = this.alunoForm.get('sexo').value;
-    p.pai = this.alunoForm.get('pai').value;
-    p.mae = this.alunoForm.get('mae').value;
-    p.email = this.alunoForm.get('email').value;
-    p.telefone = this.alunoForm.get('telefone').value;
-    p.celular = this.alunoForm.get('celular').value;
-    e.cep = this.alunoForm.get('cep').value;
-    e.logradouro = this.alunoForm.get('logradouro').value;
-    e.numero = this.alunoForm.get('numero').value;
-    e.complemento = this.alunoForm.get('complemento').value;
-    e.bairro = this.alunoForm.get('bairro').value;
-    e.cidade = this.alunoForm.get('cidade').value;
-    e.estado = this.alunoForm.get('estado').value;
-
-    p.endereco = e;
-    a.pessoa = p;
-
-    this.alunoService.atualizar(a).subscribe(
+    this.alunoService.atualizar(this.aluno).subscribe(
       res => {
         this.router.navigate(['/home/alunos']);
         this.toastr.success('Aluno ' + res.codigo + ' - ' + res.pessoa.nome + ' editado com sucesso!');

@@ -141,6 +141,131 @@
                 <input type="text" id="estado" name="estado" class="form-control" formControlName="estado">
               </div>
             </div>
+            <hr>
+            <div class="row">
+              <div class="col-12 text-center">
+                <h3>Ficha de Saúde</h3>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="cartaoSus">Cartão SUS:</label>
+              <div class="col-md-9">
+                <input type="text" id="cartaoSus" name="cartaoSus" class="form-control" formControlName="cartaoSus">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="tipoSanguineo">Tipo Sanguíneo:</label>
+              <div class="col-md-9">
+                <select id="tipoSanguineo" name="tipoSanguineo" class="form-control" formControlName="tipoSanguineo">
+                  <option value="O_POSITIVO">O POSITIVO</option>
+                  <option value="O_NEGATIVO">O NEGATIVO</option>
+                  <option value="A_POSITIVO">A POSITIVO</option>
+                  <option value="A_NEGATIVO">A NEGATIVO</option>
+                  <option value="B_POSITIVO">B POSITIVO</option>
+                  <option value="B_NEGATIVO">B NEGATIVO</option>
+                  <option value="AB_POSITIVO">AB POSITIVO</option>
+                  <option value="AB_NEGATIVO">AB NEGATIVO</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="doenca">Possui doenças:</label>
+              <div class="col-md-9">
+                <select id="doenca" name="doenca" class="form-control" formControlName="doenca">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="doencaDescricao">Descrição de doenças:</label>
+              <div class="col-md-9">
+                <textarea id="doencaDescricao" name="doencaDescricao" class="form-control"
+                  formControlName="doencaDescricao"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="medicamento">Toma medicamentos:</label>
+              <div class="col-md-9">
+                <select id="medicamento" name="medicamento" class="form-control" formControlName="medicamento">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="medicamentoDescricao">Descrição de medicamentos:</label>
+              <div class="col-md-9">
+                <textarea id="medicamentoDescricao" name="medicamentoDescricao" class="form-control"
+                  formControlName="medicamentoDescricao"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="suplemento">Toma suplementos:</label>
+              <div class="col-md-9">
+                <select id="suplemento" name="suplemento" class="form-control" formControlName="suplemento">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="suplementoDescricao">Descrição de suplementos:</label>
+              <div class="col-md-9">
+                <textarea id="suplementoDescricao" name="suplementoDescricao" class="form-control"
+                  formControlName="suplementoDescricao"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="deficiencia">Possui deficiências:</label>
+              <div class="col-md-9">
+                <select id="deficiencia" name="deficiencia" class="form-control" formControlName="deficiencia">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="deficienciaDescricao">Descrição de deficiências:</label>
+              <div class="col-md-9">
+                <textarea id="deficienciaDescricao" name="deficienciaDescricao" class="form-control"
+                  formControlName="deficienciaDescricao"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="alergia">Possui alergias:</label>
+              <div class="col-md-9">
+                <select id="alergia" name="alergia" class="form-control" formControlName="alergia">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="alergiaDescricao">Descrição de alergias:</label>
+              <div class="col-md-9">
+                <textarea id="alergiaDescricao" name="alergiaDescricao" class="form-control"
+                  formControlName="alergiaDescricao"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="intolerancia">Possui intolerâncias:</label>
+              <div class="col-md-9">
+                <select id="intolerancia" name="intolerancia" class="form-control" formControlName="intolerancia">
+                  <option value="true">Sim</option>
+                  <option value="false">Não</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="intoleranciaDescricao">Descrição de intolerâncias:</label>
+              <div class="col-md-9">
+                <textarea id="intoleranciaDescricao" name="intoleranciaDescricao" class="form-control"
+                  formControlName="intoleranciaDescricao"></textarea>
+              </div>
+            </div>
+
           </div>
           <div class="card-footer text-right">
             <button class="btn btn-secondary" routerLink="/home/alunos" type="button">Cancelar</button>
