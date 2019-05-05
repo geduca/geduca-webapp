@@ -101,8 +101,4 @@ export class EditarAlunoComponent implements OnInit {
     );
   }
 
-  isAtivo(status: boolean) {
-    return status === true ? 'Ativo' : 'Desativado';
-  }
-
 }
