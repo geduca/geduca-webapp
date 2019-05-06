@@ -20,6 +20,8 @@ const routes: Routes = [
         path: 'restricao-alimentar',
         loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
       },
+      { path: 'alunos', loadChildren: './view/alunos/alunos.module#AlunosModule' },
+      { path: 'fornecedor', loadChildren: './view/fornecedor/fornecedor.module#FornecedorModule' }
     ]
   },
   { path: 'login', component: LoginComponent },

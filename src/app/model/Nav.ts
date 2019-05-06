@@ -39,5 +39,10 @@ export const navItems: NavData[] = [
     name: 'Restrições Alimentares',
     url: 'restricao-alimentar',
     icon: 'fa fa-leaf'
+  },
+    {
+    name: 'Fornecedores',
+    url: 'fornecedor',
+    icon: 'fa fa-user'
   }
 ];
