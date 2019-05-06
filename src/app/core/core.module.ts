@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
-import { AuthGuard } from './guard/auth.guard';
-import { AuthInterceptService } from './service/auth-intercept.service';
-import { AuthService } from './service/auth.service';
-import { AcessoNegadoComponent } from './view/acesso-negado.component';
-import { PaginaNaoEncontradaComponent } from './view/pagina-nao-encontrada.component';
+import { AuthGuard } from './guards/auth.guard';
+import { DateBrPipe } from './pipes/date-br.pipe';
+import { AuthInterceptService } from './services/auth-intercept.service';
+import { AuthService } from './services/auth.service';
+import { AcessoNegadoComponent } from './views/acesso-negado.component';
+import { PaginaNaoEncontradaComponent } from './views/pagina-nao-encontrada.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -16,7 +17,8 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     PaginaNaoEncontradaComponent,
-    AcessoNegadoComponent
+    AcessoNegadoComponent,
+    DateBrPipe
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,7 @@ export function tokenGetter() {
       }
     })
   ],
-  exports: [],
+  exports: [DateBrPipe],
   providers: [
     AuthService,
     AuthInterceptService,

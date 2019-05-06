@@ -32,7 +32,12 @@ export interface NavData {
 export const navItems: NavData[] = [
   {
     name: 'Alunos',
-    url: 'alunos',
+    url: 'aluno',
     icon: 'fa fa-user'
+  },
+  {
+    name: 'Restrições Alimentares',
+    url: 'restricao-alimentar',
+    icon: 'fa fa-leaf'
   }
 ];
