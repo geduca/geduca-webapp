@@ -12,7 +12,14 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: [
-      { path: 'alunos', loadChildren: './view/alunos/alunos.module#AlunosModule' }
+      {
+        path: 'aluno',
+        loadChildren: './view/aluno/aluno.module#AlunoModule'
+      },
+      {
+        path: 'restricao-alimentar',
+        loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
+      },
     ]
   },
   { path: 'login', component: LoginComponent },
