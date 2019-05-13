@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppBreadcrumbModule } from '@coreui/angular';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
@@ -32,6 +33,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AppRoutingModule,
     AppBreadcrumbModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     TabsModule.forRoot(),
     ToastrModule.forRoot(),
     TooltipModule.forRoot(),

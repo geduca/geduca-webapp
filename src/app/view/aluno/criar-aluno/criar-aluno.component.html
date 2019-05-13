@@ -250,23 +250,6 @@
                   formControlName="intoleranciaDescricao"></textarea>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12 text-center">
-                <h3>Restrições Alimentares</h3>
-              </div>
-            </div>
-            <hr>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="restricoesALimentares">Selecione</label>
-              <div class="col-md-9">
-                <select id="restricoesALimentares" name="restricoesALimentares" class="form-control" size="5" multiple>
-                  <ng-container #restricoes *ngFor="let restricao of restricoes">
-                    <option value="restricao.codigo">{{restricao.nome}}</option>
-                  </ng-container>
-                </select>
-              </div>
-            </div>
-
           </div>
           <div class="card-footer text-right">
             <button class="btn btn-secondary" routerLink="/home/aluno" type="button">Cancelar</button>

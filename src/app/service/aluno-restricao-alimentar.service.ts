@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RestricaoAlimentar } from 'src/app/model/RestricaoAlimentar';
 import { environment } from 'src/environments/environment.prod';
 
-import { AlunoRestricaoAlimentar } from './../model/AlunoRestricaoAlimentar';
+import { AlunoRestricaoAlimentar } from '../model/AlunoRestricaoAlimentar';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +19,12 @@ export class AlunoRestricaoAlimentarService {
     this.apiUrl = environment.apiUrl + '/alunos_restricoes_alimentares';
   }
 
-  buscaPorAluno(codigoAluno: number): Observable<AlunoRestricaoAlimentar> {
-    return this.http.get<AlunoRestricaoAlimentar>(this.apiUrl + `/${codigoAluno}`);
+  buscaPorAluno(codigoAluno: number): Observable<AlunoRestricaoAlimentar[]> {
+    return this.http.get<AlunoRestricaoAlimentar[]>(this.apiUrl + `/?codigoAluno=${codigoAluno}`);
   }
 
-  criar(alunoRestricaoAlimentar: AlunoRestricaoAlimentar): Observable<any> {
-    return this.http.post<AlunoRestricaoAlimentar>(this.apiUrl, AlunoRestricaoAlimentar);
+  criar(restricoes: RestricaoAlimentar[], codigoAluno: number): Observable<any> {
+    return this.http.post<RestricaoAlimentar[]>(this.apiUrl + `/?codigoAluno=${codigoAluno}`, restricoes);
   }
 
   remover(codigo: number): Observable<any> {

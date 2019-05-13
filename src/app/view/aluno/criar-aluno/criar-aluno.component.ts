@@ -5,9 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
 import { Pessoa } from 'src/app/model/Pessoa';
-import { RestricaoAlimentar } from 'src/app/model/RestricaoAlimentar';
 import { AlunoService } from 'src/app/service/aluno.service';
-import { RestricaoAlimentarService } from 'src/app/service/restricao-alimentar.service';
 
 import { Endereco } from '../../../model/Endereco';
 import { FichaSaude } from '../../../model/FichaSaude';
@@ -19,26 +17,16 @@ import { FichaSaude } from '../../../model/FichaSaude';
 export class CriarAlunoComponent implements OnInit {
 
   alunoForm: FormGroup;
-  restricoes: RestricaoAlimentar[];
 
   constructor(
     private formBuilder: FormBuilder,
     private alunoService: AlunoService,
-    private restricaoAlimentarService: RestricaoAlimentarService,
     private toastr: ToastrService,
     private router: Router,
     private loader: NgxUiLoaderService
   ) { }
 
   ngOnInit() {
-    this.loader.startBackground();
-    this.restricaoAlimentarService.listaTodos().subscribe(res => {
-      this.restricoes = res;
-      this.loader.stopBackground();
-    }, err => {
-      this.toastr.error('Erro ao carregar restrições alimentares!');
-      this.loader.stopBackground();
-    });
 
     this.alunoForm = this.formBuilder.group({
       nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],
@@ -46,13 +34,11 @@ export class CriarAlunoComponent implements OnInit {
       bairro: [''], cidade: [''], estado: [''], cartaoSus: [''], doenca: [''], tipoSanguineo: [''],
       doencaDescricao: [''], medicamento: [''], medicamentoDescricao: [''], suplemento: [''],
       suplementoDescricao: [''], deficiencia: [''], deficienciaDescricao: [''], alergia: [''],
-      alergiaDescricao: [''], intolerancia: [''], intoleranciaDescricao: [''], restricoesALimentares: [[]]
+      alergiaDescricao: [''], intolerancia: [''], intoleranciaDescricao: ['']
     });
   }
 
   cadastrar() {
-    const restricoesSelecionadas: RestricaoAlimentar[] = this.alunoForm.get('restricoesALimentares').value;
-    console.log(restricoesSelecionadas);
 
     this.loader.startBackground();
 
