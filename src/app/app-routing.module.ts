@@ -17,6 +17,10 @@ const routes: Routes = [
         loadChildren: './view/aluno/aluno.module#AlunoModule'
       },
       {
+        path: 'curso',
+        loadChildren: './view/curso/curso.module#CursoModule'
+      },
+      {
         path: 'restricao-alimentar',
         loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
       },

@@ -1,5 +1,4 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -40,8 +39,6 @@ export class AlunosComponent implements OnInit {
       { prop: 'pessoa.nome', name: 'Nome' },
       { prop: 'pessoa.cpf', name: 'CPF' },
       { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },
-      { prop: 'pessoa.sexo', name: 'Sexo' },
-      { prop: 'dataMatricula', name: 'Data de Matricula', pipe: new DateBrPipe('en-US') },
       { prop: 'pessoa.ativo', name: 'Ativo' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
