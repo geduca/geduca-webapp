@@ -2,27 +2,28 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Curso } from 'src/app/model/Curso';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
 
-import { RestricaoAlimentar } from '../../../model/RestricaoAlimentar';
-import { RestricaoAlimentarService } from '../../../service/restricao-alimentar.service';
+import { CursoService } from './../../../service/curso.service';
 
 @Component({
-  selector: 'app-restricoes-alimentares',
-  templateUrl: './restricoes-alimentares.component.html'
+  selector: 'app-cursos',
+  templateUrl: './cursos.component.html'
 })
-export class RestricoesAlimentaresComponent implements OnInit {
+export class CursosComponent implements OnInit {
 
   columns = [];
-  resposta: Page<RestricaoAlimentar>;
-  restricoes: RestricaoAlimentar[];
+  resposta: Page<Curso>;
+  cursos: Curso[];
   page = new Pageable();
 
   @ViewChild('acoes') acoes: TemplateRef<any>;
+  @ViewChild('ativo') ativo: TemplateRef<any>;
 
   constructor(
-    private restricaoAlimentarService: RestricaoAlimentarService,
+    private cursoService: CursoService,
     private loader: NgxUiLoaderService,
     private toastr: ToastrService,
   ) {
@@ -36,6 +37,7 @@ export class RestricoesAlimentaresComponent implements OnInit {
       { prop: 'codigo', name: 'Código' },
       { prop: 'nome', name: 'Nome' },
       { prop: 'descricao', name: 'Descrição' },
+      { prop: 'ativo', cellTemplate: this.ativo, name: 'Status' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
   }
@@ -47,34 +49,38 @@ export class RestricoesAlimentaresComponent implements OnInit {
   setPage(pageInfo) {
     this.loader.startBackground();
     this.page.pageNumber = pageInfo.offset;
-    this.restricaoAlimentarService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
+    this.cursoService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
       this.resposta = res;
-      this.restricoes = this.resposta.content;
+      this.cursos = this.resposta.content;
       this.page = res.pageable;
       this.loader.stopBackground();
     });
   }
 
-  remover(restricaoAlimentar: RestricaoAlimentar) {
+  remover(curso: Curso) {
     this.loader.startBackground();
-    this.restricaoAlimentarService.remover(restricaoAlimentar.codigo).subscribe(
+    this.cursoService.remover(curso.codigo).subscribe(
       res => {
-        this.removerRegistroDaLista(restricaoAlimentar);
+        this.removerRegistroDaLista(curso);
         this.toastr.success
-          ('Restrição Alimentar ' + restricaoAlimentar.codigo + ' - ' + restricaoAlimentar.nome + ' removida com sucesso!');
+          ('Curso ' + curso.codigo + ' - ' + curso.nome + ' removido com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao remover restrição alimentar: ' + err.error.message);
+        this.toastr.error('Erro ao remover curso: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
   }
 
   removerRegistroDaLista(row: any): void {
-    const tmp = this.restricoes;
+    const tmp = this.cursos;
     _.remove(tmp, (linha) => _.isEqual(linha, row));
-    this.restricoes = [...tmp];
+    this.cursos = [...tmp];
+  }
+
+  isAtivo(status: boolean) {
+    if (status === true) { return 'Ativo'; } else if (status === false) { return 'Desativado'; }
   }
 
 }

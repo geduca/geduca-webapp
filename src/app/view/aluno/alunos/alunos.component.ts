@@ -22,6 +22,7 @@ export class AlunosComponent implements OnInit {
   page = new Pageable();
 
   @ViewChild('acoes') acoes: TemplateRef<any>;
+  @ViewChild('ativo') ativo: TemplateRef<any>;
 
   constructor(
     private alunoService: AlunoService,
@@ -39,7 +40,7 @@ export class AlunosComponent implements OnInit {
       { prop: 'pessoa.nome', name: 'Nome' },
       { prop: 'pessoa.cpf', name: 'CPF' },
       { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },
-      { prop: 'pessoa.ativo', name: 'Ativo' },
+      { prop: 'pessoa.ativo', cellTemplate: this.ativo, name: 'Status' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
   }
@@ -78,6 +79,10 @@ export class AlunosComponent implements OnInit {
     const tmp = this.alunos;
     _.remove(tmp, (linha) => _.isEqual(linha, row));
     this.alunos = [...tmp];
+  }
+
+  isAtivo(status: boolean) {
+    if (status === true) { return 'Ativo'; } else if (status === false) { return 'Desativado'; }
   }
 
 }

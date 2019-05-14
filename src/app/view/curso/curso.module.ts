@@ -4,20 +4,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
-import { CriarRestricaoAlimentarComponent } from './criar-restricao-alimentar/criar-restricao-alimentar.component';
+import { CriarCursoComponent } from './criar-curso/criar-curso.component';
 import { CursoRoutingModule } from './curso-routing.module';
-import { EditarRestricaoAlimentarComponent } from './editar-restricao-alimentar/editar-restricao-alimentar.component';
-import { RestricoesAlimentaresComponent } from './restricoes-alimentares/restricoes-alimentares.component';
-import {
-  VisualizarRestricaoAlimentarComponent,
-} from './visualizar-restricao-alimentar/visualizar-restricao-alimentar.component';
+import { CursosComponent } from './cursos/cursos.component';
+import { EditarCursoComponent } from './editar-curso/editar-curso.component';
+import { VisualizarCursoComponent } from './visualizar-curso/visualizar-curso.component';
 
 @NgModule({
   declarations: [
-    RestricoesAlimentaresComponent,
-    CriarRestricaoAlimentarComponent,
-    EditarRestricaoAlimentarComponent,
-    VisualizarRestricaoAlimentarComponent
+    CursosComponent,
+    CriarCursoComponent,
+    EditarCursoComponent,
+    VisualizarCursoComponent
   ],
   imports: [
     CommonModule,
