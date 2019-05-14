@@ -45,9 +45,13 @@ export const navItems: NavData[] = [
     url: 'restricao-alimentar',
     icon: 'fa fa-leaf'
   },
-    {
+   {
     name: 'Fornecedores',
     url: 'fornecedor',
+    icon: 'fa fa-user'
+  },{
+    name: 'Produtos',
+    url: 'produtos',
     icon: 'fa fa-user'
   }
 ];

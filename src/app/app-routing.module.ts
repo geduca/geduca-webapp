@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: 'fornecedor',
         loadChildren: './view/fornecedor/fornecedor.module#FornecedorModule'
+      },
+      {
+        path: 'produtos',
+        loadChildren: './view/produto/produto.module#ProdutoModule'
       }
     ]
   },
