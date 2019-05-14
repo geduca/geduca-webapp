@@ -32,7 +32,7 @@ export class EditarCursoComponent implements OnInit {
       this.curso = res;
       this.form.get('nome').setValue(this.curso.nome);
       this.form.get('descricao').setValue(this.curso.descricao);
-      this.form.get('ativo').setValue(this.curso.descricao);
+      this.form.get('ativo').setValue(this.curso.ativo);
       this.loader.stopBackground();
     });
     this.form = this.formBuilder.group({

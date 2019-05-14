@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: './view/curso/curso.module#CursoModule'
       },
       {
+        path: 'turma',
+        loadChildren: './view/turma/turma.module#TurmaModule'
+      },
+      {
         path: 'restricao-alimentar',
         loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
       },
