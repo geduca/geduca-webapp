@@ -22,6 +22,10 @@ export class RestricaoAlimentarService {
     return this.http.get<Page<RestricaoAlimentar>>(this.apiUrl, { params });
   }
 
+  listaTodos(): Observable<RestricaoAlimentar[]> {
+    return this.http.get<RestricaoAlimentar[]>(this.apiUrl + '/lista');
+  }
+
   buscaPeloCodigo(codigo: number): Observable<RestricaoAlimentar> {
     return this.http.get<RestricaoAlimentar>(this.apiUrl + `/${codigo}`);
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Aluno } from 'src/app/model/Aluno';
@@ -14,6 +15,7 @@ export class EditarAlunoComponent implements OnInit {
 
   aluno: Aluno;
   alunoForm: FormGroup;
+  modalRef: BsModalRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,7 +23,7 @@ export class EditarAlunoComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loader: NgxUiLoaderService,
+    private loader: NgxUiLoaderService
   ) { }
 
   ngOnInit() {

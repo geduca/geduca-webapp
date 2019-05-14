@@ -27,6 +27,7 @@ export class CriarAlunoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.alunoForm = this.formBuilder.group({
       nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],
       telefone: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
@@ -38,6 +39,7 @@ export class CriarAlunoComponent implements OnInit {
   }
 
   cadastrar() {
+
     this.loader.startBackground();
 
     const pessoa = new Pessoa();

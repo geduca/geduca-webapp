@@ -36,6 +36,11 @@ export const navItems: NavData[] = [
     icon: 'fa fa-user'
   },
   {
+    name: 'Cursos',
+    url: 'curso',
+    icon: 'fa fa-graduation-cap'
+  },
+  {
     name: 'Restrições Alimentares',
     url: 'restricao-alimentar',
     icon: 'fa fa-leaf'
