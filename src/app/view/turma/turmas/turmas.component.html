@@ -26,6 +26,10 @@
           </ng-template>
 
           <ng-template #acoes let-row="row" let-value="value">
+            <button type="button" class="btn btn-success mr-2" tooltip="Alunos" placement="auto"
+              [routerLink]="['alunos', row?.codigo]">
+              <i class="fa fa-user-graduate"></i>
+            </button>
             <button type="button" class="btn btn-primary mr-2" tooltip="Visualizar" placement="auto"
               [routerLink]="['visualizar', row?.codigo]">
               <i class="fa fa-eye"></i>

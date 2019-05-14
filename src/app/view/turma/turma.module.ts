@@ -6,6 +6,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { CriarTurmaComponent } from './criar-turma/criar-turma.component';
 import { EditarTurmaComponent } from './editar-turma/editar-turma.component';
+import { TurmaAlunoComponent } from './turma-aluno/turma-aluno.component';
 import { TurmaRoutingModule } from './turma-routing.module';
 import { TurmasComponent } from './turmas/turmas.component';
 import { VisualizarTurmaComponent } from './visualizar-turma/visualizar-turma.component';
@@ -15,7 +16,8 @@ import { VisualizarTurmaComponent } from './visualizar-turma/visualizar-turma.co
     TurmasComponent,
     CriarTurmaComponent,
     EditarTurmaComponent,
-    VisualizarTurmaComponent
+    VisualizarTurmaComponent,
+    TurmaAlunoComponent
   ],
   imports: [
     CommonModule,
