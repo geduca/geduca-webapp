@@ -22,6 +22,10 @@ export class TurmaService {
     return this.http.get<Page<Turma>>(this.apiUrl, { params });
   }
 
+  listaTodos(): Observable<Turma[]> {
+    return this.http.get<Turma[]>(this.apiUrl + '/lista');
+  }
+
   buscaPeloCodigo(codigo: number): Observable<Turma> {
     return this.http.get<Turma>(this.apiUrl + `/${codigo}`);
   }

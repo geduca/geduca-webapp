@@ -5,8 +5,6 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Curso } from 'src/app/model/Curso';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
-
-import { CursoService } from './../../../service/curso.service';
 import { Turma } from 'src/app/model/Turma';
 import { TurmaService } from 'src/app/service/turma.service';
 
@@ -38,7 +36,7 @@ export class TurmasComponent implements OnInit {
     this.columns = [
       { prop: 'codigo', name: 'Código' },
       { prop: 'nome', name: 'Nome' },
-      // { prop: 'descricao', name: 'Descrição' },
+      { prop: 'curso.nome', name: 'Curso' },
       { prop: 'ativo', cellTemplate: this.ativo, name: 'Status' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
@@ -65,7 +63,7 @@ export class TurmasComponent implements OnInit {
       res => {
         this.removerRegistroDaLista(turma);
         this.toastr.success
-          ('Turma ' + turma.codigo + ' - ' + turma.nome + ' removido com sucesso!');
+          ('Turma ' + turma.codigo + ' - ' + turma.nome + ' removida com sucesso!');
         this.loader.stopBackground();
       },
       err => {

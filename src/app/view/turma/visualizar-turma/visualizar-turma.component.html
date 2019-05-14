@@ -19,32 +19,56 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label">Código:</label>
             <div class="col-md-9">
-              {{curso?.codigo}}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Nome:</label>
-            <div class="col-md-9">
-              {{curso?.nome}}
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Descrição:</label>
-            <div class="col-md-9">
-              {{curso?.descricao}}
+              {{turma?.codigo}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3 col-form-label">Status:</label>
             <div class="col-md-9">
-              {{isAtivo(curso?.ativo)}}
+              {{isAtivo(turma?.ativo)}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Nome:</label>
+            <div class="col-md-9">
+              {{turma?.nome}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Curso:</label>
+            <div class="col-md-9">
+              {{turma?.curso?.nome}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Sala:</label>
+            <div class="col-md-9">
+              {{turma?.sala}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Periodo:</label>
+            <div class="col-md-9">
+              {{turma?.periodo}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Data de Início:</label>
+            <div class="col-md-9">
+              {{turma?.dataInicio | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Data de Finalização:</label>
+            <div class="col-md-9">
+              {{turma?.dataFim | date: 'dd/MM/yyyy'}}
             </div>
           </div>
         </div>
         <div class="card-footer text-right">
-          <button class="btn btn-secondary" routerLink="/home/curso"><i class="fa fa-arrow-alt-circle-left"></i>
+          <button class="btn btn-secondary" routerLink="/home/turma"><i class="fa fa-arrow-alt-circle-left"></i>
             Voltar</button>
-          <button class="btn btn-primary" [routerLink]="['/home/curso/editar', curso?.codigo]" type="button">
+          <button class="btn btn-primary" [routerLink]="['/home/turma/editar', turma?.codigo]" type="button">
             Editar</button>
         </div>
       </div>

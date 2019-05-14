@@ -20,9 +20,9 @@ export class VisualizarTurmaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loader.startBackground();
     const codigo = this.activatedRoute.snapshot.params.codigo;
     this.turmaService.buscaPeloCodigo(codigo).subscribe(res => {
-      this.loader.startBackground();
       this.turma = res;
       this.loader.stopBackground();
     });

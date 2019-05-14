@@ -22,6 +22,10 @@ export class CursoService {
     return this.http.get<Page<Curso>>(this.apiUrl, { params });
   }
 
+  listaTodos(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(this.apiUrl + '/lista');
+  }
+
   buscaPeloCodigo(codigo: number): Observable<Curso> {
     return this.http.get<Curso>(this.apiUrl + `/${codigo}`);
   }
