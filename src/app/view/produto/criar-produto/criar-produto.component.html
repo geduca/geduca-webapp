@@ -1,77 +1,78 @@
 <div class="animated fadeIn">
-  <div class="row">
-    <div class="col-lg-12">
-      <form [formGroup]="produtoForm">
-        <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-12">
-                <h1><b>Cadastrar Produto</b></h1>
-              </div>
+   <div class="row">
+      <div class="col-lg-12">
+         <form [formGroup]="produtoForm">
+            <div class="card">
+               <div class="card-header">
+                  <div class="row">
+                     <div class="col-12">
+                        <h1>
+                           <b>Cadastrar Produto</b>
+                        </h1>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-12 text-center">
+                        <h3>Dados do Produto</h3>
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="codigo">Codigo:</label>
+                     <div class="col-md-9">
+                        <input type="number" id="codigo" name="codigo" class="form-control" formControlName="codigo">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="nome">Nome:</label>
+                     <div class="col-md-9">
+                        <input type="text" id="nome" name="nome" class="form-control" formControlName="nome">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="descricao">Descrição:</label>
+                     <div class="col-md-9">
+                        <input type="text" id="descricao" name="descricao" class="form-control" formControlName="descricao">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="quantidade">Quantidade:</label>
+                     <div class="col-md-9">
+                        <input type="number" id="quantidade" name="quantidade" class="form-control" autocomplete="quantidade" formControlName="quantidade">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="email">Quantidade Mínima:</label>
+                     <div class="col-md-9">
+                        <input type="number" id="quantidadeMinima" name="quantidadeMinima" class="form-control" autocomplete="quantidadeMinima" formControlName="quantidadeMinima">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="dataValidade">Data de Validade:</label>
+                     <div class="col-md-9">
+                        <input type="date" id="dataValidade" name="dataValidade" class="form-control" formControlName="dataValidade">
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 col-form-label" for="fornecedores">Fornecedores:</label>
+                     <div class="col-md-9">
+                        <select id="fornecedores" name="fornecedores" class="form-control" formControlName="fornecedores">
+                           <option *ngFor="let fornecedor of fornecedores">
+                              {{fornecedor?.nome}}
+                           </option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-footer text-right">
+                  <button class="btn btn-secondary" routerLink="/home/produto" type="button">Cancelar</button>
+                  <button class="btn btn-primary" (click)="cadastrar()">
+                     <i class="fa fa-save"></i> Salvar</button>
+               </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12 text-center">
-                <h3>Dados do Produto</h3>
-              </div>
-            </div>
-            <hr>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="codigo">Codigo:</label>
-              <div class="col-md-9">
-                <input type="number" id="codigo" name="codigo" class="form-control" formControlName="codigo">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="nome">Nome:</label>
-              <div class="col-md-9">
-                <input type="text" id="nome" name="nome" class="form-control" formControlName="nome">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="descricao">Descrição:</label>
-              <div class="col-md-9">
-                <input type="text" id="descricao" name="descricao" class="form-control" formControlName="descricao">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="quantidade">Quantidade:</label>
-              <div class="col-md-9">
-                <input type="number" id="quantidade" name="quantidade" class="form-control" autocomplete="quantidade"
-                  formControlName="quantidade">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="email">Quantidade Mínima:</label>
-              <div class="col-md-9">
-                <input type="number" id="quantidadeMinima" name="quantidadeMinima" class="form-control" autocomplete="quantidadeMinima"
-                  formControlName="quantidadeMinima">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="dataValidade">Data de Validade:</label>
-              <div class="col-md-9">
-                <input type="date" id="dataValidade" name="dataValidade" class="form-control" formControlName="dataValidade">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="fornecedores">Fornecedores:</label>
-              <div class="col-md-9">
-                <select id="fornecedores" name="fornecedores" class="form-control" formControlName="fornecedores">
-                      <option *ngFor="let fornecedor of fornecedores">
-                     {{fornecedor?.nome}}
-                     </option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer text-right">
-            <button class="btn btn-secondary" routerLink="/home/produto" type="button">Cancelar</button>
-            <button class="btn btn-primary" (click)="cadastrar()"><i class="fa fa-save"></i> Salvar</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+         </form>
+      </div>
+   </div>
 </div>
