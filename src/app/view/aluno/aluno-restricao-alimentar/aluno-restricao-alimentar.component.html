@@ -63,7 +63,7 @@
           </div>
           <br>
           <div class="form-group row">
-            <ng-container *ngIf="restricoes.length > 0; else elseTemplate">
+            <ng-container *ngIf="restricoes?.length > 0; else elseTemplate">
               <div *ngFor="let restricao of restricoes" class="col-md-3">
                 {{restricao?.restricaoAlimentar?.nome}}
                 <button class="btn btn-danger" tooltip="Remover" placement="auto"

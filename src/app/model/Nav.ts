@@ -33,11 +33,16 @@ export const navItems: NavData[] = [
   {
     name: 'Alunos',
     url: 'aluno',
-    icon: 'fa fa-user'
+    icon: 'fa fa-user-graduate'
   },
   {
     name: 'Cursos',
     url: 'curso',
+    icon: 'fa fa-award'
+  },
+  {
+    name: 'Turmas',
+    url: 'turma',
     icon: 'fa fa-graduation-cap'
   },
   {
@@ -45,9 +50,13 @@ export const navItems: NavData[] = [
     url: 'restricao-alimentar',
     icon: 'fa fa-leaf'
   },
-    {
+  {
     name: 'Fornecedores',
     url: 'fornecedor',
-    icon: 'fa fa-user'
+    icon: 'fa fa-truck'
+  }, {
+    name: 'Produtos',
+    url: 'produtos',
+    icon: 'fa fa-shopping-cart'
   }
 ];

@@ -22,6 +22,10 @@ export class AlunoService {
     return this.http.get<Page<Aluno>>(this.apiUrl, { params });
   }
 
+  listaTodos(): Observable<Aluno[]> {
+    return this.http.get<Aluno[]>(this.apiUrl + '/lista');
+  }
+
   buscaPeloCodigo(codigo: number): Observable<Aluno> {
     return this.http.get<Aluno>(this.apiUrl + `/${codigo}`);
   }

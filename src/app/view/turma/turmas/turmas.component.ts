@@ -2,32 +2,30 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { DateBrPipe } from 'src/app/core/pipes/date-br.pipe';
-import { Aluno } from 'src/app/model/Aluno';
+import { Curso } from 'src/app/model/Curso';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
-import { AlunoService } from 'src/app/service/aluno.service';
-
-
+import { Turma } from 'src/app/model/Turma';
+import { TurmaService } from 'src/app/service/turma.service';
 
 @Component({
-  selector: 'app-alunos',
-  templateUrl: './alunos.component.html'
+  selector: 'app-turmas',
+  templateUrl: './turmas.component.html'
 })
-export class AlunosComponent implements OnInit {
+export class TurmasComponent implements OnInit {
 
   columns = [];
-  resposta: Page<Aluno>;
-  alunos: Aluno[];
+  resposta: Page<Turma>;
+  turmas: Turma[];
   page = new Pageable();
 
   @ViewChild('acoes') acoes: TemplateRef<any>;
   @ViewChild('ativo') ativo: TemplateRef<any>;
 
   constructor(
-    private alunoService: AlunoService,
+    private turmaService: TurmaService,
     private loader: NgxUiLoaderService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.page.pageNumber = 0;
     this.page.pageSize = 10;
@@ -36,11 +34,10 @@ export class AlunosComponent implements OnInit {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Matricula' },
-      { prop: 'pessoa.nome', name: 'Nome' },
-      { prop: 'pessoa.cpf', name: 'CPF' },
-      { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },
-      { prop: 'pessoa.ativo', cellTemplate: this.ativo, name: 'Status' },
+      { prop: 'codigo', name: 'Código' },
+      { prop: 'nome', name: 'Nome' },
+      { prop: 'curso.nome', name: 'Curso' },
+      { prop: 'ativo', cellTemplate: this.ativo, name: 'Status' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
   }
@@ -52,33 +49,34 @@ export class AlunosComponent implements OnInit {
   setPage(pageInfo) {
     this.loader.startBackground();
     this.page.pageNumber = pageInfo.offset;
-    this.alunoService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
+    this.turmaService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
       this.resposta = res;
-      this.alunos = this.resposta.content;
+      this.turmas = this.resposta.content;
       this.page = res.pageable;
       this.loader.stopBackground();
     });
   }
 
-  removerAluno(aluno: Aluno) {
+  remover(turma: Curso) {
     this.loader.startBackground();
-    this.alunoService.remover(aluno.codigo).subscribe(
+    this.turmaService.remover(turma.codigo).subscribe(
       res => {
-        this.removerRegistroDaLista(aluno);
-        this.toastr.success('Aluno ' + aluno.codigo + ' - ' + aluno.pessoa.nome + ' removido com sucesso!');
+        this.removerRegistroDaLista(turma);
+        this.toastr.success
+          ('Turma ' + turma.codigo + ' - ' + turma.nome + ' removida com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao remover aluno: ' + err.error.message);
+        this.toastr.error('Erro ao remover turma: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
   }
 
   removerRegistroDaLista(row: any): void {
-    const tmp = this.alunos;
+    const tmp = this.turmas;
     _.remove(tmp, (linha) => _.isEqual(linha, row));
-    this.alunos = [...tmp];
+    this.turmas = [...tmp];
   }
 
   isAtivo(status: boolean) {
