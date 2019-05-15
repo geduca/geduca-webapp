@@ -24,15 +24,15 @@ export class TurmaAlunoService {
   }
 
   buscaPorTurma(codigoTurma: number): Observable<TurmaAluno[]> {
-    return this.http.get<TurmaAluno[]>(this.apiUrl + `/?codigoTurma=${codigoTurma}`);
+    return this.http.get<TurmaAluno[]>(this.apiUrl + `/turma?codigoTurma=${codigoTurma}`);
   }
 
   buscaPorAluno(codigoAluno: number): Observable<TurmaAluno[]> {
-    return this.http.get<TurmaAluno[]>(this.apiUrl + `/?codigoAluno=${codigoAluno}`);
+    return this.http.get<TurmaAluno[]>(this.apiUrl + `/aluno?codigoAluno=${codigoAluno}`);
   }
 
   criar(alunos: Aluno[], codigoTurma: number): Observable<any> {
-    return this.http.post<TurmaAluno[]>(this.apiUrl + `/?codigoTurma=${codigoTurma}`, alunos);
+    return this.http.post<TurmaAluno[]>(this.apiUrl + `?codigoTurma=${codigoTurma}`, alunos);
   }
 
   remover(codigo: number): Observable<any> {

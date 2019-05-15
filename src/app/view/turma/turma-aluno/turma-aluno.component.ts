@@ -48,17 +48,11 @@ export class TurmaAlunoComponent implements OnInit {
 
     this.turmaService.buscaPeloCodigo(codigo).subscribe(res => {
       this.turma = res;
-      // restricoes do aluno
+      // alunos da turma
       this.turmaAlunoService.buscaPorTurma(this.turma.codigo).subscribe(resp => {
         this.alunos = resp;
       }, err => {
         this.toast.error('Erro ao carregar alunos da turma : ' + err.error.message);
-      });
-      // restricoes disponiveis
-      this.alunoService.listaTodos().subscribe(response => {
-        this.alunosDisponiveis = response;
-      }, err => {
-        this.toast.error('Erro ao carregar alunos disponíveis: ' + err.error.message);
       });
 
       this.loader.stopBackground();
@@ -79,48 +73,57 @@ export class TurmaAlunoComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    // alunos disponiveis
+    this.loader.startBackground();
+    this.alunoService.listaTodos().subscribe(response => {
+      this.alunosDisponiveis = response;
+      this.loader.stopBackground();
+    }, err => {
+      this.toast.error('Erro ao carregar alunos disponíveis: ' + err.error.message);
+      this.loader.stopBackground();
+    });
+    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
   }
 
   closeModal() {
     this.modalRef.hide();
   }
 
-  // adicionarRestricoes() {
-  //   const restricoesAdicionadas: RestricaoAlimentar[] = this.form.get('restricaoAlimentar').value;
-  //   console.log(restricoesAdicionadas);
-  //   if (restricoesAdicionadas.length > 0) {
-  //     this.loader.startBackground();
-  //     this.alunoRestricaoAlimentarService.criar(restricoesAdicionadas, this.aluno.codigo).subscribe(res => {
-  //       this.alunoRestricaoAlimentarService.buscaPorAluno(this.aluno.codigo).subscribe(resp => {
-  //         this.restricoes = resp;
-  //         this.closeModal();
-  //       }, err => {
-  //         this.toast.error('Erro ao carregar Restrições alimentares: ' + err.error.message);
-  //       });
-  //       this.toast.success('Restrições adicionadas com sucesso!');
-  //       this.loader.stopBackground();
-  //     }, err => {
-  //       this.toast.error('Erro ao adicionar restrições alimentares: ' + err.error.message);
-  //       this.loader.stopBackground();
-  //     });
-  //   }
-  // }
+  adicionarAlunos() {
+    const alunosSelecionados: Aluno[] = this.form.get('alunos').value;
+    console.log(alunosSelecionados);
+    if (alunosSelecionados.length > 0) {
+      this.loader.startBackground();
+      this.turmaAlunoService.criar(alunosSelecionados, this.turma.codigo).subscribe(res => {
+        this.turmaAlunoService.buscaPorTurma(this.turma.codigo).subscribe(resp => {
+          this.alunos = resp;
+          this.closeModal();
+        }, err => {
+          this.toast.error('Erro ao carregar Alunos da Turma: ' + err.error.message);
+        });
+        this.toast.success('Alunos adicionados com sucesso!');
+        this.loader.stopBackground();
+      }, err => {
+        this.toast.error('Erro ao adicionar alunos: ' + err.error.message);
+        this.loader.stopBackground();
+      });
+    }
+  }
 
-  // removerRestricao(restricao: RestricaoAlimentar) {
-  //   this.loader.startBackground();
-  //   this.alunoRestricaoAlimentarService.remover(restricao.codigo).subscribe(res => {
-  //     this.alunoRestricaoAlimentarService.buscaPorAluno(this.aluno.codigo).subscribe(resp => {
-  //       this.restricoes = resp;
-  //     }, err => {
-  //       this.toast.error('Erro ao carregar Restrições alimentares: ' + err.error.message);
-  //     });
-  //     this.toast.success('Restricao removida com sucesso!');
-  //     this.loader.stopBackground();
-  //   }, err => {
-  //     this.toast.error('Erro ao remover restrições alimentares: ' + err.error.message);
-  //     this.loader.stopBackground();
-  //   });
-  // }
+  removerAluno(turmaAluno: TurmaAluno) {
+    this.loader.startBackground();
+    this.turmaAlunoService.remover(turmaAluno.codigo).subscribe(res => {
+      this.turmaAlunoService.buscaPorTurma(this.turma.codigo).subscribe(resp => {
+        this.alunos = resp;
+      }, err => {
+          this.toast.error('Erro ao carregar Alunos da Turma: ' + err.error.message);
+      });
+      this.toast.success('Aluno removido com sucesso!');
+      this.loader.stopBackground();
+    }, err => {
+      this.toast.error('Erro ao remover aluno: ' + err.error.message);
+      this.loader.stopBackground();
+    });
+  }
 
 }
