@@ -1,0 +1,80 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <form [formGroup]="produtoForm">
+        <div class="card mt-4">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-12">
+                <h1><b>Editar Produto</b></h1>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 text-center">
+                <h3>Dados do Produto</h3>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="codigo">Codigo:</label>
+              <div class="col-md-9">
+                <input type="number" id="codigo" name="codigo" class="form-control" formControlName="codigo">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="nome">Nome:</label>
+              <div class="col-md-9">
+                <input type="text" id="nome" name="nome" class="form-control" formControlName="nome">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="descricao">Descrição:</label>
+              <div class="col-md-9">
+                <input type="text" id="descricao" name="descricao" class="form-control" formControlName="descricao">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="quantidade">Quantidade:</label>
+              <div class="col-md-9">
+                <input type="number" id="quantidade" name="quantidade" class="form-control"
+                  formControlName="quantidade">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="quantidadeMinima">Quantidade Mínima:</label>
+              <div class="col-md-9">
+                <input type="number" id="quantidadeMinima" name="quantidadeMinima" class="form-control" formControlName="quantidadeMinima">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="dataValidade">Data de validade:</label>
+              <div class="col-md-9">
+                <input type="date" id="dataValidade" name="dataValidade" class="form-control" formControlName="dataValidade">
+              </div>
+            </div>
+         <!-- <div class="card-body">
+          <ngx-datatable [rows]="produtos" [columns]="columns" class="bootstrap striped" [externalPaging]="true"
+            [count]="10" [loadingIndicator]="true" [offset]="page?.pageNumber"
+            [limit]="10" (page)='setPage($event)' [columnMode]="'force'" [headerHeight]="50"
+            [footerHeight]="50" [rowHeight]="50">
+          </ngx-datatable>
+
+          <ng-template #acoes let-row="row" let-value="value">
+            <button type="button" class="btn btn-primary" (click)="removerProduto(row)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </ng-template>
+
+        </div> -->
+          </div>
+          <div class="card-footer text-right">
+            <button class="btn btn-secondary" routerLink="/home/produtos" type="button">Cancelar</button>
+            <button class="btn btn-primary" (click)="editar()"><i class="fa fa-save"></i> Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -58,7 +58,7 @@
                   <div class="form-group row">
                      <label class="col-md-3 col-form-label" for="fornecedores">Fornecedores:</label>
                      <div class="col-md-9">
-                        <select id="fornecedores" name="fornecedores" class="form-control" formControlName="fornecedores">
+                        <select id="fornecedores" name="fornecedores" class="form-control" formControlName="fornecedores" multiple>
                            <option *ngFor="let fornecedor of fornecedores">
                               {{fornecedor?.nome}}
                            </option>
