@@ -36,7 +36,7 @@ export class AlunosComponent implements OnInit {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Matricula' },
+      { prop: 'codigo', name: 'Matrícula' },
       { prop: 'pessoa.nome', name: 'Nome' },
       { prop: 'pessoa.cpf', name: 'CPF' },
       { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },

@@ -28,7 +28,7 @@ export class RegistroNutricionalService {
     return this.http.get<RegistroNutricional>(this.apiUrl + `/${codigo}`);
   }
 
-  criar(registro: RegistroNutricional[]): Observable<any> {
+  criar(registro: RegistroNutricional): Observable<any> {
     return this.http.post<RegistroNutricional>(this.apiUrl, registro);
   }
 

@@ -29,6 +29,10 @@ const routes: Routes = [
         loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
       },
       {
+        path: 'registro-nutricional',
+        loadChildren: './view/registro-nutricional/registro-nutricional.module#RegistroNutricionalModule'
+      },
+      {
         path: 'fornecedor',
         loadChildren: './view/fornecedor/fornecedor.module#FornecedorModule'
       },
