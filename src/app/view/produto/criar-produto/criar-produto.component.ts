@@ -57,7 +57,6 @@ export class CriarProdutoComponent implements OnInit {
     produto.dataValidade = this.produtoForm.get('dataValidade').value;
     produto.fornecedores = this.produtoForm.get('fornecedores').value;
 
-
     this.produtoService.criar(produto).subscribe(
       res => {
         this.router.navigate(['/home/produtos']);
