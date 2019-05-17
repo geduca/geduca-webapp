@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Fornecedor } from '../../../model/Fornecedor';
 
 @Component({
   selector: 'app-editar-produto',
@@ -44,6 +45,10 @@ export class EditarProdutoComponent implements OnInit {
       quantidade: [''], quantidadeMinima: [''], dataValidade: [''], fornecedores: []
     });
 
+  }
+
+  removerFornecedor(fornecedor: Fornecedor) {
+     this.produto.fornecedores.splice(this.produto.fornecedores.indexOf(fornecedor));
   }
 
   editar() {
