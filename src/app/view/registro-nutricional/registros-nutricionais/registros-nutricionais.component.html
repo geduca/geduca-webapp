@@ -9,7 +9,7 @@
             </div>
             <div class="col-2">
               <!-- corrigir o link desse botao -->
-              <button type="button" class="btn btn-success" [routerLink]="[codigoAluno, 'novo']">
+              <button type="button" class="btn btn-success" (click)="novo()">
                 <i class="fa fa-plus"></i>&nbsp;Cadastrar
               </button>
             </div>
@@ -47,7 +47,7 @@
 
           <ng-template #acoes let-row="row" let-value="value">
             <button type="button" class="btn btn-primary mr-2" tooltip="Editar" placement="auto"
-              [routerLink]="[codigoAluno, 'editar', row?.codigo]">
+              (click)="editar(row?.codigo)">
               <i class="fa fa-edit"></i>
             </button>
             <button type="button" class="btn btn-danger" tooltip="Excluir" placement="auto" (click)="remover(row)">

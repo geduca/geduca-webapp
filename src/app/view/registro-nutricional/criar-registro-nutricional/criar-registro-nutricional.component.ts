@@ -49,11 +49,12 @@ export class CriarRegistroNutricionalComponent implements OnInit {
     this.loader.startBackground();
 
     const registro = new RegistroNutricional();
+    const aluno = new Aluno();
 
-    registro.aluno.codigo = this.codigoAluno;
+    aluno.codigo = this.codigoAluno;
+    registro.aluno = aluno;
     registro.peso = this.form.get('peso').value;
     registro.altura = this.form.get('altura').value;
-
 
     this.registroNutricionalService.criar(registro).subscribe(
       res => {
@@ -66,5 +67,9 @@ export class CriarRegistroNutricionalComponent implements OnInit {
         this.loader.stopBackground();
       }
     );
+  }
+
+  cancelar() {
+    this.router.navigate(['/home/registro-nutricional/' + this.codigoAluno]);
   }
 }

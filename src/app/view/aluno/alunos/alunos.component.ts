@@ -22,6 +22,7 @@ export class AlunosComponent implements OnInit {
   page = new Pageable();
 
   @ViewChild('acoes') acoes: TemplateRef<any>;
+  @ViewChild('nutricao') nutricao: TemplateRef<any>;
   @ViewChild('ativo') ativo: TemplateRef<any>;
 
   constructor(
@@ -41,6 +42,7 @@ export class AlunosComponent implements OnInit {
       { prop: 'pessoa.cpf', name: 'CPF' },
       { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },
       { prop: 'pessoa.ativo', cellTemplate: this.ativo, name: 'Status' },
+      { prop: '', cellTemplate: this.nutricao, name: 'Nutrição', sortable: false },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
   }

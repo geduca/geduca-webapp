@@ -1,6 +1,5 @@
-import { Aluno } from './../../../model/Aluno';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -8,6 +7,7 @@ import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
 import { AlunoService } from 'src/app/service/aluno.service';
 
+import { Aluno } from './../../../model/Aluno';
 import { RegistroNutricional } from './../../../model/RegistroNutricional';
 import { RegistroNutricionalService } from './../../../service/registro-nutricional.service';
 
@@ -31,6 +31,7 @@ export class RegistrosNutricionaisComponent implements OnInit {
     private registroNutricionalService: RegistroNutricionalService,
     private alunoService: AlunoService,
     private activedRoute: ActivatedRoute,
+    private router: Router,
     private loader: NgxUiLoaderService,
     private toastr: ToastrService,
   ) {
@@ -95,6 +96,14 @@ export class RegistrosNutricionaisComponent implements OnInit {
     const tmp = this.registros;
     _.remove(tmp, (linha) => _.isEqual(linha, row));
     this.registros = [...tmp];
+  }
+
+  novo() {
+    this.router.navigate(['/home/registro-nutricional/' + this.codigoAluno + '/novo']);
+  }
+
+  editar(codigoRegistro: number) {
+    this.router.navigate(['/home/registro-nutricional/' + this.codigoAluno + '/editar/' + codigoRegistro]);
   }
 
 }
