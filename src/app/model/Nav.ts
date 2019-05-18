@@ -69,5 +69,10 @@ export const navItems: NavData[] = [
     name: 'Funcionarios',
     url: 'funcionario',
     icon: 'fa fa-user-tie'
+  },
+  {
+    name: 'Estoque',
+    url: 'estoque',
+    icon: 'fa fa-file'
   }
 ];
