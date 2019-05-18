@@ -25,7 +25,8 @@
             <button type="button" class="btn btn-primary mr-2" [routerLink]="['editar', row.codigo]">
               <i class="fa fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-primary" (click)="removerProduto(row)">
+            <button type="button" class="btn btn-danger" tooltip="Excluir" placement="auto"
+              (click)="removerProduto(row)">
               <i class="fa fa-trash"></i>
             </button>
           </ng-template>
