@@ -64,5 +64,10 @@ export const navItems: NavData[] = [
     name: 'Fornecedores',
     url: 'fornecedor',
     icon: 'fa fa-truck'
+  },
+  {
+    name: 'Funcionarios',
+    url: 'funcionario',
+    icon: 'fa fa-user-tie'
   }
 ];

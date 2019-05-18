@@ -89,7 +89,7 @@ export class CriarAlunoComponent implements OnInit {
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao criar aluno: ' + err.error.message)
+        this.toastr.error('Erro ao criar aluno: ' + err.error.message);
         this.loader.stopBackground();
       }
     );

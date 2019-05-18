@@ -43,6 +43,10 @@ const routes: Routes = [
       {
         path: 'produto',
         loadChildren: './view/produto/produto.module#ProdutoModule'
+      },
+      {
+        path: 'funcionario',
+        loadChildren: './view/funcionario/funcionario.module#FuncionarioModule'
       }
     ]
   },
