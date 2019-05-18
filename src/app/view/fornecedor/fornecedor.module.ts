@@ -7,11 +7,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FornecedorRoutingModule } from './fornecedor-routing.module';
 import { FornecedoresComponent } from './fornecedor/fornecedor.component';
 import { EditarFornecedorComponent } from './editar-fornecedor/editar-fornecedor.component';
+import { VisualizarFornecedorComponent } from './visualizar-fornecedor/visualizar-fornecedor.component';
 @NgModule({
   declarations: [
     FornecedoresComponent,
     CriarFornecedorComponent,
-    EditarFornecedorComponent
+    EditarFornecedorComponent,
+    VisualizarFornecedorComponent
   ],
   imports: [
     CommonModule,

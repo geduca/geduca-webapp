@@ -37,14 +37,6 @@ export class FornecedoresComponent implements OnInit {
     this.columns = [
       { prop: 'codigo', name: 'Codigo' },
       { prop: 'nome', name: 'Nome' },
-      { prop: 'cpf', name: 'CPF' },
-      { prop: 'cnpj', name: 'CNPJ' },
-      { prop: 'endereco.cidade', name: 'Cidade' },
-      { prop: 'endereco.estado', name: 'Estado' },
-      { prop: 'endereco.logradouro', name: 'Logradouro' },
-      { prop: 'telefone', name: 'Telefone' },
-      { prop: 'email', name: 'Email' },
-      { prop: 'responsavel', name: 'Responsavel' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
     ];
   }
