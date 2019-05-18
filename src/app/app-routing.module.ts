@@ -33,11 +33,15 @@ const routes: Routes = [
         loadChildren: './view/registro-nutricional/registro-nutricional.module#RegistroNutricionalModule'
       },
       {
+        path: 'unidade',
+        loadChildren: './view/unidade/unidade.module#UnidadeModule'
+      },
+      {
         path: 'fornecedor',
         loadChildren: './view/fornecedor/fornecedor.module#FornecedorModule'
       },
       {
-        path: 'produtos',
+        path: 'produto',
         loadChildren: './view/produto/produto.module#ProdutoModule'
       }
     ]

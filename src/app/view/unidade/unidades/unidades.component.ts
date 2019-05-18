@@ -1,33 +1,30 @@
-import { Produto } from './../../../model/Produto';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Fornecedor } from 'src/app/model/Fornecedor';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
-import { ProdutoService } from '../../../service/produto.service';
 
+import { Unidade } from '../../../model/Unidade';
+import { UnidadeService } from '../../../service/unidade.service';
 
 @Component({
-  selector: 'app-produto',
-  templateUrl: './produto.component.html'
+  selector: 'app-unidades',
+  templateUrl: './unidades.component.html'
 })
-export class ProdutosComponent implements OnInit {
+export class UnidadesComponent implements OnInit {
 
   columns = [];
-  resposta: Page<Produto>;
-  produtos: Produto[];
+  resposta: Page<Unidade>;
+  unidades: Unidade[];
   page = new Pageable();
 
   @ViewChild('acoes') acoes: TemplateRef<any>;
 
   constructor(
-    private produtoService: ProdutoService,
+    private unidadeService: UnidadeService,
     private loader: NgxUiLoaderService,
     private toastr: ToastrService,
-    private router: Router
   ) {
     this.page.pageNumber = 0;
     this.page.pageSize = 10;
@@ -36,11 +33,10 @@ export class ProdutosComponent implements OnInit {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Codigo' },
-      { prop: 'nome', name: 'nome' },
+      { prop: 'codigo', name: 'Código' },
+      { prop: 'nome', name: 'Nome' },
       { prop: 'descricao', name: 'Descrição' },
-      { prop: 'marca', name: 'Marca' },
-      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
+      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
   }
 
@@ -51,33 +47,34 @@ export class ProdutosComponent implements OnInit {
   setPage(pageInfo) {
     this.loader.startBackground();
     this.page.pageNumber = pageInfo.offset;
-    this.produtoService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
+    this.unidadeService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
       this.resposta = res;
-      this.produtos = res.content;
+      this.unidades = this.resposta.content;
       this.page = res.pageable;
       this.loader.stopBackground();
     });
   }
 
-  removerProduto(produto: Produto) {
+  remover(unidade: Unidade) {
     this.loader.startBackground();
-    this.produtoService.remover(produto.codigo).subscribe(
+    this.unidadeService.remover(unidade.codigo).subscribe(
       res => {
-        this.removerRegistroDaLista(produto);
-        this.toastr.success('produto ' + produto.codigo + ' - ' + produto.nome + ' removido com sucesso!');
+        this.removerRegistroDaLista(unidade);
+        this.toastr.success
+          ('Unidade ' + unidade.codigo + ' - ' + unidade.nome + ' removida com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao remover produto: ' + err.error.message);
+        this.toastr.error('Erro ao remover unidade: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
   }
 
   removerRegistroDaLista(row: any): void {
-    const tmp = this.produtos;
+    const tmp = this.unidades;
     _.remove(tmp, (linha) => _.isEqual(linha, row));
-    this.produtos = [...tmp];
+    this.unidades = [...tmp];
   }
 
 }

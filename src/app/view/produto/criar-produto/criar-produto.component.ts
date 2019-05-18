@@ -1,15 +1,14 @@
-import { Fornecedor } from './../../../model/Fornecedor';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
-import { Endereco } from '../../../model/Endereco';
-import { Produto } from '../../../model/Produto';
-import { ProdutoService } from '../../../service/produto.service';
-import { FornecedorService } from '../../../service/fornecedor.service';
 import { Pageable } from '../../../model/Pageable';
+import { Produto } from '../../../model/Produto';
+import { FornecedorService } from '../../../service/fornecedor.service';
+import { ProdutoService } from '../../../service/produto.service';
+import { Fornecedor } from './../../../model/Fornecedor';
 
 @Component({
   selector: 'app-criar-produto',
@@ -29,20 +28,21 @@ export class CriarProdutoComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private loader: NgxUiLoaderService
-  ) {this.page.pageNumber = 0;
-    this.page.pageSize = 10; }
+  ) {
+    this.page.pageNumber = 0;
+    this.page.pageSize = 10;
+  }
 
   ngOnInit() {
-      this.produto = new Produto();
-      this.fornecedorService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
+    this.produto = new Produto();
+    this.fornecedorService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
       this.fornecedores = res.content;
       this.page = res.pageable;
       this.loader.stopBackground();
     });
 
     this.produtoForm = this.formBuilder.group({
-      codigo: [''], nome: [''], descricao: [''],
-      quantidade: [''], quantidadeMinima: [''], dataValidade: [''], fornecedores: this.fornecedores
+      codigo: [''], nome: [''], descricao: [''], marca: ['']
     });
   }
 
@@ -52,14 +52,11 @@ export class CriarProdutoComponent implements OnInit {
     produto.codigo = this.produtoForm.get('codigo').value;
     produto.nome = this.produtoForm.get('nome').value;
     produto.descricao = this.produtoForm.get('descricao').value;
-    produto.quantidade = this.produtoForm.get('quantidade').value;
-    produto.quantidadeMinima = this.produtoForm.get('quantidadeMinima').value;
-    produto.dataValidade = this.produtoForm.get('dataValidade').value;
-    produto.fornecedores = this.produtoForm.get('fornecedores').value;
+    produto.marca = this.produtoForm.get('marca').value;
 
     this.produtoService.criar(produto).subscribe(
       res => {
-        this.router.navigate(['/home/produtos']);
+        this.router.navigate(['/home/produto']);
         this.toastr.success('Produto ' + res.codigo + ' - ' + res.nome + ' criado com sucesso!');
         this.loader.stopBackground();
       },

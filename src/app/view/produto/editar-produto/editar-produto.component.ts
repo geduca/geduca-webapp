@@ -1,11 +1,11 @@
-import { ProdutoService } from './../../../service/produto.service';
-import { Produto } from './../../../model/Produto';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Fornecedor } from '../../../model/Fornecedor';
+
+import { Produto } from './../../../model/Produto';
+import { ProdutoService } from './../../../service/produto.service';
 
 @Component({
   selector: 'app-editar-produto',
@@ -33,22 +33,15 @@ export class EditarProdutoComponent implements OnInit {
       this.produtoForm.get('codigo').setValue(this.produto.codigo);
       this.produtoForm.get('nome').setValue(this.produto.nome);
       this.produtoForm.get('descricao').setValue(this.produto.descricao);
-      this.produtoForm.get('quantidade').setValue(this.produto.quantidade);
-      this.produtoForm.get('quantidadeMinima').setValue(this.produto.quantidadeMinima);
-      this.produtoForm.get('dataValidade').setValue(this.produto.dataValidade);
-      this.produtoForm.get('fornecedores').setValue(this.produto.fornecedores);
+      this.produtoForm.get('marca').setValue(this.produto.marca);
+
 
       this.loader.stopBackground();
     });
     this.produtoForm = this.formBuilder.group({
-      codigo: [''], nome: [''], descricao: [''],
-      quantidade: [''], quantidadeMinima: [''], dataValidade: [''], fornecedores: []
+      codigo: [''], nome: [''], descricao: [''], marca: ['']
     });
 
-  }
-
-  removerFornecedor(fornecedor: Fornecedor) {
-     this.produto.fornecedores.splice(this.produto.fornecedores.indexOf(fornecedor));
   }
 
   editar() {
@@ -57,18 +50,16 @@ export class EditarProdutoComponent implements OnInit {
     this.produto.nome = this.produtoForm.get('nome').value;
     this.produto.codigo = this.produtoForm.get('codigo').value;
     this.produto.descricao = this.produtoForm.get('descricao').value;
-    this.produto.quantidade = this.produtoForm.get('quantidade').value;
-    this.produto.quantidadeMinima = this.produtoForm.get('quantidadeMinima').value;
-    this.produto.dataValidade = this.produtoForm.get('dataValidade').value;
+    this.produto.marca = this.produtoForm.get('marca').value;
 
     this.produtoService.atualizar(this.produto).subscribe(
       res => {
-        this.router.navigate(['/home/produtos']);
-        this.toastr.success('Fornecedor ' + res.nome + ' editado com sucesso!');
+        this.router.navigate(['/home/produto']);
+        this.toastr.success('Produto ' + res.nome + ' editado com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao editar Fornecedor: ' + err.error.message);
+        this.toastr.error('Erro ao editar produto: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
