@@ -40,6 +40,7 @@ export class ProdutosComponent implements OnInit {
       { prop: 'nome', name: 'nome' },
       { prop: 'descricao', name: 'Descrição' },
       { prop: 'marca', name: 'Marca' },
+      { prop: 'fornecedor.nome', name: 'Fornecedor' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
     ];
   }

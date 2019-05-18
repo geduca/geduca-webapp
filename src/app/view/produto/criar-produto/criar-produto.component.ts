@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
-import { Pageable } from '../../../model/Pageable';
 import { Produto } from '../../../model/Produto';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { ProdutoService } from '../../../service/produto.service';
@@ -16,10 +15,8 @@ import { Fornecedor } from './../../../model/Fornecedor';
 })
 export class CriarProdutoComponent implements OnInit {
 
-  produto: Produto;
   fornecedores: Fornecedor[];
   produtoForm: FormGroup;
-  page = new Pageable();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,20 +26,18 @@ export class CriarProdutoComponent implements OnInit {
     private router: Router,
     private loader: NgxUiLoaderService
   ) {
-    this.page.pageNumber = 0;
-    this.page.pageSize = 10;
   }
 
   ngOnInit() {
-    this.produto = new Produto();
-    this.fornecedorService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
-      this.fornecedores = res.content;
-      this.page = res.pageable;
+    this.loader.startBackground();
+
+    this.fornecedorService.listaTodos().subscribe(res => {
+      this.fornecedores = res;
       this.loader.stopBackground();
     });
 
     this.produtoForm = this.formBuilder.group({
-      codigo: [''], nome: [''], descricao: [''], marca: ['']
+      codigo: [''], nome: [''], descricao: [''], marca: [''], fornecedor: ['']
     });
   }
 
@@ -53,6 +48,7 @@ export class CriarProdutoComponent implements OnInit {
     produto.nome = this.produtoForm.get('nome').value;
     produto.descricao = this.produtoForm.get('descricao').value;
     produto.marca = this.produtoForm.get('marca').value;
+    produto.fornecedor = this.produtoForm.get('fornecedor').value;
 
     this.produtoService.criar(produto).subscribe(
       res => {

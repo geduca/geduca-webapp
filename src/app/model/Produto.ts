@@ -6,4 +6,5 @@ export class Produto {
    nome: string;
    descricao: string;
    marca: string;
+   fornecedor: Fornecedor;
 }

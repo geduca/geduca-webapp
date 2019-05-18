@@ -37,6 +37,16 @@
                       <input type="text" id="marca" name="marca" class="form-control" formControlName="marca">
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="fornecedor">Fornecedor:</label>
+                    <div class="col-md-9">
+                      <select id="fornecedor" name="fornecedor" class="form-control" formControlName="fornecedor">
+                        <option *ngFor="let fornecedor of fornecedores" [ngValue]="fornecedor">
+                          {{fornecedor?.nome}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
                </div>
                <div class="card-footer text-right">
                   <button class="btn btn-secondary" routerLink="/home/produto" type="button">Cancelar</button>

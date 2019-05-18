@@ -22,6 +22,10 @@ export class FornecedorService {
     return this.http.get<Page<Fornecedor>>(this.apiUrl, { params });
   }
 
+  listaTodos(): Observable<Fornecedor[]> {
+    return this.http.get<Fornecedor[]>(this.apiUrl + '/lista');
+  }
+
   buscaPeloCodigo(codigo: number): Observable<Fornecedor> {
     return this.http.get<Fornecedor>(this.apiUrl + `/${codigo}`);
   }
