@@ -8,7 +8,7 @@
               <strong>Produtos</strong>
             </div>
             <div class="col-2">
-              <button type="button" class="btn btn-primary" routerLink="/home/produtos/novo">
+              <button type="button" class="btn btn-primary" routerLink="/home/produto/novo">
                 <i class="fa fa-plus"></i>&nbsp;Cadastrar
               </button>
             </div>
@@ -25,7 +25,8 @@
             <button type="button" class="btn btn-primary mr-2" [routerLink]="['editar', row.codigo]">
               <i class="fa fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-primary" (click)="removerProduto(row)">
+            <button type="button" class="btn btn-danger" tooltip="Excluir" placement="auto"
+              (click)="removerProduto(row)">
               <i class="fa fa-trash"></i>
             </button>
           </ng-template>

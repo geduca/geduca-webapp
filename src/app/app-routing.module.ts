@@ -29,12 +29,28 @@ const routes: Routes = [
         loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
       },
       {
+        path: 'registro-nutricional',
+        loadChildren: './view/registro-nutricional/registro-nutricional.module#RegistroNutricionalModule'
+      },
+      {
+        path: 'unidade',
+        loadChildren: './view/unidade/unidade.module#UnidadeModule'
+      },
+      {
         path: 'fornecedor',
         loadChildren: './view/fornecedor/fornecedor.module#FornecedorModule'
       },
       {
-        path: 'produtos',
+        path: 'produto',
         loadChildren: './view/produto/produto.module#ProdutoModule'
+      },
+      {
+        path: 'funcionario',
+        loadChildren: './view/funcionario/funcionario.module#FuncionarioModule'
+      },
+      {
+        path: 'estoque',
+        loadChildren: './view/estoque/estoque.module#EstoqueModule'
       }
     ]
   },

@@ -23,10 +23,15 @@
           </ngx-datatable>
 
           <ng-template #acoes let-row="row" let-value="value">
+            <button type="button" class="btn btn-primary mr-2" tooltip="Visualizar" placement="auto"
+               [routerLink]="['visualizar', row?.codigo]">
+               <i class="fa fa-eye"></i>
+            </button>
             <button type="button" class="btn btn-primary mr-2" [routerLink]="['editar', row.codigo]">
               <i class="fa fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-primary" (click)="removerFornecedor(row)">
+            <button type="button" type="button" class="btn btn-danger" tooltip="Excluir" placement="auto"
+              (click)="removerFornecedor(row)">
               <i class="fa fa-trash"></i>
             </button>
           </ng-template>

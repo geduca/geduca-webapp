@@ -5,8 +5,6 @@ export class Produto {
    codigo: number;
    nome: string;
    descricao: string;
-   quantidade: number;
-   quantidadeMinima: number;
-   dataValidade: Date;
-   fornecedores: Fornecedor[];
+   marca: string;
+   fornecedor: Fornecedor;
 }

@@ -5,12 +5,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ProdutosComponent } from './produto/produto.component';
 import { ProdutoRoutingModule } from './produto-routing.module';
 import { CriarProdutoComponent } from './criar-produto/criar-produto.component';
+import { EditarProdutoComponent } from './editar-produto/editar-produto.component';
 
 @NgModule({
   declarations: [
     ProdutosComponent,
     CriarProdutoComponent,
-   //  EditarFornecedorComponent
+    EditarProdutoComponent
   ],
   imports: [
     CommonModule,

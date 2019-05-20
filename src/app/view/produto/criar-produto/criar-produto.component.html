@@ -20,12 +20,6 @@
                   </div>
                   <hr>
                   <div class="form-group row">
-                     <label class="col-md-3 col-form-label" for="codigo">Codigo:</label>
-                     <div class="col-md-9">
-                        <input type="number" id="codigo" name="codigo" class="form-control" formControlName="codigo">
-                     </div>
-                  </div>
-                  <div class="form-group row">
                      <label class="col-md-3 col-form-label" for="nome">Nome:</label>
                      <div class="col-md-9">
                         <input type="text" id="nome" name="nome" class="form-control" formControlName="nome">
@@ -38,32 +32,20 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label class="col-md-3 col-form-label" for="quantidade">Quantidade:</label>
-                     <div class="col-md-9">
-                        <input type="number" id="quantidade" name="quantidade" class="form-control" autocomplete="quantidade" formControlName="quantidade">
-                     </div>
+                    <label class="col-md-3 col-form-label" for="marca">Marca:</label>
+                    <div class="col-md-9">
+                      <input type="text" id="marca" name="marca" class="form-control" formControlName="marca">
+                    </div>
                   </div>
                   <div class="form-group row">
-                     <label class="col-md-3 col-form-label" for="email">Quantidade Mínima:</label>
-                     <div class="col-md-9">
-                        <input type="number" id="quantidadeMinima" name="quantidadeMinima" class="form-control" autocomplete="quantidadeMinima" formControlName="quantidadeMinima">
-                     </div>
-                  </div>
-                  <div class="form-group row">
-                     <label class="col-md-3 col-form-label" for="dataValidade">Data de Validade:</label>
-                     <div class="col-md-9">
-                        <input type="date" id="dataValidade" name="dataValidade" class="form-control" formControlName="dataValidade">
-                     </div>
-                  </div>
-                  <div class="form-group row">
-                     <label class="col-md-3 col-form-label" for="fornecedores">Fornecedores:</label>
-                     <div class="col-md-9">
-                        <select id="fornecedores" name="fornecedores" class="form-control" formControlName="fornecedores">
-                           <option *ngFor="let fornecedor of fornecedores">
-                              {{fornecedor?.nome}}
-                           </option>
-                        </select>
-                     </div>
+                    <label class="col-md-3 col-form-label" for="fornecedor">Fornecedor:</label>
+                    <div class="col-md-9">
+                      <select id="fornecedor" name="fornecedor" class="form-control" formControlName="fornecedor">
+                        <option *ngFor="let fornecedor of fornecedores" [ngValue]="fornecedor">
+                          {{fornecedor?.nome}}
+                        </option>
+                      </select>
+                    </div>
                   </div>
                </div>
                <div class="card-footer text-right">

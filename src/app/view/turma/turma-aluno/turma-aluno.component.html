@@ -76,7 +76,7 @@
                     <tr *ngFor="let turmaAluno of alunos">
                       <td>{{turmaAluno?.aluno?.codigo}}</td>
                       <td>{{turmaAluno?.aluno?.pessoa?.nome}}</td>
-                      <td>{{turmaAluno?.aluno?.pessoa?.dataNascimento | date: 'yyyy-MM-dd'}}</td>
+                      <td>{{turmaAluno?.aluno?.pessoa?.dataNascimento | date: 'dd-MM-yyyy'}}</td>
                       <td>
                         <button type="button" class="btn btn-success mr-2" tooltip="Restrição Alimentar"
                           placement="right" [routerLink]="['/home/aluno/restricao-alimentar', turmaAluno?.aluno?.codigo]">

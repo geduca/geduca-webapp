@@ -51,12 +51,28 @@ export const navItems: NavData[] = [
     icon: 'fa fa-leaf'
   },
   {
+    name: 'Produtos',
+    url: 'produto',
+    icon: 'fa fa-shopping-cart'
+  },
+  {
+    name: 'Unidades',
+    url: 'unidade',
+    icon: 'fa fa-ruler-vertical'
+  },
+  {
     name: 'Fornecedores',
     url: 'fornecedor',
     icon: 'fa fa-truck'
-  }, {
-    name: 'Produtos',
-    url: 'produtos',
-    icon: 'fa fa-shopping-cart'
+  },
+  {
+    name: 'Funcionarios',
+    url: 'funcionario',
+    icon: 'fa fa-user-tie'
+  },
+  {
+    name: 'Estoque',
+    url: 'estoque',
+    icon: 'fa fa-file'
   }
 ];
