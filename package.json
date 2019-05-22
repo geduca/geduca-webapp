@@ -1,9 +1,9 @@
 {
   "name": "geduca-webapp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "node Server.js",
     "build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,6 +31,7 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "core-js": "^2.5.4",
+    "express": "^4.17.0",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.11",
