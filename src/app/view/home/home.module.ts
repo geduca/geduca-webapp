@@ -19,7 +19,6 @@ import { HomeComponent } from './home.component';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     CoreModule,
     SecurityModule,
     AppRoutingModule,
