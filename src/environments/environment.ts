@@ -8,7 +8,7 @@ export const environment = {
   apiUrl: 'http://localhost:12333/geduca',
 
   // token oauth0
-  tokenWhitelistedDomains: [new RegExp('localhost:12333')],
+  tokenWhitelistedDomains: [new RegExp('localhost:12333'), 'localhost:12333', new RegExp('localhost')],
   tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
 };
 
