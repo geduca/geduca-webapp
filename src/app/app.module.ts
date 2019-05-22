@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppBreadcrumbModule } from '@coreui/angular';
@@ -14,6 +14,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './view/home/home.module';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { AuthService } from './core/services/auth.service';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AuthInterceptService } from './core/services/auth-intercept.service';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'black',
@@ -31,6 +40,14 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: environment.tokenWhitelistedDomains,
+        blacklistedRoutes: environment.tokenBlacklistedRoutes,
+        skipWhenExpired: false
+      }
+    }),
     AppBreadcrumbModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
@@ -41,7 +58,16 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CoreModule,
     HomeModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthInterceptService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
