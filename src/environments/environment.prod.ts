@@ -4,5 +4,5 @@ export const environment = {
 
   // token oauth0
   tokenWhitelistedDomains: [/geduca-api.herokuapp.com/],
-  tokenBlacklistedRoutes: [/\/oauth\/token/)]
+  tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
 };
