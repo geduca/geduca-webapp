@@ -3,6 +3,6 @@ export const environment = {
   apiUrl: 'https://geduca-api.herokuapp.com/geduca',
 
   // token oauth0
-  tokenWhitelistedDomains: [new RegExp('geduca-api.herokuapp.com')],
-  tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
+  tokenWhitelistedDomains: [/geduca-api.herokuapp.com/],
+  tokenBlacklistedRoutes: [/\/oauth\/token/)]
 };
