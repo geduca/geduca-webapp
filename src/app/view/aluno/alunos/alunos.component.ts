@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { DateBrPipe } from 'src/app/core/pipes/date-br.pipe';
 import { Aluno } from 'src/app/model/Aluno';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
@@ -24,6 +23,7 @@ export class AlunosComponent implements OnInit {
   @ViewChild('acoes') acoes: TemplateRef<any>;
   @ViewChild('nutricao') nutricao: TemplateRef<any>;
   @ViewChild('ativo') ativo: TemplateRef<any>;
+  @ViewChild('dataNascimento') dataNascimento: TemplateRef<any>;
 
   constructor(
     private alunoService: AlunoService,
@@ -40,7 +40,7 @@ export class AlunosComponent implements OnInit {
       { prop: 'codigo', name: 'Matrícula' },
       { prop: 'pessoa.nome', name: 'Nome' },
       { prop: 'pessoa.cpf', name: 'CPF' },
-      { prop: 'pessoa.dataNascimento', name: 'Data de Nascimento', pipe: new DateBrPipe('en-US') },
+      { prop: 'pessoa.dataNascimento', cellTemplate: this.dataNascimento, name: 'Data de Nascimento' },
       { prop: 'pessoa.ativo', cellTemplate: this.ativo, name: 'Status' },
       { prop: '', cellTemplate: this.nutricao, name: 'Nutrição', sortable: false },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }

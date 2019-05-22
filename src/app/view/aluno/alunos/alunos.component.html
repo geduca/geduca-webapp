@@ -27,6 +27,10 @@
                 {{isAtivo(row?.pessoa?.ativo)}}
               </ng-template>
 
+              <ng-template let-row="row" let-value="value" #dataNascimento>
+                {{row?.pessoa?.dataNascimento}}
+              </ng-template>
+
               <ng-template #nutricao let-row="row" let-value="value">
                 <button type="button" class="btn btn-success mr-2" tooltip="Restrição Alimentar" placement="auto"
                   [routerLink]="['restricao-alimentar', row?.codigo]">
