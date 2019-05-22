@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:12333/geduca',
+  apiUrl: 'https://geduca-api.herokuapp.com/geduca',
 
   // token oauth0
-  tokenWhitelistedDomains: [new RegExp('localhost:12333')],
+  tokenWhitelistedDomains: [new RegExp('geduca-api.herokuapp.com')],
   tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
 };
