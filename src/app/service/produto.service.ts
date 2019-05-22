@@ -17,6 +17,10 @@ export class ProdutoService {
     this.apiUrl = environment.apiUrl + '/produtos';
   }
 
+  listaTodos(): Observable<Produto[]> {
+    return this.http.get<Produto[]>(this.apiUrl + '/lista');
+  }
+
   pesquisar(pagina, max): Observable<Page<Produto>> {
     const params = { pagina, max };
     return this.http.get<Page<Produto>>(this.apiUrl, { params });

@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { EstoqueComponent } from './estoque/estoque.component';
-import { EstoqueRoutingModule } from './estoque-routing.module';
+
 import { CriarEstoqueComponent } from './criar-estoque/criar-estoque.component';
 import { EditarEstoqueComponent } from './editar-estoque/editar-estoque.component';
+import { EstoqueProdutoComponent } from './estoque-produto/estoque-produto.component';
+import { EstoqueRoutingModule } from './estoque-routing.module';
+import { EstoqueComponent } from './estoque/estoque.component';
 import { VisualizarEstoqueComponent } from './visualizar-estoque/visualizar-estoque.component';
 
 
@@ -15,7 +17,8 @@ import { VisualizarEstoqueComponent } from './visualizar-estoque/visualizar-esto
     EstoqueComponent,
     CriarEstoqueComponent,
     EditarEstoqueComponent,
-    VisualizarEstoqueComponent
+    VisualizarEstoqueComponent,
+    EstoqueProdutoComponent
   ],
   imports: [
     CommonModule,
