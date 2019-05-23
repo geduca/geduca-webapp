@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Endereco as EnderecoViaCep, ErroCep, NgxViacepService } from '@brunoc/ngx-viacep';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { notVoidOrNull } from 'src/app/core/utils/notVoidOrNull';
 import { Aluno } from 'src/app/model/Aluno';
 import { Pessoa } from 'src/app/model/Pessoa';
 import { AlunoService } from 'src/app/service/aluno.service';
@@ -18,12 +20,15 @@ export class CriarAlunoComponent implements OnInit {
 
   alunoForm: FormGroup;
 
+  @ViewChild('campoNumero') campoNumero: ElementRef;
+
   constructor(
     private formBuilder: FormBuilder,
     private alunoService: AlunoService,
     private toastr: ToastrService,
     private router: Router,
-    private loader: NgxUiLoaderService
+    private loader: NgxUiLoaderService,
+    private viacep: NgxViacepService
   ) { }
 
   ngOnInit() {
@@ -50,7 +55,7 @@ export class CriarAlunoComponent implements OnInit {
     pessoa.nome = this.alunoForm.get('nome').value;
     pessoa.cpf = this.alunoForm.get('cpf').value;
     pessoa.dataNascimento = this.alunoForm.get('dataNascimento').value;
-    pessoa.sexo = this.alunoForm.get('sexo').value;
+    pessoa.sexo = notVoidOrNull(this.alunoForm.get('sexo').value) ? this.alunoForm.get('sexo').value : null;
     pessoa.pai = this.alunoForm.get('pai').value;
     pessoa.mae = this.alunoForm.get('mae').value;
     pessoa.email = this.alunoForm.get('email').value;
@@ -64,7 +69,7 @@ export class CriarAlunoComponent implements OnInit {
     endereco.cidade = this.alunoForm.get('cidade').value;
     endereco.estado = this.alunoForm.get('estado').value;
     fichaSaude.cartaoSus = this.alunoForm.get('cartaoSus').value;
-    fichaSaude.tipoSanguineo = this.alunoForm.get('tipoSanguineo').value;
+    fichaSaude.tipoSanguineo = notVoidOrNull(this.alunoForm.get('tipoSanguineo').value) ? this.alunoForm.get('tipoSanguineo').value : null;
     fichaSaude.doenca = this.alunoForm.get('doenca').value;
     fichaSaude.doencaDescricao = this.alunoForm.get('doencaDescricao').value;
     fichaSaude.medicamento = this.alunoForm.get('medicamento').value;
@@ -93,5 +98,19 @@ export class CriarAlunoComponent implements OnInit {
         this.loader.stopBackground();
       }
     );
+  }
+
+  buscaCep() {
+    this.viacep.buscarPorCep(this.alunoForm.get('cep').value).then((endereco: EnderecoViaCep) => {
+      this.alunoForm.get('cep').setValue(endereco.cep);
+      this.alunoForm.get('logradouro').setValue(endereco.logradouro);
+      this.alunoForm.get('complemento').setValue(endereco.complemento);
+      this.alunoForm.get('bairro').setValue(endereco.bairro);
+      this.alunoForm.get('cidade').setValue(endereco.localidade);
+      this.alunoForm.get('estado').setValue(endereco.uf);
+      this.campoNumero.nativeElement.focus();
+    }).catch((error: ErroCep) => {
+      this.toastr.info(error.message);
+    });
   }
 }

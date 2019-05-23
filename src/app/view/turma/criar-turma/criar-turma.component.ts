@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { notVoidOrNull } from 'src/app/core/utils/notVoidOrNull';
 import { Curso } from 'src/app/model/Curso';
 import { Turma } from 'src/app/model/Turma';
 import { CursoService } from 'src/app/service/curso.service';
@@ -47,11 +48,11 @@ export class CriarTurmaComponent implements OnInit {
     const turma = new Turma();
     const curso = new Curso();
 
-    curso.codigo = this.form.get('curso').value;
+    curso.codigo = notVoidOrNull(this.form.get('curso').value) ? this.form.get('curso').value : null;
 
     turma.nome = this.form.get('nome').value;
     turma.sala = this.form.get('sala').value;
-    turma.periodo = this.form.get('periodo').value;
+    turma.periodo = notVoidOrNull(this.form.get('periodo').value) ? this.form.get('periodo').value : null;
     turma.dataInicio = this.form.get('dataInicio').value;
     turma.dataFim = this.form.get('dataFim').value;
     turma.curso = curso;

@@ -57,9 +57,30 @@
             </div>
             <hr>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="cep">CEP:</label>
-              <div class="col-md-9">
+              <label class="col-md-2 col-form-label" for="cep">CEP:</label>
+              <div class="col-md-3">
                 <input type="text" id="cep" name="cep" class="form-control" formControlName="cep">
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-primary" (click)="buscaCep()">buscar</button>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="estado">Estado:</label>
+              <div class="col-md-9">
+                <input type="text" id="estado" name="estado" class="form-control" formControlName="estado">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="cidade">Cidade:</label>
+              <div class="col-md-9">
+                <input type="text" id="cidade" name="cidade" class="form-control" formControlName="cidade">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="bairro">Bairro:</label>
+              <div class="col-md-9">
+                <input type="text" id="bairro" name="bairro" class="form-control" formControlName="bairro">
               </div>
             </div>
             <div class="form-group row">
@@ -71,7 +92,7 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="numero">Numero:</label>
               <div class="col-md-9">
-                <input type="text" id="numero" name="numero" class="form-control" formControlName="numero">
+                <input #campoNumero type="text" id="numero" name="numero" class="form-control" formControlName="numero">
               </div>
             </div>
             <div class="form-group row">
@@ -79,24 +100,6 @@
               <div class="col-md-9">
                 <input type="text" id="complemento" name="complemento" class="form-control"
                   formControlName="complemento">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="bairro">Bairro:</label>
-              <div class="col-md-9">
-                <input type="text" id="bairro" name="bairro" class="form-control" formControlName="bairro">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="cidade">Cidade:</label>
-              <div class="col-md-9">
-                <input type="text" id="cidade" name="cidade" class="form-control" formControlName="cidade">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="estado">Estado:</label>
-              <div class="col-md-9">
-                <input type="text" id="estado" name="estado" class="form-control" formControlName="estado">
               </div>
             </div>
           </div>
