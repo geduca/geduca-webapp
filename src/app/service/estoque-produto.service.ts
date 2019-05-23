@@ -32,7 +32,7 @@ export class EstoqueProdutoService {
     return this.http.get<EstoqueProduto[]>(this.apiUrl + `/produto?codigoProduto=${codigoProduto}`);
   }
 
-  criar(produtos: Produto[], codigoEstoque: number): Observable<any> {
+  criar(produtos: EstoqueProdutoUtil[], codigoEstoque: number): Observable<any> {
     return this.http.post<EstoqueProdutoUtil[]>(this.apiUrl + `?codigoEstoque=${codigoEstoque}`, produtos);
   }
 

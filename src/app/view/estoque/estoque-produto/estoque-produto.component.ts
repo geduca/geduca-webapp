@@ -4,15 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Produto } from 'src/app/model/Produto';
+import { notVoidOrNull } from 'src/app/core/utils/notVoidOrNull';
 import { Estoque } from 'src/app/model/Estoque';
 import { EstoqueProduto } from 'src/app/model/EstoqueProduto';
+import { Produto } from 'src/app/model/Produto';
+import { Unidade } from 'src/app/model/Unidade';
 import { ProdutoService } from 'src/app/service/produto.service';
 
 import { EstoqueProdutoService } from '../../../service/estoque-produto.service';
 import { EstoqueService } from '../../../service/estoque.service';
-
-
+import { UnidadeService } from './../../../service/unidade.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 
 @Component({
@@ -23,14 +25,17 @@ export class EstoqueProdutoComponent implements OnInit {
 
   modalRef: BsModalRef;
   form: FormGroup;
+  formEditar: FormGroup;
 
   estoque: Estoque;
   produtos: EstoqueProduto[];
   produtosDisponiveis: Produto[];
+  unidadesDisponiveis: Unidade[];
 
   constructor(
     private estoqueProdutoService: EstoqueProdutoService,
     private produtoService: ProdutoService,
+    private unidadeService: UnidadeService,
     private estoqueService: EstoqueService,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
@@ -41,6 +46,7 @@ export class EstoqueProdutoComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({ produtos: [''] });
+    this.formEditar = this.formBuilder.group({ unidade: [''], quantidade: [''], quantidadeMinima: [''] });
 
     const codigo = this.activatedRoute.snapshot.params.codigo;
 
@@ -51,9 +57,25 @@ export class EstoqueProdutoComponent implements OnInit {
       // produtos da estoque
       this.estoqueProdutoService.buscaPorEstoque(this.estoque.codigo).subscribe(resp => {
         this.produtos = resp;
-        console.log(this.produtos);
       }, err => {
         this.toast.error('Erro ao carregar produtos da estoque : ' + err.error.message);
+      });
+      // produtos disponiveis
+      this.loader.startBackground();
+      this.produtoService.listaTodos().subscribe(response => {
+        this.produtosDisponiveis = response;
+        this.loader.stopBackground();
+      }, err => {
+        this.toast.error('Erro ao carregar produtos disponíveis: ' + err.error.message);
+        this.loader.stopBackground();
+      });
+      // unidades disponiveis
+      this.unidadeService.listaTodos().subscribe(response => {
+        this.unidadesDisponiveis = response;
+        this.loader.stopBackground();
+      }, err => {
+        this.toast.error('Erro ao carregar unidades disponíveis: ' + err.error.message);
+        this.loader.stopBackground();
       });
 
       this.loader.stopBackground();
@@ -74,15 +96,6 @@ export class EstoqueProdutoComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    // produtos disponiveis
-    this.loader.startBackground();
-    this.produtoService.listaTodos().subscribe(response => {
-      this.produtosDisponiveis = response;
-      this.loader.stopBackground();
-    }, err => {
-      this.toast.error('Erro ao carregar produtos disponíveis: ' + err.error.message);
-      this.loader.stopBackground();
-    });
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
   }
 
@@ -92,10 +105,17 @@ export class EstoqueProdutoComponent implements OnInit {
 
   adicionarProdutos() {
     const produtosSelecionados: Produto[] = this.form.get('produtos').value;
-    console.log(produtosSelecionados);
     if (produtosSelecionados.length > 0) {
       this.loader.startBackground();
-      this.estoqueProdutoService.criar(produtosSelecionados, this.estoque.codigo).subscribe(res => {
+      const estoquesProdutos: EstoqueProduto[] = [];
+
+      produtosSelecionados.forEach(produto => {
+        const estoqueProduto = new EstoqueProduto();
+        estoqueProduto.produto = produto;
+        estoquesProdutos.push(estoqueProduto);
+      });
+
+      this.estoqueProdutoService.criar(estoquesProdutos, this.estoque.codigo).subscribe(res => {
         this.estoqueProdutoService.buscaPorEstoque(this.estoque.codigo).subscribe(resp => {
           this.produtos = resp;
           this.closeModal();
@@ -116,13 +136,44 @@ export class EstoqueProdutoComponent implements OnInit {
     this.estoqueProdutoService.remover(estoqueProduto.codigo).subscribe(res => {
       this.estoqueProdutoService.buscaPorEstoque(this.estoque.codigo).subscribe(resp => {
         this.produtos = resp;
+        this.closeModal();
       }, err => {
-          this.toast.error('Erro ao carregar Produtos da Estoque: ' + err.error.message);
+        this.toast.error('Erro ao carregar Produtos da Estoque: ' + err.error.message);
       });
       this.toast.success('Produto removido com sucesso!');
       this.loader.stopBackground();
     }, err => {
       this.toast.error('Erro ao remover produto: ' + err.error.message);
+      this.loader.stopBackground();
+    });
+  }
+
+  editarProduto(estoqueProduto: EstoqueProduto) {
+    this.loader.startBackground();
+    if (notVoidOrNull(this.formEditar.get('unidade').value) === true) {
+      const unidade = new Unidade();
+      unidade.codigo = this.formEditar.get('unidade').value;
+      estoqueProduto.unidade = unidade;
+    }
+    if (notVoidOrNull(this.formEditar.get('quantidade').value) === true) {
+      estoqueProduto.quantidade = this.formEditar.get('quantidade').value;
+    }
+    if (notVoidOrNull(this.formEditar.get('quantidadeMinima').value) === true) {
+      estoqueProduto.quantidadeMinima = this.formEditar.get('quantidadeMinima').value;
+    }
+
+    this.estoqueProdutoService.atualizar(estoqueProduto).subscribe(res => {
+      this.estoqueProdutoService.buscaPorEstoque(this.estoque.codigo).subscribe(resp => {
+        this.produtos = resp;
+        this.closeModal();
+      }, err => {
+        this.toast.error('Erro ao carregar Produtos da Estoque: ' + err.error.message);
+      });
+      this.toast.success('Alteração realizada com sucesso!');
+      this.loader.stopBackground();
+      this.formEditar.reset();
+    }, err => {
+      this.toast.error('Erro ao alterar quantidades do produto: ' + err.error.message);
       this.loader.stopBackground();
     });
   }
