@@ -1,6 +1,6 @@
 {
   "name": "geduca-webapp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "ng": "ng",
     "start": "node Server.js",
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@auth0/angular-jwt": "^2.1.0",
+    "@brunoc/ngx-viacep": "^2.1.2",
     "@coreui/angular": "^2.4.5",
     "@coreui/coreui": "^2.1.8",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",

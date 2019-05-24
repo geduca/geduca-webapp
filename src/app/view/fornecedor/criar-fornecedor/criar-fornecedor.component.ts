@@ -1,12 +1,13 @@
-import { Fornecedor } from './../../../model/Fornecedor';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Endereco as EnderecoViaCep, ErroCep, NgxViacepService } from '@brunoc/ngx-viacep';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 import { Endereco } from '../../../model/Endereco';
 import { FornecedorService } from '../../../service/fornecedor.service';
+import { Fornecedor } from './../../../model/Fornecedor';
 
 @Component({
   selector: 'app-criar-fornecedor',
@@ -17,12 +18,15 @@ export class CriarFornecedorComponent implements OnInit {
   fornecedor: Fornecedor;
   fornecedorForm: FormGroup;
 
+  @ViewChild('campoNumero') campoNumero: ElementRef;
+
   constructor(
     private formBuilder: FormBuilder,
     private fornecedorService: FornecedorService,
     private toastr: ToastrService,
     private router: Router,
-    private loader: NgxUiLoaderService
+    private loader: NgxUiLoaderService,
+    private viacep: NgxViacepService
   ) { }
 
   ngOnInit() {
@@ -63,5 +67,19 @@ export class CriarFornecedorComponent implements OnInit {
         this.loader.stopBackground();
       }
     );
+  }
+
+  buscaCep() {
+    this.viacep.buscarPorCep(this.fornecedorForm.get('cep').value).then((endereco: EnderecoViaCep) => {
+      this.fornecedorForm.get('cep').setValue(endereco.cep);
+      this.fornecedorForm.get('logradouro').setValue(endereco.logradouro);
+      this.fornecedorForm.get('complemento').setValue(endereco.complemento);
+      this.fornecedorForm.get('bairro').setValue(endereco.bairro);
+      this.fornecedorForm.get('cidade').setValue(endereco.localidade);
+      this.fornecedorForm.get('estado').setValue(endereco.uf);
+      this.campoNumero.nativeElement.focus();
+    }).catch((error: ErroCep) => {
+      this.toastr.info(error.message);
+    });
   }
 }
