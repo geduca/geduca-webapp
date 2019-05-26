@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
+import { CoreModule } from './../../core/core.module';
 import { AlunoRestricaoAlimentarComponent } from './aluno-restricao-alimentar/aluno-restricao-alimentar.component';
 import { AlunoRoutingModule } from './aluno-routing.module';
 import { AlunosComponent } from './alunos/alunos.component';
@@ -29,7 +28,8 @@ import { VisualizarAlunoComponent } from './visualizar-aluno/visualizar-aluno.co
     AlunoRoutingModule,
     NgxDatatableModule,
     TooltipModule,
-    NgxViacepModule
+    NgxViacepModule,
+    CoreModule
   ],
   exports: [],
   providers: [],
