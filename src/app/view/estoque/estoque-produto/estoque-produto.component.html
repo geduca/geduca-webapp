@@ -97,10 +97,10 @@
                               <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="unidade">Unidade:</label>
                                 <div class="col-md-9">
+                                  <div>Atual: {{estoqueProduto?.unidade?.nome}}</div>
                                   <select id="unidade" name="unidade" class="form-control" formControlName="unidade">
                                     <option *ngFor="let unidade of unidadesDisponiveis"
-                                      [selected]="estoqueProduto?.unidade?.codigo == unidade?.codigo"
-                                      [value]="unidade?.codigo">
+                                      [selected]="estoqueAluno?.unidade === unidade" [value]="unidade?.codigo">
                                       {{unidade?.nome}}
                                     </option>
                                   </select>
