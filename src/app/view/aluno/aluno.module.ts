@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { CoreModule } from './../../core/core.module';
 import { AlunoRestricaoAlimentarComponent } from './aluno-restricao-alimentar/aluno-restricao-alimentar.component';
@@ -29,6 +30,7 @@ import { VisualizarAlunoComponent } from './visualizar-aluno/visualizar-aluno.co
     NgxDatatableModule,
     TooltipModule,
     NgxViacepModule,
+    NgxMaskModule,
     CoreModule
   ],
   exports: [],

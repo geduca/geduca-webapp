@@ -11,6 +11,7 @@ import { AlunoService } from 'src/app/service/aluno.service';
 
 import { Endereco } from '../../../model/Endereco';
 import { FichaSaude } from '../../../model/FichaSaude';
+import { FormValidations } from './../../../model/utils/FormValidations';
 
 @Component({
   selector: 'app-criar-aluno',
@@ -34,16 +35,37 @@ export class CriarAlunoComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(5)]],
-      cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],
-      telefone: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
-      bairro: [''], cidade: [''], estado: [''], cartaoSus: [''], doenca: [''], tipoSanguineo: [''],
-      doencaDescricao: [''], medicamento: [''], medicamentoDescricao: [''], suplemento: [''],
-      suplementoDescricao: [''], deficiencia: [''], deficienciaDescricao: [''], alergia: [''],
-      alergiaDescricao: [''], intolerancia: [''], intoleranciaDescricao: ['']
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      cpf: ['', [Validators.required, FormValidations.ValidaCpf]],
+      dataNascimento: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
+      pai: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      mae: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      email: ['', [Validators.required, Validators.email]],
+      telefone: ['', [Validators.required]],
+      celular: [''],
+      cep: ['', [Validators.required]],
+      logradouro: ['', [Validators.required, Validators.maxLength(120)]],
+      numero: ['', [Validators.required]],
+      complemento: ['', [Validators.maxLength(120)]],
+      bairro: ['', [Validators.required, Validators.maxLength(120)]],
+      cidade: ['', [Validators.required, Validators.maxLength(120)]],
+      estado: ['', [Validators.required, Validators.maxLength(120)]],
+      cartaoSus: ['', [Validators.maxLength(120)]],
+      doenca: [''],
+      tipoSanguineo: [''],
+      doencaDescricao: [''],
+      medicamento: [''],
+      medicamentoDescricao: [''],
+      suplemento: [''],
+      suplementoDescricao: [''],
+      deficiencia: [''],
+      deficienciaDescricao: [''],
+      alergia: [''],
+      alergiaDescricao: [''],
+      intolerancia: [''],
+      intoleranciaDescricao: ['']
     });
-
-    console.log(this.form);
   }
 
   cadastrar() {
@@ -104,6 +126,7 @@ export class CriarAlunoComponent implements OnInit {
   }
 
   buscaCep() {
+    this.loader.startBackground();
     this.viacep.buscarPorCep(this.form.get('cep').value).then((endereco: EnderecoViaCep) => {
       this.form.get('cep').setValue(endereco.cep);
       this.form.get('logradouro').setValue(endereco.logradouro);
@@ -112,8 +135,10 @@ export class CriarAlunoComponent implements OnInit {
       this.form.get('cidade').setValue(endereco.localidade);
       this.form.get('estado').setValue(endereco.uf);
       this.campoNumero.nativeElement.focus();
+      this.loader.stopBackground();
     }).catch((error: ErroCep) => {
       this.toastr.info(error.message);
+      this.loader.stopBackground();
     });
   }
 

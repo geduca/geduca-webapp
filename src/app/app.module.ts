@@ -9,7 +9,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, POSITION, SPINNER } from 'ngx-ui-loader';
-
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -23,6 +23,8 @@ import { AuthInterceptService } from './core/services/auth-intercept.service';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>);
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'black',
@@ -55,6 +57,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ToastrModule.forRoot(),
     TooltipModule.forRoot(),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxMaskModule.forRoot(options),
     CoreModule,
     HomeModule
   ],
