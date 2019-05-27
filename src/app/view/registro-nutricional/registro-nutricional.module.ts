@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -8,6 +9,7 @@ import { CriarRegistroNutricionalComponent } from './criar-registro-nutricional/
 import { EditarRegistroNutricionalComponent } from './editar-registro-nutricional/editar-registro-nutricional.component';
 import { RegistroNutricionalRoutingModule } from './registro-nutricional-routing.module';
 import { RegistrosNutricionaisComponent } from './registros-nutricionais/registros-nutricionais.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { RegistrosNutricionaisComponent } from './registros-nutricionais/registr
     CommonModule,
     ReactiveFormsModule,
     RegistroNutricionalRoutingModule,
+    CoreModule,
     NgxDatatableModule,
+    NgxMaskModule,
     TooltipModule
   ],
   exports: [],
