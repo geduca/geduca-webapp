@@ -36,7 +36,6 @@ export class CursosComponent implements OnInit {
     this.columns = [
       { prop: 'codigo', name: 'Código' },
       { prop: 'nome', name: 'Nome' },
-      { prop: 'descricao', name: 'Descrição' },
       { prop: 'ativo', cellTemplate: this.ativo, name: 'Status' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
     ];
