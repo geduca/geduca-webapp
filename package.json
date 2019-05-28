@@ -4,13 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "node Server.js",
-    "build": "ng build --aot --prod",
+    "build": "ng build --aot --prod --vendor-chunk --common-chunk --buildOptimizer",
     "serve": "ng serve --live-reload -o",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "getVersion": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && echo $PACKAGE_VERSION",
-    "postinstall": "ng build --aot --prod"
+    "postinstall": "ng build --aot --prod  --vendor-chunk --common-chunk --buildOptimizer"
   },
   "private": true,
   "dependencies": {

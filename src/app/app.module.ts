@@ -24,7 +24,7 @@ export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'black',
