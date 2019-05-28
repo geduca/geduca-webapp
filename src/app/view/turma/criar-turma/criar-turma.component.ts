@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -38,7 +38,12 @@ export class CriarTurmaComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      nome: [''], sala: [''], curso: [''], periodo: [''], dataInicio: [''], dataFim: ['']
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      sala: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      curso: ['', [Validators.required]],
+      periodo: ['', [Validators.required]],
+      dataInicio: [''],
+      dataFim: ['']
     });
   }
 
@@ -69,4 +74,13 @@ export class CriarTurmaComponent implements OnInit {
       }
     );
   }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
+  }
+
 }

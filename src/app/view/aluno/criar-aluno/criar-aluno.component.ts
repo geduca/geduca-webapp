@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Endereco as EnderecoViaCep, ErroCep, NgxViacepService } from '@brunoc/ngx-viacep';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { AlunoService } from 'src/app/service/aluno.service';
 
 import { Endereco } from '../../../model/Endereco';
 import { FichaSaude } from '../../../model/FichaSaude';
+import { FormValidations } from './../../../model/utils/FormValidations';
 
 @Component({
   selector: 'app-criar-aluno',
@@ -18,7 +19,7 @@ import { FichaSaude } from '../../../model/FichaSaude';
 })
 export class CriarAlunoComponent implements OnInit {
 
-  alunoForm: FormGroup;
+  form: FormGroup;
 
   @ViewChild('campoNumero') campoNumero: ElementRef;
 
@@ -33,13 +34,37 @@ export class CriarAlunoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.alunoForm = this.formBuilder.group({
-      nome: [''], cpf: [''], dataNascimento: [''], sexo: [''], pai: [''], mae: [''], email: [''],
-      telefone: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
-      bairro: [''], cidade: [''], estado: [''], cartaoSus: [''], doenca: [''], tipoSanguineo: [''],
-      doencaDescricao: [''], medicamento: [''], medicamentoDescricao: [''], suplemento: [''],
-      suplementoDescricao: [''], deficiencia: [''], deficienciaDescricao: [''], alergia: [''],
-      alergiaDescricao: [''], intolerancia: [''], intoleranciaDescricao: ['']
+    this.form = this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      cpf: ['', [Validators.required, FormValidations.ValidaCpf]],
+      dataNascimento: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
+      pai: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      mae: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      email: ['', [Validators.required, Validators.email]],
+      telefone: ['', [Validators.required]],
+      celular: [''],
+      cep: ['', [Validators.required]],
+      logradouro: ['', [Validators.required, Validators.maxLength(120)]],
+      numero: ['', [Validators.required]],
+      complemento: ['', [Validators.maxLength(120)]],
+      bairro: ['', [Validators.required, Validators.maxLength(120)]],
+      cidade: ['', [Validators.required, Validators.maxLength(120)]],
+      estado: ['', [Validators.required, Validators.maxLength(120)]],
+      cartaoSus: ['', [Validators.maxLength(120)]],
+      doenca: [''],
+      tipoSanguineo: [''],
+      doencaDescricao: [''],
+      medicamento: [''],
+      medicamentoDescricao: [''],
+      suplemento: [''],
+      suplementoDescricao: [''],
+      deficiencia: [''],
+      deficienciaDescricao: [''],
+      alergia: [''],
+      alergiaDescricao: [''],
+      intolerancia: [''],
+      intoleranciaDescricao: ['']
     });
   }
 
@@ -52,36 +77,36 @@ export class CriarAlunoComponent implements OnInit {
     const endereco = new Endereco();
     const fichaSaude = new FichaSaude();
 
-    pessoa.nome = this.alunoForm.get('nome').value;
-    pessoa.cpf = this.alunoForm.get('cpf').value;
-    pessoa.dataNascimento = this.alunoForm.get('dataNascimento').value;
-    pessoa.sexo = notVoidOrNull(this.alunoForm.get('sexo').value) ? this.alunoForm.get('sexo').value : null;
-    pessoa.pai = this.alunoForm.get('pai').value;
-    pessoa.mae = this.alunoForm.get('mae').value;
-    pessoa.email = this.alunoForm.get('email').value;
-    pessoa.telefone = this.alunoForm.get('telefone').value;
-    pessoa.celular = this.alunoForm.get('celular').value;
-    endereco.cep = this.alunoForm.get('cep').value;
-    endereco.logradouro = this.alunoForm.get('logradouro').value;
-    endereco.numero = this.alunoForm.get('numero').value;
-    endereco.complemento = this.alunoForm.get('complemento').value;
-    endereco.bairro = this.alunoForm.get('bairro').value;
-    endereco.cidade = this.alunoForm.get('cidade').value;
-    endereco.estado = this.alunoForm.get('estado').value;
-    fichaSaude.cartaoSus = this.alunoForm.get('cartaoSus').value;
-    fichaSaude.tipoSanguineo = notVoidOrNull(this.alunoForm.get('tipoSanguineo').value) ? this.alunoForm.get('tipoSanguineo').value : null;
-    fichaSaude.doenca = this.alunoForm.get('doenca').value;
-    fichaSaude.doencaDescricao = this.alunoForm.get('doencaDescricao').value;
-    fichaSaude.medicamento = this.alunoForm.get('medicamento').value;
-    fichaSaude.medicamentoDescricao = this.alunoForm.get('medicamentoDescricao').value;
-    fichaSaude.suplemento = this.alunoForm.get('suplemento').value;
-    fichaSaude.suplementoDescricao = this.alunoForm.get('suplementoDescricao').value;
-    fichaSaude.deficiencia = this.alunoForm.get('deficiencia').value;
-    fichaSaude.deficienciaDescricao = this.alunoForm.get('deficienciaDescricao').value;
-    fichaSaude.alergia = this.alunoForm.get('alergia').value;
-    fichaSaude.alergiaDescricao = this.alunoForm.get('alergiaDescricao').value;
-    fichaSaude.intolerancia = this.alunoForm.get('intolerancia').value;
-    fichaSaude.intoleranciaDescricao = this.alunoForm.get('intoleranciaDescricao').value;
+    pessoa.nome = this.form.get('nome').value;
+    pessoa.cpf = this.form.get('cpf').value;
+    pessoa.dataNascimento = this.form.get('dataNascimento').value;
+    pessoa.sexo = notVoidOrNull(this.form.get('sexo').value) ? this.form.get('sexo').value : null;
+    pessoa.pai = this.form.get('pai').value;
+    pessoa.mae = this.form.get('mae').value;
+    pessoa.email = this.form.get('email').value;
+    pessoa.telefone = this.form.get('telefone').value;
+    pessoa.celular = this.form.get('celular').value;
+    endereco.cep = this.form.get('cep').value;
+    endereco.logradouro = this.form.get('logradouro').value;
+    endereco.numero = this.form.get('numero').value;
+    endereco.complemento = this.form.get('complemento').value;
+    endereco.bairro = this.form.get('bairro').value;
+    endereco.cidade = this.form.get('cidade').value;
+    endereco.estado = this.form.get('estado').value;
+    fichaSaude.cartaoSus = this.form.get('cartaoSus').value;
+    fichaSaude.tipoSanguineo = notVoidOrNull(this.form.get('tipoSanguineo').value) ? this.form.get('tipoSanguineo').value : null;
+    fichaSaude.doenca = this.form.get('doenca').value;
+    fichaSaude.doencaDescricao = this.form.get('doencaDescricao').value;
+    fichaSaude.medicamento = this.form.get('medicamento').value;
+    fichaSaude.medicamentoDescricao = this.form.get('medicamentoDescricao').value;
+    fichaSaude.suplemento = this.form.get('suplemento').value;
+    fichaSaude.suplementoDescricao = this.form.get('suplementoDescricao').value;
+    fichaSaude.deficiencia = this.form.get('deficiencia').value;
+    fichaSaude.deficienciaDescricao = this.form.get('deficienciaDescricao').value;
+    fichaSaude.alergia = this.form.get('alergia').value;
+    fichaSaude.alergiaDescricao = this.form.get('alergiaDescricao').value;
+    fichaSaude.intolerancia = this.form.get('intolerancia').value;
+    fichaSaude.intoleranciaDescricao = this.form.get('intoleranciaDescricao').value;
 
     pessoa.endereco = endereco;
     aluno.pessoa = pessoa;
@@ -101,16 +126,28 @@ export class CriarAlunoComponent implements OnInit {
   }
 
   buscaCep() {
-    this.viacep.buscarPorCep(this.alunoForm.get('cep').value).then((endereco: EnderecoViaCep) => {
-      this.alunoForm.get('cep').setValue(endereco.cep);
-      this.alunoForm.get('logradouro').setValue(endereco.logradouro);
-      this.alunoForm.get('complemento').setValue(endereco.complemento);
-      this.alunoForm.get('bairro').setValue(endereco.bairro);
-      this.alunoForm.get('cidade').setValue(endereco.localidade);
-      this.alunoForm.get('estado').setValue(endereco.uf);
+    this.loader.startBackground();
+    this.viacep.buscarPorCep(this.form.get('cep').value).then((endereco: EnderecoViaCep) => {
+      this.form.get('cep').setValue(endereco.cep);
+      this.form.get('logradouro').setValue(endereco.logradouro);
+      this.form.get('complemento').setValue(endereco.complemento);
+      this.form.get('bairro').setValue(endereco.bairro);
+      this.form.get('cidade').setValue(endereco.localidade);
+      this.form.get('estado').setValue(endereco.uf);
       this.campoNumero.nativeElement.focus();
+      this.loader.stopBackground();
     }).catch((error: ErroCep) => {
       this.toastr.info(error.message);
+      this.loader.stopBackground();
     });
   }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
+  }
+
 }

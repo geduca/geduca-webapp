@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -41,8 +41,10 @@ export class CriarRegistroNutricionalComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      peso: [''], altura: ['']
+      altura: ['', [Validators.required, Validators.min(0.01), Validators.max(3.00)]],
+      peso: ['', [Validators.required, Validators.min(0.01), Validators.max(500.000)]]
     });
+    console.log(this.form);
   }
 
   cadastrar() {
@@ -71,5 +73,13 @@ export class CriarRegistroNutricionalComponent implements OnInit {
 
   cancelar() {
     this.router.navigate(['/home/registro-nutricional/' + this.codigoAluno]);
+  }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
 }

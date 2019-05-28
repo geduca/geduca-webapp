@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
+import { CoreModule } from './../../core/core.module';
 import { CriarCursoComponent } from './criar-curso/criar-curso.component';
 import { CursoRoutingModule } from './curso-routing.module';
 import { CursosComponent } from './cursos/cursos.component';
@@ -22,7 +23,8 @@ import { VisualizarCursoComponent } from './visualizar-curso/visualizar-curso.co
     ReactiveFormsModule,
     CursoRoutingModule,
     NgxDatatableModule,
-    TooltipModule
+    TooltipModule,
+    CoreModule
   ],
   exports: [],
   providers: [],

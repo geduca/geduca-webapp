@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { ErrorMsgComponent } from './components/error-msg/error-msg.component';
 import { AcessoNegadoComponent } from './views/acesso-negado.component';
 import { PaginaNaoEncontradaComponent } from './views/pagina-nao-encontrada.component';
 
@@ -10,7 +11,8 @@ import { PaginaNaoEncontradaComponent } from './views/pagina-nao-encontrada.comp
 @NgModule({
   declarations: [
     PaginaNaoEncontradaComponent,
-    AcessoNegadoComponent
+    AcessoNegadoComponent,
+    ErrorMsgComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,7 @@ import { PaginaNaoEncontradaComponent } from './views/pagina-nao-encontrada.comp
     //     }
     //   })
   ],
-  exports: [],
+  exports: [ErrorMsgComponent],
   providers: [
     //   AuthService,
     //   AuthInterceptService,
