@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -17,7 +17,7 @@ export class EditarProdutoComponent implements OnInit {
 
   produto: Produto;
   fornecedores: Fornecedor[];
-  produtoForm: FormGroup;
+  form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,11 +36,11 @@ export class EditarProdutoComponent implements OnInit {
 
     this.produtoService.buscaPeloCodigo(codigo).subscribe(res => {
       this.produto = res;
-      this.produtoForm.get('codigo').setValue(this.produto.codigo);
-      this.produtoForm.get('nome').setValue(this.produto.nome);
-      this.produtoForm.get('descricao').setValue(this.produto.descricao);
-      this.produtoForm.get('marca').setValue(this.produto.marca);
-      this.produtoForm.get('fornecedor').setValue(this.produto.fornecedor);
+      this.form.get('codigo').setValue(this.produto.codigo);
+      this.form.get('nome').setValue(this.produto.nome);
+      this.form.get('descricao').setValue(this.produto.descricao);
+      this.form.get('marca').setValue(this.produto.marca);
+      this.form.get('fornecedor').setValue(this.produto.fornecedor);
 
 
       this.fornecedorService.listaTodos().subscribe(resp => {
@@ -50,8 +50,12 @@ export class EditarProdutoComponent implements OnInit {
       this.loader.stopBackground();
     });
 
-    this.produtoForm = this.formBuilder.group({
-      codigo: [''], nome: [''], descricao: [''], marca: [''], fornecedor: ['']
+    this.form = this.formBuilder.group({
+      codigo: [''],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      descricao: [''],
+      marca: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      fornecedor: ['', [Validators.required]]
     });
 
   }
@@ -59,11 +63,10 @@ export class EditarProdutoComponent implements OnInit {
   editar() {
     this.loader.startBackground();
 
-    this.produto.nome = this.produtoForm.get('nome').value;
-    this.produto.codigo = this.produtoForm.get('codigo').value;
-    this.produto.descricao = this.produtoForm.get('descricao').value;
-    this.produto.marca = this.produtoForm.get('marca').value;
-    this.produto.fornecedor = this.produtoForm.get('fornecedor').value;
+    this.produto.nome = this.form.get('nome').value;
+    this.produto.descricao = this.form.get('descricao').value;
+    this.produto.marca = this.form.get('marca').value;
+    this.produto.fornecedor = this.form.get('fornecedor').value;
 
     this.produtoService.atualizar(this.produto).subscribe(
       res => {
@@ -76,6 +79,14 @@ export class EditarProdutoComponent implements OnInit {
         this.loader.stopBackground();
       }
     );
+  }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
 
 }

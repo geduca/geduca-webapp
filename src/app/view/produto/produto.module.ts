@@ -6,6 +6,7 @@ import { ProdutosComponent } from './produto/produto.component';
 import { ProdutoRoutingModule } from './produto-routing.module';
 import { CriarProdutoComponent } from './criar-produto/criar-produto.component';
 import { EditarProdutoComponent } from './editar-produto/editar-produto.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EditarProdutoComponent } from './editar-produto/editar-produto.componen
     ReactiveFormsModule,
     ProdutoRoutingModule,
     NgxDatatableModule,
+    CoreModule
   ],
   exports: [],
   providers: [],

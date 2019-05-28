@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { ProdutoService } from 'src/app/service/produto.service';
 import { EstoqueProdutoService } from '../../../service/estoque-produto.service';
 import { EstoqueService } from '../../../service/estoque.service';
 import { UnidadeService } from './../../../service/unidade.service';
-import { TouchSequence } from 'selenium-webdriver';
+
 
 
 @Component({
@@ -46,7 +46,11 @@ export class EstoqueProdutoComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({ produtos: [''] });
-    this.formEditar = this.formBuilder.group({ unidade: [''], quantidade: [''], quantidadeMinima: [''] });
+    this.formEditar = this.formBuilder.group({
+      unidade: [''],
+      quantidade: ['', [Validators.min(0)]],
+      quantidadeMinima: ['', [Validators.min(0)]]
+    });
 
     const codigo = this.activatedRoute.snapshot.params.codigo;
 
@@ -176,6 +180,14 @@ export class EstoqueProdutoComponent implements OnInit {
       this.toast.error('Erro ao alterar quantidades do produto: ' + err.error.message);
       this.loader.stopBackground();
     });
+  }
+
+  verificaValidTouched(campo: string) {
+    return this.formEditar.get(campo).invalid && this.formEditar.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
 
 }
