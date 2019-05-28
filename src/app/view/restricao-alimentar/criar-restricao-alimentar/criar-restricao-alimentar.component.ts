@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -13,7 +13,7 @@ import { RestricaoAlimentarService } from './../../../service/restricao-alimenta
 })
 export class CriarRestricaoAlimentarComponent implements OnInit {
 
-  restricaoAlimentarForm: FormGroup;
+  form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,8 +24,9 @@ export class CriarRestricaoAlimentarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.restricaoAlimentarForm = this.formBuilder.group({
-      nome: [''], descricao: ['']
+    this.form = this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      descricao: ['']
     });
   }
 
@@ -34,8 +35,8 @@ export class CriarRestricaoAlimentarComponent implements OnInit {
 
     const restricaoAlimentar = new RestricaoAlimentar();
 
-    restricaoAlimentar.nome = this.restricaoAlimentarForm.get('nome').value;
-    restricaoAlimentar.descricao = this.restricaoAlimentarForm.get('descricao').value;
+    restricaoAlimentar.nome = this.form.get('nome').value;
+    restricaoAlimentar.descricao = this.form.get('descricao').value;
 
 
     this.restricaoAlimentarService.criar(restricaoAlimentar).subscribe(
@@ -50,4 +51,13 @@ export class CriarRestricaoAlimentarComponent implements OnInit {
       }
     );
   }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
+  }
+
 }

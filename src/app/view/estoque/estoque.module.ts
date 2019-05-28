@@ -10,6 +10,7 @@ import { EstoqueProdutoComponent } from './estoque-produto/estoque-produto.compo
 import { EstoqueRoutingModule } from './estoque-routing.module';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { VisualizarEstoqueComponent } from './visualizar-estoque/visualizar-estoque.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { VisualizarEstoqueComponent } from './visualizar-estoque/visualizar-esto
     ReactiveFormsModule,
     EstoqueRoutingModule,
     NgxDatatableModule,
+    CoreModule,
     TooltipModule
   ],
   exports: [],
