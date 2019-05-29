@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { CriarFuncionarioComponent } from './criar-funcionario/criar-funcionario.component';
 import { EditarFuncionarioComponent } from './editar-funcionario/editar-funcionario.component';
@@ -23,6 +24,7 @@ import { VisualizarFuncionarioComponent } from './visualizar-funcionario/visuali
     ReactiveFormsModule,
     FuncionarioRoutingModule,
     NgxDatatableModule,
+    NgxMaskModule,
     TooltipModule
   ],
   exports: [],

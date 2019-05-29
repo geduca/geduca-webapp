@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CoreModule } from 'src/app/core/core.module';
 
 import { CriarUnidadeComponent } from './criar-unidade/criar-unidade.component';
 import { EditarUnidadeComponent } from './editar-unidade/editar-unidade.component';
@@ -22,7 +23,8 @@ import { VisualizarUnidadeComponent } from './visualizar-unidade/visualizar-unid
     ReactiveFormsModule,
     UnidadeRoutingModule,
     NgxDatatableModule,
-    TooltipModule
+    TooltipModule,
+    CoreModule
   ],
   exports: [],
   providers: [],
