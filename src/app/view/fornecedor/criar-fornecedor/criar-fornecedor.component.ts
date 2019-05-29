@@ -17,6 +17,9 @@ export class CriarFornecedorComponent implements OnInit {
 
   fornecedor: Fornecedor;
   form: FormGroup;
+  maskCpf = '00.000.000/0000-00';
+  maskCnpj = '000.000.000-00';
+  campoCnpj = true;
 
   @ViewChild('campoNumero') campoNumero: ElementRef;
 
@@ -31,8 +34,9 @@ export class CriarFornecedorComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      campoCnpj: ['true'],
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
-      cpfCnpj: ['', [Validators.required]],
+      cpfCnpj: [''],
       responsavel: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', [Validators.required]],
@@ -101,5 +105,10 @@ export class CriarFornecedorComponent implements OnInit {
   aplicaCssErro(campo: string) {
     if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
+
+  getMaskCnpj() {
+    return this.campoCnpj === true ? this.maskCnpj : this.maskCpf;
+  }
+
 
 }

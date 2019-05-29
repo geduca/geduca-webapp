@@ -30,7 +30,7 @@ export class EditarFornecedorComponent implements OnInit {
       this.loader.startBackground();
       this.fornecedor = res;
       this.fornecedorForm.get('nome').setValue(this.fornecedor.nome);
-      this.fornecedorForm.get('cpf').setValue(this.fornecedor.cpf);
+      this.fornecedorForm.get('cpfCnpj').setValue(this.fornecedor.cpfCnpj);
       this.fornecedorForm.get('email').setValue(this.fornecedor.email);
       this.fornecedorForm.get('responsavel').setValue(this.fornecedor.responsavel);
       this.fornecedorForm.get('telefone').setValue(this.fornecedor.telefone);
@@ -56,7 +56,7 @@ export class EditarFornecedorComponent implements OnInit {
     this.loader.startBackground();
 
     this.fornecedor.nome = this.fornecedorForm.get('nome').value;
-    this.fornecedor.cpf = this.fornecedorForm.get('cpf').value;
+    this.fornecedor.cpfCnpj = this.fornecedorForm.get('cpfCnpj').value;
     this.fornecedor.email = this.fornecedorForm.get('email').value;
     this.fornecedor.telefone = this.fornecedorForm.get('telefone').value;
     this.fornecedor.responsavel = this.fornecedorForm.get('responsavel').value;

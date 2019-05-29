@@ -26,9 +26,17 @@
               </div>
             </div>
             <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="campoCnpj">Tipo Documento:</label>
+              <div class="col-md-4">
+                <select id="campoCnpj" name="campoCnpj" class="form-control" formControlName="campoCnpj">
+                  <option value="true">CNPJ</option>
+                  <option value="false">CPF</option>
+                </select>
+              </div>
               <label class="col-md-2 col-form-label" for="cpfCnpj">CPF/CNPJ:</label>
-              <div class="col-md-10">
-                <input type="text" id="cpfCnpj" name="cpfCnpj" class="form-control" formControlName="cpfCnpj">
+              <div class="col-md-4">
+                <input type="text" id="cpfCnpj" name="cpfCnpj" class="form-control" formControlName="cpfCnpj"
+                  mask="00.000.000/0000-00" [showMaskTyped]="getMaskCnpj" [ngClass]="aplicaCssErro('cpf')">
               </div>
             </div>
             <div class="form-group row">
@@ -40,7 +48,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="email">Responsavel:</label>
+              <label class="col-md-2 col-form-label" for="email">*Responsável:</label>
               <div class="col-md-10">
                 <input type="text" id="responsavel" name="responsavel" class="form-control" autocomplete="responsavel"
                   formControlName="responsavel" [ngClass]="aplicaCssErro('responsavel')">
@@ -68,47 +76,58 @@
             </div>
             <hr>
             <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="cep">CEP:</label>
+              <label class="col-md-2 col-form-label" for="cep">*CEP:</label>
+              <div class="col-md-8">
+                <input type="text" id="cep" name="cep" class="form-control" formControlName="cep" mask="00.000-000"
+                  [showMaskTyped]="true" [ngClass]="aplicaCssErro('cep')">
+                <app-error-msg [control]="form.get('cep')" label="CEP"></app-error-msg>
+              </div>
               <div class="col-md-2">
-                <input type="text" id="cep" name="cep" class="form-control" formControlName="cep">
-              </div>
-              <div class="col-md-1">
-                <button class="btn btn-primary" (click)="buscaCep()">buscar</button>
+                <button class="btn btn-primary" style="width: 100%" [disabled]="this.form.get('cep').errors"
+                  (click)="buscaCep()">
+                  buscar
+                </button>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="estado">Estado:</label>
+              <label class="col-md-2 col-form-label" for="estado">*Estado:</label>
+              <div class="col-md-4">
+                <input type="text" id="estado" name="estado" class="form-control" formControlName="estado"
+                  [ngClass]="aplicaCssErro('estado')">
+                <app-error-msg [control]="form.get('estado')" label="Estado"></app-error-msg>
+              </div>
+              <label class="col-md-2 col-form-label" for="cidade">*Cidade:</label>
+              <div class="col-md-4">
+                <input type="text" id="cidade" name="cidade" class="form-control" formControlName="cidade"
+                  [ngClass]="aplicaCssErro('cidade')">
+                <app-error-msg [control]="form.get('cidade')" label="Cidade"></app-error-msg>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="bairro">*Bairro:</label>
               <div class="col-md-10">
-                <input type="text" id="estado" name="estado" class="form-control" formControlName="estado">
+                <input type="text" id="bairro" name="bairro" class="form-control" formControlName="bairro"
+                  [ngClass]="aplicaCssErro('bairro')">
+                <app-error-msg [control]="form.get('bairro')" label="Bairro"></app-error-msg>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="cidade">Cidade:</label>
+              <label class="col-md-2 col-form-label" for="logradouro">*Logradouro:</label>
               <div class="col-md-10">
-                <input type="text" id="cidade" name="cidade" class="form-control" formControlName="cidade">
+                <input type="text" id="logradouro" name="logradouro" class="form-control" formControlName="logradouro"
+                  [ngClass]="aplicaCssErro('logradouro')">
+                <app-error-msg [control]="form.get('logradouro')" label="Logradouro"></app-error-msg>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="bairro">Bairro:</label>
-              <div class="col-md-10">
-                <input type="text" id="bairro" name="bairro" class="form-control" formControlName="bairro">
+              <label class="col-md-2 col-form-label" for="numero">*Numero:</label>
+              <div class="col-md-4">
+                <input #campoNumero type="text" id="numero" name="numero" class="form-control" formControlName="numero"
+                  [ngClass]="aplicaCssErro('numero')">
+                <app-error-msg [control]="form.get('numero')" label="Numero"></app-error-msg>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="logradouro">Logradouro:</label>
-              <div class="col-md-10">
-                <input type="text" id="logradouro" name="logradouro" class="form-control" formControlName="logradouro">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label" for="numero">Numero:</label>
-              <div class="col-md-10">
-                <input #campoNumero type="text" id="numero" name="numero" class="form-control" formControlName="numero">
-              </div>
-            </div>
-            <div class="form-group row">
               <label class="col-md-2 col-form-label" for="complemento">Complemento:</label>
-              <div class="col-md-10">
+              <div class="col-md-4">
                 <input type="text" id="complemento" name="complemento" class="form-control"
                   formControlName="complemento">
               </div>
@@ -116,7 +135,8 @@
           </div>
           <div class="card-footer text-right">
             <button class="btn btn-secondary" routerLink="/home/fornecedor" type="button">Cancelar</button>
-            <button class="btn btn-primary" (click)="cadastrar()"><i class="fa fa-save"></i> Salvar</button>
+            <button class="btn btn-primary" (click)="cadastrar()" [disabled]="!form.valid"><i class="fa fa-save"></i>
+              Salvar</button>
           </div>
         </div>
       </form>
