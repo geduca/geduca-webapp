@@ -4,12 +4,12 @@ import { RestricaoAlimentar } from './RestricaoAlimentar';
 import { Endereco } from './Endereco';
 
 export class Fornecedor {
-   codigo: number;
-   nome: string;
-   cpf?: string;
-   cnpj?: string;
-   endereco: Endereco;
-   telefone: string;
-   email: string;
-   responsavel: string;
+  codigo: number;
+  nome: string;
+  cpfCnpj: string;
+  endereco: Endereco;
+  telefone: string;
+  celular: string;
+  email: string;
+  responsavel: string;
 }

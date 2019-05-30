@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -16,7 +16,7 @@ import { Fornecedor } from './../../../model/Fornecedor';
 export class CriarProdutoComponent implements OnInit {
 
   fornecedores: Fornecedor[];
-  produtoForm: FormGroup;
+  form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,19 +36,21 @@ export class CriarProdutoComponent implements OnInit {
       this.loader.stopBackground();
     });
 
-    this.produtoForm = this.formBuilder.group({
-      codigo: [''], nome: [''], descricao: [''], marca: [''], fornecedor: ['']
+    this.form = this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      descricao: [''],
+      marca: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      fornecedor: ['', [Validators.required]]
     });
   }
 
   cadastrar() {
     this.loader.startBackground();
     const produto = new Produto();
-    produto.codigo = this.produtoForm.get('codigo').value;
-    produto.nome = this.produtoForm.get('nome').value;
-    produto.descricao = this.produtoForm.get('descricao').value;
-    produto.marca = this.produtoForm.get('marca').value;
-    produto.fornecedor = this.produtoForm.get('fornecedor').value;
+    produto.nome = this.form.get('nome').value;
+    produto.descricao = this.form.get('descricao').value;
+    produto.marca = this.form.get('marca').value;
+    produto.fornecedor = this.form.get('fornecedor').value;
 
     this.produtoService.criar(produto).subscribe(
       res => {
@@ -57,9 +59,18 @@ export class CriarProdutoComponent implements OnInit {
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao criar produto: ' + err.error.message)
+        this.toastr.error('Erro ao criar produto: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
   }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
+  }
+
 }

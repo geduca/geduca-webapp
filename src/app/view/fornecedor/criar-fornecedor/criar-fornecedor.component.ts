@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Endereco as EnderecoViaCep, ErroCep, NgxViacepService } from '@brunoc/ngx-viacep';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,10 @@ import { Fornecedor } from './../../../model/Fornecedor';
 export class CriarFornecedorComponent implements OnInit {
 
   fornecedor: Fornecedor;
-  fornecedorForm: FormGroup;
+  form: FormGroup;
+  maskCpf = '00.000.000/0000-00';
+  maskCnpj = '000.000.000-00';
+  campoCnpj = true;
 
   @ViewChild('campoNumero') campoNumero: ElementRef;
 
@@ -30,10 +33,21 @@ export class CriarFornecedorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fornecedorForm = this.formBuilder.group({
-      nome: [''], cpf: [''], email: [''],
-      telefone: [''], responsavel: [''], celular: [''], cep: [''], logradouro: [''], numero: [''], complemento: [''],
-      bairro: [''], cidade: [''], estado: ['']
+    this.form = this.formBuilder.group({
+      campoCnpj: ['true'],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      cpfCnpj: [''],
+      responsavel: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      email: ['', [Validators.required, Validators.email]],
+      telefone: ['', [Validators.required]],
+      celular: [''],
+      cep: ['', [Validators.required]],
+      logradouro: ['', [Validators.required, Validators.maxLength(120)]],
+      numero: ['', [Validators.required]],
+      complemento: ['', [Validators.maxLength(120)]],
+      bairro: ['', [Validators.required, Validators.maxLength(120)]],
+      cidade: ['', [Validators.required, Validators.maxLength(120)]],
+      estado: ['', [Validators.required, Validators.maxLength(120)]]
     });
   }
 
@@ -41,18 +55,19 @@ export class CriarFornecedorComponent implements OnInit {
     this.loader.startBackground();
     const fornecedor = new Fornecedor();
     const e = new Endereco();
-    fornecedor.nome = this.fornecedorForm.get('nome').value;
-    fornecedor.cpf = this.fornecedorForm.get('cpf').value;
-    fornecedor.email = this.fornecedorForm.get('email').value;
-    fornecedor.responsavel = this.fornecedorForm.get('responsavel').value;
-    fornecedor.telefone = this.fornecedorForm.get('telefone').value;
-    e.cep = this.fornecedorForm.get('cep').value;
-    e.logradouro = this.fornecedorForm.get('logradouro').value;
-    e.numero = this.fornecedorForm.get('numero').value;
-    e.complemento = this.fornecedorForm.get('complemento').value;
-    e.bairro = this.fornecedorForm.get('bairro').value;
-    e.cidade = this.fornecedorForm.get('cidade').value;
-    e.estado = this.fornecedorForm.get('estado').value;
+    fornecedor.nome = this.form.get('nome').value;
+    fornecedor.cpfCnpj = this.form.get('cpfCnpj').value;
+    fornecedor.email = this.form.get('email').value;
+    fornecedor.responsavel = this.form.get('responsavel').value;
+    fornecedor.telefone = this.form.get('telefone').value;
+    fornecedor.celular = this.form.get('celular').value;
+    e.cep = this.form.get('cep').value;
+    e.logradouro = this.form.get('logradouro').value;
+    e.numero = this.form.get('numero').value;
+    e.complemento = this.form.get('complemento').value;
+    e.bairro = this.form.get('bairro').value;
+    e.cidade = this.form.get('cidade').value;
+    e.estado = this.form.get('estado').value;
 
     fornecedor.endereco = e;
 
@@ -70,16 +85,30 @@ export class CriarFornecedorComponent implements OnInit {
   }
 
   buscaCep() {
-    this.viacep.buscarPorCep(this.fornecedorForm.get('cep').value).then((endereco: EnderecoViaCep) => {
-      this.fornecedorForm.get('cep').setValue(endereco.cep);
-      this.fornecedorForm.get('logradouro').setValue(endereco.logradouro);
-      this.fornecedorForm.get('complemento').setValue(endereco.complemento);
-      this.fornecedorForm.get('bairro').setValue(endereco.bairro);
-      this.fornecedorForm.get('cidade').setValue(endereco.localidade);
-      this.fornecedorForm.get('estado').setValue(endereco.uf);
+    this.viacep.buscarPorCep(this.form.get('cep').value).then((endereco: EnderecoViaCep) => {
+      this.form.get('cep').setValue(endereco.cep);
+      this.form.get('logradouro').setValue(endereco.logradouro);
+      this.form.get('complemento').setValue(endereco.complemento);
+      this.form.get('bairro').setValue(endereco.bairro);
+      this.form.get('cidade').setValue(endereco.localidade);
+      this.form.get('estado').setValue(endereco.uf);
       this.campoNumero.nativeElement.focus();
     }).catch((error: ErroCep) => {
       this.toastr.info(error.message);
     });
   }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
+  }
+
+  getMaskCnpj() {
+    return this.campoCnpj === true ? this.maskCnpj : this.maskCpf;
+  }
+
+
 }

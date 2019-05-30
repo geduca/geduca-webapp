@@ -2,6 +2,9 @@ import { AbstractControl } from '@angular/forms';
 
 export class FormValidations {
 
+  static cpfLength = 11;
+  static cnpjLength = 14;
+
   static getErrorMsg(fieldName: string, validatorName: string, validatorValue?: any) {
     const config = {
       required: `${fieldName} é obrigatório!`,
@@ -10,7 +13,8 @@ export class FormValidations {
       min: `${fieldName} precisa ter valor mínimo de ${validatorValue.min}.`,
       max: `${fieldName} precisa ter valor máximo de ${validatorValue.max}.`,
       email: `${fieldName} inválido!`,
-      cpfInvalido: `${fieldName} inválido! `
+      cpfInvalido: `CPF inválido!`,
+      cnpjInvalido: `CNPJ inválido!`
     };
 
     return config[validatorName];
@@ -61,4 +65,5 @@ export class FormValidations {
 
     return { cpfInvalido: true };
   }
+
 }

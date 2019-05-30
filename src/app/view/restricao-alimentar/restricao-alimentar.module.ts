@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
+import { CoreModule } from './../../core/core.module';
 import { CriarRestricaoAlimentarComponent } from './criar-restricao-alimentar/criar-restricao-alimentar.component';
 import { EditarRestricaoAlimentarComponent } from './editar-restricao-alimentar/editar-restricao-alimentar.component';
 import { RestricaoAlimentarRoutingModule } from './restricao-alimentar-routing.module';
@@ -24,6 +25,7 @@ import {
     ReactiveFormsModule,
     RestricaoAlimentarRoutingModule,
     NgxDatatableModule,
+    CoreModule,
     TooltipModule
   ],
   exports: [],

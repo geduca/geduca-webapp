@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -35,7 +35,8 @@ export class EditarRestricaoAlimentarComponent implements OnInit {
       this.loader.stopBackground();
     });
     this.form = this.formBuilder.group({
-      nome: [''], descricao: ['']
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      descricao: ['']
     });
 
   }
@@ -55,6 +56,14 @@ export class EditarRestricaoAlimentarComponent implements OnInit {
         this.loader.stopBackground();
       }
     );
+  }
+
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
 
 }
