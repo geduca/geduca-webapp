@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Estoque } from 'src/app/model/Estoque';
@@ -30,7 +30,9 @@ export class EstoqueComponent implements OnInit {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Código' }
+      { prop: 'codigo', name: 'Código' },
+      { prop: 'produto.nome', name: 'Produto' },
+      { prop: 'despensa.nome', name: 'Despensa' }
     ];
   }
 
