@@ -28,15 +28,16 @@
             <div class="form-group row">
               <label class="col-md-2 col-form-label" for="campoCnpj">Tipo Documento:</label>
               <div class="col-md-4">
-                <select id="campoCnpj" name="campoCnpj" class="form-control" formControlName="campoCnpj">
-                  <option value="true">CNPJ</option>
-                  <option value="false">CPF</option>
-                </select>
+                <button class="btn btn-dark mr-2" (click)="fieldCnpj()" [disabled]="campoCnpj" type="button">CNPJ</button>
+                <button class="btn btn-dark" (click)="fieldCpf()" [disabled]="!campoCnpj" type="button">CPF</button>
               </div>
               <label class="col-md-2 col-form-label" for="cpfCnpj">CPF/CNPJ:</label>
               <div class="col-md-4">
-                <input type="text" id="cpfCnpj" name="cpfCnpj" class="form-control" formControlName="cpfCnpj"
-                  mask="00.000.000/0000-00" [showMaskTyped]="getMaskCnpj" [ngClass]="aplicaCssErro('cpf')">
+                <input *ngIf="campoCnpj" type="text" id="cpfCnpj" name="cpfCnpj" class="form-control" formControlName="cpfCnpj"
+                  [mask]="maskCnpj" [showMaskTyped]="true" [ngClass]="aplicaCssErro('cpfCnpj')">
+                <input *ngIf="!campoCnpj" type="text" id="cpfCnpj" name="cpfCnpj" class="form-control" formControlName="cpfCnpj"
+                  [mask]="maskCpf" [showMaskTyped]="true" [ngClass]="aplicaCssErro('cpfCnpj')">
+                  <app-error-msg [control]="form.get('cpfCnpj')" label="CPF/CNPJ:"></app-error-msg>
               </div>
             </div>
             <div class="form-group row">
