@@ -51,6 +51,10 @@ const routes: Routes = [
       {
         path: 'despensa',
         loadChildren: './view/despensa/despensa.module#DespensaModule'
+      },
+      {
+        path: 'estoque',
+        loadChildren: './view/estoque/estoque.module#EstoqueModule'
       }
     ]
   },

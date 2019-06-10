@@ -51,9 +51,9 @@ export const navItems: NavData[] = [
     icon: 'fa fa-leaf'
   },
   {
-    name: 'Despensa',
-    url: 'despensa',
-    icon: 'fa fa-file'
+    name: 'Estoque',
+    url: 'estoque',
+    icon: 'fa fa-cubes'
   },
   {
     name: 'Produtos',
@@ -64,6 +64,11 @@ export const navItems: NavData[] = [
     name: 'Unidades',
     url: 'unidade',
     icon: 'fa fa-ruler-vertical'
+  },
+  {
+    name: 'Despensa',
+    url: 'despensa',
+    icon: 'fa fa-file'
   },
   {
     name: 'Fornecedores',
