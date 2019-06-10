@@ -2,30 +2,29 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Curso } from 'src/app/model/Curso';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
 
-import { CursoService } from './../../../service/curso.service';
-import { Estoque } from '../../../model/Estoque';
-import { EstoqueService } from '../../../service/estoque.service';
+import { Despensa } from '../../../model/Despensa';
+import { DespensaService } from '../../../service/despensa.service';
+
 
 @Component({
-  selector: 'app-estoque',
-  templateUrl: './estoque.component.html'
+  selector: 'app-despensa',
+  templateUrl: './despensa.component.html'
 })
-export class EstoqueComponent implements OnInit {
+export class DespensaComponent implements OnInit {
 
   columns = [];
-  resposta: Page<Estoque>;
-  estoque: Estoque[];
+  resposta: Page<Despensa>;
+  despensa: Despensa[];
   page = new Pageable();
 
   @ViewChild('acoes') acoes: TemplateRef<any>;
   @ViewChild('ativo') ativo: TemplateRef<any>;
 
   constructor(
-    private estoqueService: EstoqueService,
+    private despensaService: DespensaService,
     private loader: NgxUiLoaderService,
     private toastr: ToastrService,
   ) {
@@ -50,34 +49,34 @@ export class EstoqueComponent implements OnInit {
   setPage(pageInfo) {
     this.loader.startBackground();
     this.page.pageNumber = pageInfo.offset;
-    this.estoqueService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
+    this.despensaService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
       this.resposta = res;
-      this.estoque = this.resposta.content;
+      this.despensa = this.resposta.content;
       this.page = res.pageable;
       this.loader.stopBackground();
     });
   }
 
-  remover(curso: Curso) {
+  remover(despensa: Despensa) {
     this.loader.startBackground();
-    this.estoqueService.remover(curso.codigo).subscribe(
+    this.despensaService.remover(despensa.codigo).subscribe(
       res => {
-        this.removerRegistroDaLista(curso);
+        this.removerRegistroDaLista(despensa);
         this.toastr.success
-          ('Curso ' + curso.codigo + ' - ' + curso.nome + ' removido com sucesso!');
+          ('Despensa ' + despensa.codigo + ' - ' + despensa.nome + ' removida com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao remover curso: ' + err.error.message);
+        this.toastr.error('Erro ao remover despensa: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
   }
 
   removerRegistroDaLista(row: any): void {
-    const tmp = this.estoque;
+    const tmp = this.despensa;
     _.remove(tmp, (linha) => _.isEqual(linha, row));
-    this.estoque = [...tmp];
+    this.despensa = [...tmp];
   }
 
 }

@@ -5,17 +5,17 @@
         <div class="card-header">
           <div class="row">
             <div class="col-10">
-              <strong>Estoque</strong>
+              <strong>Despensa</strong>
             </div>
             <div class="col-2">
-              <button type="button" class="btn btn-success" routerLink="/home/estoque/novo">
+              <button type="button" class="btn btn-success" routerLink="/home/despensa/novo">
                 <i class="fa fa-plus"></i>&nbsp;Cadastrar
               </button>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <ngx-datatable [rows]="estoque" [columns]="columns" class="bootstrap striped" [externalPaging]="true"
+          <ngx-datatable [rows]="despensa" [columns]="columns" class="bootstrap striped" [externalPaging]="true"
             [count]="resposta?.totalElements" [loadingIndicator]="true" [offset]="page?.pageNumber"
             [limit]="resposta?.size" (page)='setPage($event)' [columnMode]="'force'" [headerHeight]="50"
             [footerHeight]="50" [rowHeight]="50">

@@ -3,45 +3,41 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { EstoqueProduto } from '../model/EstoqueProduto';
-import { Produto } from '../model/Produto';
-import { EstoqueProdutoUtil } from '../model/utils/ProdutoEstoqueUtil';
-
-
+import { Estoque } from '../model/Estoque';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EstoqueProdutoService {
+export class EstoqueService {
 
   private apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = environment.apiUrl + '/estoques_produtos';
+    this.apiUrl = environment.apiUrl + '/estoque';
   }
 
-  listaTodos(): Observable<EstoqueProduto[]> {
-    return this.http.get<EstoqueProduto[]>(this.apiUrl + '/lista');
+  listaTodos(): Observable<Estoque[]> {
+    return this.http.get<Estoque[]>(this.apiUrl + '/lista');
   }
 
-  buscaPorEstoque(codigoEstoque: number): Observable<EstoqueProduto[]> {
-    return this.http.get<EstoqueProduto[]>(this.apiUrl + `/estoque?codigoEstoque=${codigoEstoque}`);
+  buscaPorDispensa(codigoDispensa: number): Observable<Estoque[]> {
+    return this.http.get<Estoque[]>(this.apiUrl + `/estoque?codigoDispensa=${codigoDispensa}`);
   }
 
-  buscaPorProduto(codigoProduto: number): Observable<EstoqueProduto[]> {
-    return this.http.get<EstoqueProduto[]>(this.apiUrl + `/produto?codigoProduto=${codigoProduto}`);
+  buscaPorProduto(codigoProduto: number): Observable<Estoque[]> {
+    return this.http.get<Estoque[]>(this.apiUrl + `/produto?codigoProduto=${codigoProduto}`);
   }
 
-  criar(produtos: EstoqueProdutoUtil[], codigoEstoque: number): Observable<any> {
-    return this.http.post<EstoqueProdutoUtil[]>(this.apiUrl + `?codigoEstoque=${codigoEstoque}`, produtos);
+  criar(estoque: Estoque): Observable<any> {
+    return this.http.post<Estoque[]>(this.apiUrl, estoque);
   }
 
   remover(codigo: number): Observable<any> {
     return this.http.delete(this.apiUrl + `/${codigo}`);
   }
 
-  atualizar(estoqueProduto: EstoqueProduto): Observable<any> {
-    return this.http.put<EstoqueProduto>(this.apiUrl + `/${estoqueProduto.codigo}`, estoqueProduto);
+  atualizar(estoque: Estoque): Observable<any> {
+    return this.http.put<Estoque>(this.apiUrl + `/${estoque.codigo}`, estoque);
   }
 
 }

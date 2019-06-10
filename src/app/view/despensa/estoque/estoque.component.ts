@@ -1,19 +1,19 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+/* import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { notVoidOrNull } from 'src/app/core/utils/notVoidOrNull';
-import { Estoque } from 'src/app/model/Estoque';
-import { EstoqueProduto } from 'src/app/model/EstoqueProduto';
+import { Estoque } from 'src/app/model/Despensa';
+import { EstoqueProduto } from 'src/app/model/Estoque';
 import { Produto } from 'src/app/model/Produto';
 import { Unidade } from 'src/app/model/Unidade';
 import { ProdutoService } from 'src/app/service/produto.service';
 
 import { EstoqueProdutoService } from '../../../service/estoque-produto.service';
-import { EstoqueService } from '../../../service/estoque.service';
-import { UnidadeService } from './../../../service/unidade.service';
+import { EstoqueService } from '../../../service/despensa.service';
+import { UnidadeService } from '../../../service/unidade.service';
 
 
 
@@ -191,3 +191,4 @@ export class EstoqueProdutoComponent implements OnInit {
   }
 
 }
+ */

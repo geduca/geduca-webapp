@@ -49,8 +49,8 @@ const routes: Routes = [
         loadChildren: './view/funcionario/funcionario.module#FuncionarioModule'
       },
       {
-        path: 'estoque',
-        loadChildren: './view/estoque/estoque.module#EstoqueModule'
+        path: 'despensa',
+        loadChildren: './view/despensa/despensa.module#DespensaModule'
       }
     ]
   },

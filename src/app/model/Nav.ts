@@ -51,8 +51,8 @@ export const navItems: NavData[] = [
     icon: 'fa fa-leaf'
   },
   {
-    name: 'Estoque',
-    url: 'estoque',
+    name: 'Despensa',
+    url: 'despensa',
     icon: 'fa fa-file'
   },
   {

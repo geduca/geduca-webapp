@@ -4,22 +4,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
-import { Estoque } from '../../../model/Estoque';
-import { EstoqueService } from '../../../service/estoque.service';
+import { Despensa } from '../../../model/Despensa';
+import { DespensaService } from '../../../service/despensa.service';
 
 
 @Component({
-  selector: 'app-editar-estoque',
-  templateUrl: './editar-estoque.component.html'
+  selector: 'app-editar-despensa',
+  templateUrl: './editar-despensa.component.html'
 })
-export class EditarEstoqueComponent implements OnInit {
+export class EditarDespensaComponent implements OnInit {
 
-  estoque: Estoque;
+  despensa: Despensa;
   form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private estoqueService: EstoqueService,
+    private despensaService: DespensaService,
     private toastr: ToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -28,11 +28,11 @@ export class EditarEstoqueComponent implements OnInit {
 
   ngOnInit() {
     const codigo = this.activatedRoute.snapshot.params.codigo;
-    this.estoqueService.buscaPeloCodigo(codigo).subscribe(res => {
+    this.despensaService.buscaPeloCodigo(codigo).subscribe(res => {
       this.loader.startBackground();
-      this.estoque = res;
-      this.form.get('nome').setValue(this.estoque.nome);
-      this.form.get('descricao').setValue(this.estoque.descricao);
+      this.despensa = res;
+      this.form.get('nome').setValue(this.despensa.nome);
+      this.form.get('descricao').setValue(this.despensa.descricao);
       this.loader.stopBackground();
     });
     this.form = this.formBuilder.group({
@@ -44,16 +44,16 @@ export class EditarEstoqueComponent implements OnInit {
 
   editar() {
     this.loader.startBackground();
-    this.estoque.nome = this.form.get('nome').value;
-    this.estoque.descricao = this.form.get('descricao').value;
-    this.estoqueService.atualizar(this.estoque).subscribe(
+    this.despensa.nome = this.form.get('nome').value;
+    this.despensa.descricao = this.form.get('descricao').value;
+    this.despensaService.atualizar(this.despensa).subscribe(
       res => {
-        this.router.navigate(['/home/estoque']);
-        this.toastr.success('Estoque ' + res.codigo + ' - ' + res.nome + ' editado com sucesso!');
+        this.router.navigate(['/home/despensa']);
+        this.toastr.success('Despensa ' + res.codigo + ' - ' + res.nome + ' editado com sucesso!');
         this.loader.stopBackground();
       },
       err => {
-        this.toastr.error('Erro ao editar estoque: ' + err.error.message);
+        this.toastr.error('Erro ao editar despensa: ' + err.error.message);
         this.loader.stopBackground();
       }
     );
