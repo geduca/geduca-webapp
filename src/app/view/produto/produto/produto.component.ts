@@ -39,6 +39,7 @@ export class ProdutosComponent implements OnInit {
       { prop: 'codigo', name: 'Código' },
       { prop: 'nome', name: 'nome' },
       { prop: 'descricao', name: 'Descrição' },
+      { prop: 'quantidadeMinima', name: 'Quantidade mínima' },
       { prop: 'marca', name: 'Marca' },
       { prop: 'fornecedor.nome', name: 'Fornecedor' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}

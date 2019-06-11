@@ -41,6 +41,7 @@ export class EditarProdutoComponent implements OnInit {
       this.form.get('descricao').setValue(this.produto.descricao);
       this.form.get('marca').setValue(this.produto.marca);
       this.form.get('fornecedor').setValue(this.produto.fornecedor);
+      this.form.get('quantidadeMinima').setValue(this.produto.quantidadeMinima);
 
 
       this.fornecedorService.listaTodos().subscribe(resp => {
@@ -55,6 +56,7 @@ export class EditarProdutoComponent implements OnInit {
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
       descricao: [''],
       marca: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      quantidadeMinima: ['', [Validators.required, Validators.min(0)]],
       fornecedor: ['', [Validators.required]]
     });
 
@@ -66,6 +68,7 @@ export class EditarProdutoComponent implements OnInit {
     this.produto.nome = this.form.get('nome').value;
     this.produto.descricao = this.form.get('descricao').value;
     this.produto.marca = this.form.get('marca').value;
+    this.produto.quantidadeMinima = this.form.get('quantidadeMinima').value;
     this.produto.fornecedor = this.form.get('fornecedor').value;
 
     this.produtoService.atualizar(this.produto).subscribe(

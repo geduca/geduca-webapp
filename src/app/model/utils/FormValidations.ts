@@ -87,8 +87,7 @@ export class FormValidations {
       !regex.test(cnpj)
     ) {
       valido = false;
-    }
-    else {
+    } else {
       valido = true;
       // Valida DVs LINHA 23 -
       let tamanho = cnpj.length - 2;

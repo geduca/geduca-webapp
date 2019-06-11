@@ -40,6 +40,7 @@ export class CriarProdutoComponent implements OnInit {
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
       descricao: [''],
       marca: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      quantidadeMinima: ['', [Validators.required, Validators.min(0)]],
       fornecedor: ['', [Validators.required]]
     });
   }
@@ -50,6 +51,7 @@ export class CriarProdutoComponent implements OnInit {
     produto.nome = this.form.get('nome').value;
     produto.descricao = this.form.get('descricao').value;
     produto.marca = this.form.get('marca').value;
+    produto.quantidadeMinima = this.form.get('quantidadeMinima').value;
     produto.fornecedor = this.form.get('fornecedor').value;
 
     this.produtoService.criar(produto).subscribe(
