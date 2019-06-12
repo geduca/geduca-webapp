@@ -32,13 +32,17 @@
               </ng-template>
 
               <ng-template #nutricao let-row="row" let-value="value">
-                <button type="button" class="btn btn-success mr-2" tooltip="Restrição Alimentar" placement="auto"
-                  [routerLink]="['restricao-alimentar', row?.codigo]">
-                  <i class="fa fa-leaf"></i>
+                <button type="button" class="btn btn-success mr-2" tooltip="Registro Alimentar" placement="auto"
+                  [routerLink]="['/home/registro-alimentar', row?.codigo]">
+                  <i class="fa fa-apple-alt"></i>
                 </button>
                 <button type="button" class="btn btn-success mr-2" tooltip="Registro Nutricional" placement="auto"
                   [routerLink]="['/home/registro-nutricional', row?.codigo]">
                   <i class="fa fa-weight"></i>
+                </button>
+                <button type="button" class="btn btn-success mr-2" tooltip="Restrição Alimentar" placement="auto"
+                  [routerLink]="['restricao-alimentar', row?.codigo]">
+                  <i class="fa fa-leaf"></i>
                 </button>
               </ng-template>
 

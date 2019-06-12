@@ -37,6 +37,10 @@ const routes: Routes = [
         loadChildren: './view/registro-nutricional/registro-nutricional.module#RegistroNutricionalModule'
       },
       {
+        path: 'registro-alimentar',
+        loadChildren: './view/registro-alimentar/registro-alimentar.module#RegistroAlimentarModule'
+      },
+      {
         path: 'unidade',
         loadChildren: './view/unidade/unidade.module#UnidadeModule'
       },
