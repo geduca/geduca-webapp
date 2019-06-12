@@ -1,3 +1,4 @@
+import { FormValidations } from './../../../model/utils/FormValidations';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,9 +18,9 @@ export class CriarFornecedorComponent implements OnInit {
 
   fornecedor: Fornecedor;
   form: FormGroup;
-  maskCpf = '00.000.000/0000-00';
-  maskCnpj = '000.000.000-00';
   campoCnpj = true;
+  maskCnpj = '00.000.000/0000-00';
+  maskCpf = '000.000.000-00';
 
   @ViewChild('campoNumero') campoNumero: ElementRef;
 
@@ -34,9 +35,8 @@ export class CriarFornecedorComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      campoCnpj: ['true'],
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
-      cpfCnpj: [''],
+      cpfCnpj: ['', [Validators.required, FormValidations.ValidaCnpj]],
       responsavel: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', [Validators.required]],
@@ -85,6 +85,7 @@ export class CriarFornecedorComponent implements OnInit {
   }
 
   buscaCep() {
+    this.loader.startBackground();
     this.viacep.buscarPorCep(this.form.get('cep').value).then((endereco: EnderecoViaCep) => {
       this.form.get('cep').setValue(endereco.cep);
       this.form.get('logradouro').setValue(endereco.logradouro);
@@ -93,8 +94,10 @@ export class CriarFornecedorComponent implements OnInit {
       this.form.get('cidade').setValue(endereco.localidade);
       this.form.get('estado').setValue(endereco.uf);
       this.campoNumero.nativeElement.focus();
+      this.loader.stopBackground();
     }).catch((error: ErroCep) => {
       this.toastr.info(error.message);
+      this.loader.stopBackground();
     });
   }
 
@@ -106,9 +109,14 @@ export class CriarFornecedorComponent implements OnInit {
     if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
 
-  getMaskCnpj() {
-    return this.campoCnpj === true ? this.maskCnpj : this.maskCpf;
+  fieldCnpj() {
+    this.form.get('cpfCnpj').setValidators([Validators.required, FormValidations.ValidaCnpj]);
+    this.campoCnpj = true;
   }
 
+  fieldCpf() {
+    this.form.get('cpfCnpj').setValidators([Validators.required, FormValidations.ValidaCpf]);
+    this.campoCnpj = false;
+  }
 
 }

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { Page } from '../model/Page';
 import { Estoque } from '../model/Estoque';
+import { Page } from '../model/Page';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,9 @@ export class EstoqueService {
     return this.http.get<Estoque[]>(this.apiUrl + '/lista');
   }
 
-  buscaPeloCodigo(codigo: number): Observable<Estoque> {
-    return this.http.get<Estoque>(this.apiUrl + `/${codigo}`);
+  buscaPorDespensa(pagina, max, codigoDespensa): Observable<Page<Estoque>> {
+    const params = { pagina, max, codigoDespensa };
+    return this.http.get<Page<Estoque>>(this.apiUrl + '/despensa', { params });
   }
 
   criar(estoque: Estoque): Observable<any> {

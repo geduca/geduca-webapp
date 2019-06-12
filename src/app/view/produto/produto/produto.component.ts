@@ -36,9 +36,11 @@ export class ProdutosComponent implements OnInit {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Codigo' },
+      { prop: 'codigo', name: 'Código' },
       { prop: 'nome', name: 'nome' },
       { prop: 'descricao', name: 'Descrição' },
+      { prop: 'quantidadeMinima', name: 'Quantidade mínima' },
+      { prop: 'unidade.nome', name: 'Unidade' },
       { prop: 'marca', name: 'Marca' },
       { prop: 'fornecedor.nome', name: 'Fornecedor' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}

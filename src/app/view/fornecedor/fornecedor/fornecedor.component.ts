@@ -35,8 +35,10 @@ export class FornecedoresComponent implements OnInit {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Codigo' },
+      { prop: 'codigo', name: 'Código' },
       { prop: 'nome', name: 'Nome' },
+      { prop: 'cpfCnpj', name: 'CPF/CNPJ' },
+      { prop: 'responsavel', name: 'Responsável' },
       { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false}
     ];
   }

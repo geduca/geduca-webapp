@@ -1,29 +1,29 @@
-import { Estoque } from './../../../model/Estoque';
+import { Despensa } from '../../../model/Despensa';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { EstoqueService } from '../../../service/estoque.service';
+import { DespensaService } from '../../../service/despensa.service';
 
 
 @Component({
-  selector: 'app-visualizar-estoque',
-  templateUrl: './visualizar-estoque.component.html'
+  selector: 'app-visualizar-despensa',
+  templateUrl: './visualizar-despensa.component.html'
 })
-export class VisualizarEstoqueComponent implements OnInit {
+export class VisualizarDespensaComponent implements OnInit {
 
-  estoque: Estoque;
+  despensa: Despensa;
 
   constructor(
-    private estoqueService: EstoqueService,
+    private despensaService: DespensaService,
     private activatedRoute: ActivatedRoute,
     private loader: NgxUiLoaderService
   ) { }
 
   ngOnInit() {
     const codigo = this.activatedRoute.snapshot.params.codigo;
-    this.estoqueService.buscaPeloCodigo(codigo).subscribe(res => {
+    this.despensaService.buscaPeloCodigo(codigo).subscribe(res => {
       this.loader.startBackground();
-      this.estoque = res;
+      this.despensa = res;
       this.loader.stopBackground();
     });
   }

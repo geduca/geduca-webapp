@@ -8,6 +8,8 @@ import { Produto } from '../../../model/Produto';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { ProdutoService } from '../../../service/produto.service';
 import { Fornecedor } from './../../../model/Fornecedor';
+import { UnidadeService } from 'src/app/service/unidade.service';
+import { Unidade } from 'src/app/model/Unidade';
 
 @Component({
   selector: 'app-criar-produto',
@@ -15,13 +17,15 @@ import { Fornecedor } from './../../../model/Fornecedor';
 })
 export class CriarProdutoComponent implements OnInit {
 
-  fornecedores: Fornecedor[];
   form: FormGroup;
+  fornecedores: Fornecedor[];
+  unidades: Unidade[];
 
   constructor(
     private formBuilder: FormBuilder,
     private produtoService: ProdutoService,
     private fornecedorService: FornecedorService,
+    private unidadeService: UnidadeService,
     private toastr: ToastrService,
     private router: Router,
     private loader: NgxUiLoaderService
@@ -30,6 +34,9 @@ export class CriarProdutoComponent implements OnInit {
 
   ngOnInit() {
     this.loader.startBackground();
+    this.unidadeService.listaTodos().subscribe(res => {
+      this.unidades = res;
+    }, err => this.toastr.error('Erro ao carregar lista de unidades'));
 
     this.fornecedorService.listaTodos().subscribe(res => {
       this.fornecedores = res;
@@ -40,6 +47,8 @@ export class CriarProdutoComponent implements OnInit {
       nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
       descricao: [''],
       marca: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      quantidadeMinima: ['', [Validators.required, Validators.min(0)]],
+      unidade: ['', [Validators.required]],
       fornecedor: ['', [Validators.required]]
     });
   }
@@ -50,7 +59,9 @@ export class CriarProdutoComponent implements OnInit {
     produto.nome = this.form.get('nome').value;
     produto.descricao = this.form.get('descricao').value;
     produto.marca = this.form.get('marca').value;
+    produto.quantidadeMinima = this.form.get('quantidadeMinima').value;
     produto.fornecedor = this.form.get('fornecedor').value;
+    produto.unidade = this.form.get('unidade').value;
 
     this.produtoService.criar(produto).subscribe(
       res => {

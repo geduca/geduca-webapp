@@ -4,12 +4,17 @@
       <div class="card mt-4">
         <div class="card-header">
           <div class="row">
-            <div class="col-10">
-              <strong>Registros Nutricionais</strong>
+            <div class="col-8">
+              <h2><b>Registros Nutricionais</b></h2>
             </div>
             <div class="col-2">
               <!-- corrigir o link desse botao -->
-              <button type="button" class="btn btn-success" (click)="novo()">
+              <button class="btn btn-secondary float-right" routerLink="/home/aluno"><i
+                  class="fa fa-arrow-alt-circle-left"></i>
+                Voltar</button>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn btn-success float-right" (click)="novo()">
                 <i class="fa fa-plus"></i>&nbsp;Cadastrar
               </button>
             </div>

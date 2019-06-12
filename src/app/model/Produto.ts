@@ -1,10 +1,12 @@
+import { Unidade } from './Unidade';
 import { Fornecedor } from 'src/app/model/Fornecedor';
-import { Endereco } from './Endereco';
 
 export class Produto {
-   codigo: number;
-   nome: string;
-   descricao: string;
-   marca: string;
-   fornecedor: Fornecedor;
+  codigo: number;
+  nome: string;
+  descricao: string;
+  quantidadeMinima: number;
+  marca: string;
+  unidade: Unidade;
+  fornecedor: Fornecedor;
 }

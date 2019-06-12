@@ -1,14 +1,13 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import * as _ from 'lodash';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Curso } from 'src/app/model/Curso';
+import { Estoque } from 'src/app/model/Estoque';
 import { Page } from 'src/app/model/Page';
 import { Pageable } from 'src/app/model/Pageable';
 
-import { CursoService } from './../../../service/curso.service';
-import { Estoque } from '../../../model/Estoque';
-import { EstoqueService } from '../../../service/estoque.service';
+import { Despensa } from './../../../model/Despensa';
+import { DespensaService } from './../../../service/despensa.service';
+import { EstoqueService } from './../../../service/estoque.service';
 
 @Component({
   selector: 'app-estoque',
@@ -16,30 +15,47 @@ import { EstoqueService } from '../../../service/estoque.service';
 })
 export class EstoqueComponent implements OnInit {
 
+  form: FormGroup;
   columns = [];
+  despensas: Despensa[];
+  despensa: Despensa;
   resposta: Page<Estoque>;
-  estoque: Estoque[];
+  estoques: Estoque[];
   page = new Pageable();
-
-  @ViewChild('acoes') acoes: TemplateRef<any>;
-  @ViewChild('ativo') ativo: TemplateRef<any>;
 
   constructor(
     private estoqueService: EstoqueService,
     private loader: NgxUiLoaderService,
-    private toastr: ToastrService,
+    private despensaService: DespensaService,
+    private formBuilder: FormBuilder
   ) {
     this.page.pageNumber = 0;
     this.page.pageSize = 10;
   }
 
   ngOnInit() {
+
+    this.form = this.formBuilder.group({
+      despensa: ['', Validators.required]
+    });
+
+    this.despensa = new Despensa();
+    this.despensa.codigo = 1;
+    this.despensaService.listaTodos().subscribe(res => {
+      this.despensas = res;
+      this.despensa = this.despensas[0];
+      this.form.get('despensa').setValue(this.despensa);
+    });
+
     this.setPage({ offset: 0 });
     this.columns = [
-      { prop: 'codigo', name: 'Código' },
-      { prop: 'nome', name: 'Nome' },
-      { prop: 'descricao', name: 'Descrição' },
-      { prop: '', cellTemplate: this.acoes, name: 'Ações', sortable: false }
+      { prop: '0.nome', name: 'Produto' },
+      { prop: '0.unidade.nome', name: 'Unidade' },
+      { prop: '0.marca', name: 'Marca' },
+      { prop: '0.fornecedor.nome', name: 'Fornecedor' },
+      { prop: '1', name: 'lote' },
+      { prop: '2', name: 'Data de Validade' },
+      { prop: '3', name: 'Quantidade' }
     ];
   }
 
@@ -50,34 +66,25 @@ export class EstoqueComponent implements OnInit {
   setPage(pageInfo) {
     this.loader.startBackground();
     this.page.pageNumber = pageInfo.offset;
-    this.estoqueService.pesquisar(this.page.pageNumber, this.page.pageSize).subscribe(res => {
+    this.estoqueService.buscaPorDespensa(this.page.pageNumber, this.page.pageSize, this.despensa.codigo).subscribe(res => {
       this.resposta = res;
-      this.estoque = this.resposta.content;
+      this.estoques = this.resposta.content;
       this.page = res.pageable;
       this.loader.stopBackground();
     });
   }
 
-  remover(curso: Curso) {
-    this.loader.startBackground();
-    this.estoqueService.remover(curso.codigo).subscribe(
-      res => {
-        this.removerRegistroDaLista(curso);
-        this.toastr.success
-          ('Curso ' + curso.codigo + ' - ' + curso.nome + ' removido com sucesso!');
-        this.loader.stopBackground();
-      },
-      err => {
-        this.toastr.error('Erro ao remover curso: ' + err.error.message);
-        this.loader.stopBackground();
-      }
-    );
+  pesquisar() {
+    this.despensa = this.form.get('despensa').value;
+    this.setPage({ offset: 0 });
   }
 
-  removerRegistroDaLista(row: any): void {
-    const tmp = this.estoque;
-    _.remove(tmp, (linha) => _.isEqual(linha, row));
-    this.estoque = [...tmp];
+  verificaValidTouched(campo: string) {
+    return this.form.get(campo).invalid && this.form.get(campo).touched;
+  }
+
+  aplicaCssErro(campo: string) {
+    if (this.verificaValidTouched(campo)) { return 'is-invalid'; }
   }
 
 }

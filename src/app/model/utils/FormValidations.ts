@@ -44,6 +44,7 @@ export class FormValidations {
     )
       valido = false;
     else {
+      valido = true;
       for (let i = 1; i <= 9; i++)
         soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
       resto = (soma * 10) % 11;
@@ -58,12 +59,68 @@ export class FormValidations {
 
       if (resto == 10 || resto == 11) resto = 0;
       if (resto != parseInt(cpf.substring(10, 11))) valido = false;
-      valido = true;
     }
 
     if (valido) return null;
 
     return { cpfInvalido: true };
+  }
+
+  static ValidaCnpj(controle: AbstractControl) {
+    const cnpj = controle.value;
+
+    let valido: boolean;
+
+    const regex = new RegExp('[0-9]{14}');
+
+    if (
+      cnpj == '00000000000000' ||
+      cnpj == '11111111111111' ||
+      cnpj == '22222222222222' ||
+      cnpj == '33333333333333' ||
+      cnpj == '44444444444444' ||
+      cnpj == '55555555555555' ||
+      cnpj == '66666666666666' ||
+      cnpj == '77777777777777' ||
+      cnpj == '88888888888888' ||
+      cnpj == '99999999999999' ||
+      !regex.test(cnpj)
+    ) {
+      valido = false;
+    } else {
+      valido = true;
+      // Valida DVs LINHA 23 -
+      let tamanho = cnpj.length - 2;
+      let numeros = cnpj.substring(0, tamanho);
+      let digitos = cnpj.substring(tamanho);
+      let soma = 0;
+      let pos = tamanho - 7;
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+          pos = 9;
+      }
+      let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(0))
+        valido = false;
+
+      tamanho = tamanho + 1;
+      numeros = cnpj.substring(0, tamanho);
+      soma = 0;
+      pos = tamanho - 7;
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+          pos = 9;
+      }
+      resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(1))
+        valido = false;
+    }
+
+    if (valido) return null;
+
+    return { cnpjInvalido: true };
   }
 
 }

@@ -29,8 +29,16 @@ const routes: Routes = [
         loadChildren: './view/restricao-alimentar/restricao-alimentar.module#RestricaoAlimentarModule'
       },
       {
+        path: 'receita',
+        loadChildren: './view/receita/receita.module#ReceitaModule'
+      },
+      {
         path: 'registro-nutricional',
         loadChildren: './view/registro-nutricional/registro-nutricional.module#RegistroNutricionalModule'
+      },
+      {
+        path: 'registro-alimentar',
+        loadChildren: './view/registro-alimentar/registro-alimentar.module#RegistroAlimentarModule'
       },
       {
         path: 'unidade',
@@ -47,6 +55,10 @@ const routes: Routes = [
       {
         path: 'funcionario',
         loadChildren: './view/funcionario/funcionario.module#FuncionarioModule'
+      },
+      {
+        path: 'despensa',
+        loadChildren: './view/despensa/despensa.module#DespensaModule'
       },
       {
         path: 'estoque',
