@@ -26,9 +26,9 @@ export class EstoqueService {
     return this.http.get<Estoque[]>(this.apiUrl + '/lista');
   }
 
-  buscaPorDispensa(pagina, max, codigoDispensa): Observable<Page<Estoque>> {
-    const params = { pagina, max, codigoDispensa };
-    return this.http.get<Page<Estoque>>(this.apiUrl + '/dispensa', { params });
+  buscaPorDespensa(pagina, max, codigoDespensa): Observable<Page<Estoque>> {
+    const params = { pagina, max, codigoDespensa };
+    return this.http.get<Page<Estoque>>(this.apiUrl + '/despensa', { params });
   }
 
   criar(estoque: Estoque): Observable<any> {
