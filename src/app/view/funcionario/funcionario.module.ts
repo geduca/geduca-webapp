@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxMaskModule } from 'ngx-mask';
+import { CoreModule } from 'src/app/core/core.module';
 
 import { CriarFuncionarioComponent } from './criar-funcionario/criar-funcionario.component';
 import { EditarFuncionarioComponent } from './editar-funcionario/editar-funcionario.component';
@@ -24,8 +26,10 @@ import { VisualizarFuncionarioComponent } from './visualizar-funcionario/visuali
     ReactiveFormsModule,
     FuncionarioRoutingModule,
     NgxDatatableModule,
+    TooltipModule,
     NgxMaskModule,
-    TooltipModule
+    NgxViacepModule,
+    CoreModule
   ],
   exports: [],
   providers: [],
