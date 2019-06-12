@@ -38,14 +38,19 @@ export class LancamentoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.produtoService.listaTodos().subscribe(res => { this.produtos = res; }, err => this.toastr.error("Erro ao carregar lista de produtos"));
-    this.despensaService.listaTodos().subscribe(res => { this.despensas = res; }, err => this.toastr.error("Erro ao carregar lista de despensas"));
-    this.unidadeService.listaTodos().subscribe(res => { this.unidades = res; }, err => this.toastr.error("Erro ao carregar lista de unidades"));
+    this.produtoService.listaTodos().subscribe(res => {
+      this.produtos = res;
+    }, err => this.toastr.error('Erro ao carregar lista de produtos'));
+    this.despensaService.listaTodos().subscribe(res => {
+      this.despensas = res;
+    }, err => this.toastr.error('Erro ao carregar lista de despensas'));
+    this.unidadeService.listaTodos().subscribe(res => {
+      this.unidades = res;
+    }, err => this.toastr.error('Erro ao carregar lista de unidades'));
 
     this.form = this.formBuilder.group({
       produto: ['', Validators.required],
       despensa: ['', Validators.required],
-      unidade: ['', Validators.required],
       quantidade: ['', Validators.required],
       lote: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
       dataValidade: ['', Validators.required]

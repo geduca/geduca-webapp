@@ -14,4 +14,5 @@ export class Estoque {
   tipo: TipoMovimentacaoEstoqueEnum;
   dataValidade: Date;
   dataRegistro: Date;
+  total: number;
 }
