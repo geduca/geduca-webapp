@@ -37,7 +37,7 @@
               <label class="col-md-2 col-form-label" for="ingredientes">Ingredientes:</label>
               <div class="col-md-10">
                 <textarea id="ingredientes" name="ingredientes" class="form-control" formControlName="ingredientes"
-                  maxlength="255" [ngClass]="aplicaCssErro('ingredientes')"></textarea>
+                  maxlength="1000" [ngClass]="aplicaCssErro('ingredientes')"></textarea>
                 <app-error-msg [control]="form.get('ingredientes')" label="Ingredientes"></app-error-msg>
               </div>
             </div>
@@ -45,7 +45,7 @@
               <label class="col-md-2 col-form-label" for="modoPreparo">Mode de Preparo:</label>
               <div class="col-md-10">
                 <textarea id="modoPreparo" name="modoPreparo" class="form-control" formControlName="modoPreparo"
-                  maxlength="255" [ngClass]="aplicaCssErro('modoPreparo')"></textarea>
+                  maxlength="1000" [ngClass]="aplicaCssErro('modoPreparo')"></textarea>
                 <app-error-msg [control]="form.get('modoPreparo')" label="Mode de Preparo"></app-error-msg>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Estoque } from 'src/app/model/Estoque';
@@ -22,6 +22,7 @@ export class EstoqueComponent implements OnInit {
   resposta: Page<Estoque>;
   estoques: Estoque[];
   page = new Pageable();
+  @ViewChild('dataValidade') dataValidade: TemplateRef<any>;
 
   constructor(
     private estoqueService: EstoqueService,
@@ -54,7 +55,7 @@ export class EstoqueComponent implements OnInit {
       { prop: '0.marca', name: 'Marca' },
       { prop: '0.fornecedor.nome', name: 'Fornecedor' },
       { prop: '1', name: 'lote' },
-      { prop: '2', name: 'Data de Validade' },
+      { prop: '2', name: 'Data de Validade', cellTemplate: this.dataValidade},
       { prop: '3', name: 'Quantidade' }
     ];
   }

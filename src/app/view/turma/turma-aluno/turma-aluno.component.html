@@ -78,6 +78,14 @@
                       <td>{{turmaAluno?.aluno?.pessoa?.nome}}</td>
                       <td>{{turmaAluno?.aluno?.pessoa?.dataNascimento | date: 'dd-MM-yyyy'}}</td>
                       <td>
+                        <button type="button" class="btn btn-success mr-2" tooltip="Registro Alimentar" placement="auto"
+                          [routerLink]="['/home/registro-alimentar', turmaAluno?.aluno?.codigo]">
+                          <i class="fa fa-apple-alt"></i>
+                        </button>
+                        <button type="button" class="btn btn-success mr-2" tooltip="Registro Nutricional" placement="auto"
+                          [routerLink]="['/home/registro-nutricional', turmaAluno?.aluno?.codigo]">
+                          <i class="fa fa-weight"></i>
+                        </button>
                         <button type="button" class="btn btn-success mr-2" tooltip="Restrição Alimentar"
                           placement="right" [routerLink]="['/home/aluno/restricao-alimentar', turmaAluno?.aluno?.codigo]">
                           <i class="fa fa-leaf"></i>

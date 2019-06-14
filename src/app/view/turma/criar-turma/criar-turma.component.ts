@@ -38,8 +38,8 @@ export class CriarTurmaComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
-      sala: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      nome: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
+      sala: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
       curso: ['', [Validators.required]],
       periodo: ['', [Validators.required]],
       dataInicio: [''],
